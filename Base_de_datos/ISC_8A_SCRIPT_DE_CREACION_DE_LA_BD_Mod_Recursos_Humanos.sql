@@ -322,4 +322,27 @@ alter table Nominas add constraint FK_Nominas_Periodos foreign key (idPeriodo)
       references Periodos (idPeriodo); 
 alter table Nominas add constraint FK_Nominas_Empleados foreign key (idEmpleado)
       references Empleados (idEmpleado); 
+      
+/*==============================================================*/
+/* Creación de usuario para la BD Mod_Recursos_Humanos          */
+/*==============================================================*/
+create user userModRecursosHumanos identified by 'Hola.123';
+grant insert,update,delete,select on Estados to userModRecursosHumanos;
+grant insert,update,delete,select on Ciudades to userModRecursosHumanos;
+grant insert,update,delete,select on Sucursales to userModRecursosHumanos;
+grant insert,update,delete,select on Asistencias to userModRecursosHumanos;
+grant insert,update,delete,select on Empleados to userModRecursosHumanos;
+grant insert,update,delete,select on AusenciasJustificadas to userModRecursosHumanos;
+grant insert,update,delete,select on Turnos to userModRecursosHumanos;
+grant insert,update,delete,select on HistorialPuestos to userModRecursosHumanos; 
+grant insert,update,delete,select on Departamentos to userModRecursosHumanos;
+grant insert,update,delete,select on FormasPago to userModRecursosHumanos;
+grant insert,update,delete,select on DocumentacionEmpleados to userModRecursosHumanos;
+grant insert,update,delete,select on Puestos to userModRecursosHumanos;
+grant insert,update,delete,select on Percepciones to userModRecursosHumanos;
+grant insert,update,delete,select on Periodos to userModRecursosHumanos;
+grant insert,update,delete,select on Nominas to userModRecursosHumanos;
+grant insert,update,delete,select on NominasPercepciones to userModRecursosHumanos;
+grant insert,update,delete,select on NominasDeducciones to userModRecursosHumanos;
+grant insert,update,delete,select on Deducciones to userModRecursosHumanos;
 
