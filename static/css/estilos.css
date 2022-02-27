@@ -1,0 +1,49 @@
+body{
+   background-image: url('../img/fondo.jpeg');
+       background-size: cover;
+       height: 100%;
+}
+
+h1{
+   font-family: Georgia;
+   size: 40px;
+   padding-bottom: 15px;
+   text-align: center;
+}
+
+#encabezadoPrincipal{
+background-color: #0d0d0e;
+color: #F3F5F4;
+padding-bottom: 0px;
+opacity: 0.8;
+}
+
+.navbar-brand{
+padding: 5px;
+}
+
+#menu{
+   /*background-color: rgb(79, 80, 74);*/
+   color: white;
+}
+#naveg, #encabezadoPrincipal{
+   padding: 10px;
+   font-size: 20px;
+   font-family:Arial Narrow;
+   margin-top: 0px;
+   margin-bottom: 0px;
+}
+footer{
+   color: black;
+   font-size: 20px;
+   font-family: Arial Narrow;
+}
+#descrip{
+   font-size: 20px;
+}
+#piePagina{
+    color: white;
+}
+#naveg{
+    color: white;
+}
