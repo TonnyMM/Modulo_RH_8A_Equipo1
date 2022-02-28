@@ -1,4 +1,53 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
+    
+    <!-- Slider -->
+    <div class="container">
+      <br>
+      <div class="col-mid-12">
+        <div id="carousel-1" class="carousel slide" data-ride="carousel">
+          <!-- Indicadores -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-1" data-slide-to="1"></li>
+            <li data-target="#carousel-1" data-slide-to="2"></li>
+          </ol>
+          <!-- Contenedor de los slide -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <img src="..\static\img\vacante.jpeg"  class="img-responsive" alt="">
+              <div class="carousel-caption">
+
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="..\static\img\capacitacion.png" width="1280" height="657"  class="img-responsive" alt="">
+              <div class="carousel-caption">
+                
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="..\static\img\despensas.jpeg"  class="img-responsive" alt="">
+              <div class="carousel-caption">
+                
+              </div>
+            </div>
+            
+          </div>
+          <!-- Controles -->
+            <!-- <a class="left carousel-control" href="#carousel-l" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-l" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Siguiente</span>
+            </a> -->
+        </div>
+      </div>
+    </div>
+
 {%endblock content%}

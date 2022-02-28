@@ -87,6 +87,28 @@
 {% endblock %}
 <footer class="container-fluid text-center" id="piePagina">
     <br/>
-    <p>Elaborado por estudiantes del ITESZ</p>
+    
+
+    <div class="wrap"><!-- centrar reloj -->
+		<div class="widget"> <!-- conjunto de fecha y hora -->
+			<div class="fecha">
+				<p id="diaSemana" class="diaSemana"></p>
+				<p id="dia" class="dia"></p>
+				<p>de </p>
+				<p id="mes" class="mes"></p>
+				<p>del </p>
+				<p id="year" class="year"></p>
+			</div>
+			<div class="reloj">
+				<p id="horas" class="horas"></p>
+				<p>:</p>
+				<p id="minutos" class="minutos"></p>
+                <p>:</p>
+                <p id="segundos" class="segundos"></p>
+                <p id="ampm" class="ampm"></p>
+			</div>
+		</div>
+	</div>
+    <script src="..\static\js\reloj.js"></script>
 </footer>
 {% endblock %}

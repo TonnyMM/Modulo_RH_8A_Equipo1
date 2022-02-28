@@ -34,6 +34,7 @@ padding: 5px;
    margin-bottom: 0px;
 }
 footer{
+   background: rgba(0,0,0,.5);
    color: black;
    font-size: 20px;
    font-family: Arial Narrow;
@@ -46,4 +47,19 @@ footer{
 }
 #naveg{
     color: white;
+}
+/* Estilos para el reloj */
+.widget p{
+	display: inline-block;
+	line-height: 10px;
+}
+
+.reloj{
+	font-family: Oswald, Arial;
+	width: 100%;
+	padding: 20px;;
+	text-align: center;
+}
+.reloj .caja_segundos{
+	display: inline-block;
 }
