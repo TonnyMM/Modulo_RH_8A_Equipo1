@@ -1,0 +1,34 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>
+    Listado de Estados Chidos como Michoacán
+</h1>
+    </div>
+        {% endfor %}
+        {% endif %}
+        <a href="/estadosNuevo" class="btn btn-success" id="nuevo1"> Registrar nuevo </a>
+        <br/><br/>
+        <table class="table table-bordered" >
+            <thead class="table-dark">
+             <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>SIGLAS</th>
+                <th>ESTATUS</th>
+                 <th>EDITAR</th>
+             </tr>
+        </thead>
+            {% for e in estados %}
+              <tr>
+                 <td>{{e.idEstado}}</td>
+                 <td>{{e.nombre}}</td>
+                 <td>{{e.siglas}}</td>
+                 <td>{{e.estatus}}</td>
+                  <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+              </tr>
+          {% endfor %}
+        </table>
+    </div>
+
+{%endblock content%}

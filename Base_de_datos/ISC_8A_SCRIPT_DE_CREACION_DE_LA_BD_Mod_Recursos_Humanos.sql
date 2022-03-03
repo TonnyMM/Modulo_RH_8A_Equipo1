@@ -274,6 +274,8 @@ create table Nominas(
     estatus char not null,
     idEmpleado int not null,
     idPeriodo int not null,
+    idFormaPago int not null,
+    idFormaPago int not null,
     constraint PK_Nominas primary key(idNomina)
 );
 
@@ -337,7 +339,7 @@ grant insert,update,delete,select on Turnos to userModRecursosHumanos;
 grant insert,update,delete,select on HistorialPuestos to userModRecursosHumanos; 
 grant insert,update,delete,select on Departamentos to userModRecursosHumanos;
 grant insert,update,delete,select on FormasPago to userModRecursosHumanos;
-grant insert,update,delete,select on DocumentacionEmpleados to userModRecursosHumanos;
+grant insert,update,delete,select on DocumentacionEmpleado to userModRecursosHumanos;
 grant insert,update,delete,select on Puestos to userModRecursosHumanos;
 grant insert,update,delete,select on Percepciones to userModRecursosHumanos;
 grant insert,update,delete,select on Periodos to userModRecursosHumanos;
