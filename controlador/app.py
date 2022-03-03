@@ -12,6 +12,7 @@ def inicio():
 def validarUsuario():
     return render_template('comunes/index.html')
 
+
 if __name__ == '__main__':
     app.run(debug=True)
 
