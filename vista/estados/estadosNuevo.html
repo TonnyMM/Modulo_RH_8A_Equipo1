@@ -1,6 +1,7 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
+<br/><br/>
 <form  action="/registrarEstado" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UN ESTADO</h1>
     <label for="nombre">Nombre: </label>
@@ -21,4 +22,5 @@
     {% endfor %}
     {% endif %}
 </form>
+<br/><br/>
 {%endblock content%}

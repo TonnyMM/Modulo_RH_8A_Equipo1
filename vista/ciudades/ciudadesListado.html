@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>LISTADO DE CIUDADES</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+<a href="/ciudadesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
+<br/><br/>
+<table class="table table-bordered" >
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>ESTADO</th>
+        <th>ESTATUS</th>
+        <th>EDITAR</th>
+    </tr>
+    </thead>
+    {% for c in ciudades %}
+    <tr>
+        <td>{{c.idCiudad}}</td>
+        <td>{{c.nombre}}</td>
+        {%for e in estados%}
+            {%if e.idEstado == c.idEstado%}
+                <td>{{e.nombre}}</td>
+            {%endif%}
+        {%endfor%}
+        {% if c.estatus==1%}
+        <td>ACTIVO</td>
+        {%else%}
+        <td>INACTIVO</td>
+        {% endif %}
+        <td><a href="/ciudadesEditar/{{c.idCiudad}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{%endblock content%}

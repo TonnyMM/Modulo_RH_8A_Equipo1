@@ -65,6 +65,60 @@ def estadosEliminar(id):
     flash('Se ha eliminado el estado con éxito!!')
     return redirect(url_for('estados'))
 
+#######################################################################################################################
+@app.route('/ciudades')
+def ciudades():
+    c = Ciudades()
+    ciudades = c.consultaGeneral()
+    e = Estados ()
+    estados = e.consultaGeneral()
+    return render_template('ciudades/ciudadesListado.html',ciudades = ciudades, estados = estados)
+
+@app.route('/ciudadesNuevo')
+def ciudadesNuevo():
+    e = Estados()
+    estados = e.consultaGeneral()
+    return render_template('ciudades/ciudadesNuevo.html',estados=estados)
+
+@app.route('/registrarCiudad',methods=['post'])
+def registrarCiudad():
+    c = Ciudades()
+    c.nombre = request.form['nombre']
+    c.idEstado= request.form['idEstado']
+    c.insertar()
+    flash('Se ha registrado un nueva ciudad con éxito!!')
+    return render_template('ciudades/ciudadesNuevo.html')
+
+@app.route('/ciudadesEditar/<int:id>')
+def ciudadesEditar(id):
+    c = Ciudades()
+    e = Estados()
+    return render_template('ciudades/ciudadesEditar.html', ciudad = c.consultaIndividual(id),estados = e.consultaGeneral())
+
+@app.route('/guardarCiudad',methods=['post'])
+def guardarCiudad():
+    c = Ciudades()
+    c.idCiudad = request.form['idCiudad']
+    c.nombre = request.form['nombre']
+    c.idEstado = request.form['idEstado']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        c.estatus=True
+    else:
+        c.estatus=False
+    c.actualizar()
+    e = Estados()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('ciudades/ciudadesEditar.html', ciudad = c.consultaIndividual(request.form['idCiudad']),estados=e.consultaGeneral())
+
+@app.route('/ciudadesEliminar/<int:id>')
+def ciudadesEliminar(id):
+    c = Ciudades()
+    c.eliminar(id)
+    flash('Se ha eliminado la ciudad con éxito!!')
+    return redirect(url_for('ciudades'))
+
+
 if __name__ == '__main__':
     db.init_app(app)
     app.run(debug=True)

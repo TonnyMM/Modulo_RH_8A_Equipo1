@@ -93,11 +93,15 @@ table, th tr, td{
 }
 .formularios{
     border-radius: 30px;
-    background-color: #69816B;
+    /*background-color: #69816B;*/
+    background-color: #075019;
     border:3px solid #092C0C;
     padding: 20px;
     width: 50%;
     margin: auto;
     font-family: Arial Narrow;
     font-size:15px;
+}
+label{
+    color: white;
 }
