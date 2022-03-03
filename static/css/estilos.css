@@ -1,5 +1,5 @@
 body{
-   background-image: url('../img/fondo.jpeg');
+   background-image: url('../img/fond.jpg');
        background-size: cover;
        height: 100%;
 }
@@ -9,6 +9,7 @@ h1{
    size: 40px;
    padding-bottom: 15px;
    text-align: center;
+   color:white;
 }
 
 #encabezadoPrincipal{
@@ -62,4 +63,41 @@ footer{
 }
 .reloj .caja_segundos{
 	display: inline-block;
+}
+
+
+th{
+    color: white;
+}
+table, th tr, td{
+    font-family: Arial Narrow;
+    font-size: 20px;
+    text-align: center;
+}
+
+.table th{
+    background-color: #0D0C0C;
+    text-transform:uppercase;
+    text-align: center;
+}
+.table{
+    background-color: white;
+    color:black;
+    width: 90%;
+    margin: auto;
+}
+#nuevo1{
+    margin-left: 5%;
+    color:black;
+    size: 20 px;
+}
+.formularios{
+    border-radius: 30px;
+    background-color: #69816B;
+    border:3px solid #092C0C;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+    font-family: Arial Narrow;
+    font-size:15px;
 }

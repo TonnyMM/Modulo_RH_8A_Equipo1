@@ -275,7 +275,6 @@ create table Nominas(
     idEmpleado int not null,
     idPeriodo int not null,
     idFormaPago int not null,
-    idFormaPago int not null,
     constraint PK_Nominas primary key(idNomina)
 );
 

@@ -1,13 +1,17 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<h1>
-    Listado de Estados Chidos como Michoacán
-</h1>
+<h1>LISTADO DE ESTADOS</h1>
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
     </div>
-        {% endfor %}
-        {% endif %}
-        <a href="/estadosNuevo" class="btn btn-success" id="nuevo1"> Registrar nuevo </a>
+    {% endfor %}
+    {% endif %}
+    </div>
+        <a href="/estadosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
         <br/><br/>
         <table class="table table-bordered" >
             <thead class="table-dark">
@@ -16,7 +20,7 @@
                 <th>NOMBRE</th>
                 <th>SIGLAS</th>
                 <th>ESTATUS</th>
-                 <th>EDITAR</th>
+                <th>EDITAR</th>
              </tr>
         </thead>
             {% for e in estados %}
@@ -24,11 +28,14 @@
                  <td>{{e.idEstado}}</td>
                  <td>{{e.nombre}}</td>
                  <td>{{e.siglas}}</td>
-                 <td>{{e.estatus}}</td>
+                  {% if e.estatus==1%}
+                        <td>ACTIVO</td>
+                  {%else%}
+                        <td>INACTIVO</td>
+                  {% endif %}
                   <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
               </tr>
-          {% endfor %}
+            {% endfor %}
         </table>
     </div>
-
 {%endblock content%}

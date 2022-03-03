@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nuevo</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<form  action="/registrarEstado" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>REGISTRO DE UN ESTADO</h1>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" required/>
+    <br/><br/>
+    <label for="siglas">Siglas: </label>
+    <input type="text" name="siglas" id="siglas" placeholder="Siglas" maxlength="10" required/>
+    <br/>
+    <br/>
+    <a class="btn btn-dark" href="/estados"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+</form>
+{%endblock content%}
