@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time
+from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date
 from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
@@ -168,6 +168,58 @@ class Deducciones(db.Model):
     nombre = Column(String(30), unique=True)
     descripcion = Column(String(80),unique=True)
     porcentaje = Column(Float)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class Periodos(db.Model):
+    __tablename__ = 'Periodos'
+    idPeriodo = Column(Integer, primary_key=True)
+    nombre = Column(String(50), unique=True)
+    fechaInicio = Column(Date)
+    fechaFin = Column(Date)
+    estatus = Column(Boolean, default=True)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class FormasPago(db.Model):
+    __tablename__ = 'FormasPago'
+    idFormaPago = Column(Integer, primary_key=True)
+    nombre = Column(String(50), unique=True)
+    estatus = Column(Boolean, default=True)
 
     def insertar(self):
         db.session.add(self)

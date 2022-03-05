@@ -1,0 +1,40 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>LISTADO DE FORMAS DE PAGO</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+<a href="/formasPagoNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
+<br/><br/>
+<table class="table table-bordered" >
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>ESTATUS</th>
+        <th>EDITAR</th>
+    </tr>
+    </thead>
+    {% for f in formasPago %}
+    <tr>
+        <td>{{f.idFormaPago}}</td>
+        <td>{{f.nombre}}</td>
+        {% if f.estatus==1%}
+            <td>HABILITADO</td>
+        {%else%}
+            <td>DESHABILITADO</td>
+        {% endif %}
+        <td><a href="/formasPagoEditar/{{f.idFormaPago}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<br/>
+{%endblock content%}

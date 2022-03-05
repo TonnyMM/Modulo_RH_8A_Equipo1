@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,flash,redirect,url_for
 from flask_bootstrap import Bootstrap
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
@@ -359,6 +359,114 @@ def deduccionesEliminar(id):
     d.eliminar(id)
     flash('Se ha eliminado la deducción con éxito!!')
     return redirect(url_for('deducciones'))
+
+#######################################################################################################################
+@app.route('/periodos')
+def periodos():
+    p = Periodos()
+    periodos = p.consultaGeneral()
+    return render_template('periodos/periodosListado.html',periodos = periodos)
+
+@app.route('/periodosNuevo')
+def periodosNuevo():
+    activado = 1
+    return render_template('periodos/periodosNuevo.html', activado = activado)
+
+@app.route('/registrarPeriodo',methods=['post'])
+def registrarPeriodo():
+    p = Periodos()
+    p.nombre = request.form['nombre']
+    p.fechaInicio = request.form['fechaInicio']
+    p.fechaFin = request.form['fechaFin']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        p.estatus=True
+    else:
+        p.estatus=False
+    p.insertar()
+    activado = 1
+    flash('Se ha registrado un nuevo periodo con éxito!!')
+    return render_template('periodos/periodosNuevo.html', activado = activado)
+
+@app.route('/periodosEditar/<int:id>')
+def periodosEditar(id):
+    p = Periodos()
+    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(id))
+
+@app.route('/guardarPeriodo',methods=['post'])
+def guardarPeriodo():
+    p = Periodos()
+    p.idPeriodo = request.form['idPeriodo']
+    p.nombre = request.form['nombre']
+    p.fechaInicio = request.form['fechaInicio']
+    p.fechaFin = request.form['fechaFin']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        p.estatus=True
+    else:
+        p.estatus=False
+    p.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(request.form['idPeriodo']))
+
+@app.route('/periodosEliminar/<int:id>')
+def periodosEliminar(id):
+    p = Periodos()
+    p.eliminar(id)
+    flash('Se ha eliminado el periodo con éxito!!')
+    return redirect(url_for('periodos'))
+
+#######################################################################################################################
+@app.route('/formasPago')
+def formasPago():
+    f = FormasPago()
+    formasPago = f.consultaGeneral()
+    return render_template('formasPago/formasPagoListado.html',formasPago = formasPago)
+
+@app.route('/formasPagoNuevo')
+def formasPagoNuevo():
+    activado = 1
+    return render_template('formasPago/formasPagoNuevo.html', activado = activado)
+
+@app.route('/registrarformaPago',methods=['post'])
+def registrarformaPago():
+    f = FormasPago()
+    f.nombre = request.form['nombre']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        f.estatus=True
+    else:
+        f.estatus=False
+    f.insertar()
+    activado = 1
+    flash('Se ha registrado una nueva forma de pago con éxito!!')
+    return render_template('formasPago/formasPagoNuevo.html', activado = activado)
+
+@app.route('/formasPagoEditar/<int:id>')
+def formasPagoEditar(id):
+    f = FormasPago()
+    return render_template('formasPago/formasPagoEditar.html', formaPago = f.consultaIndividual(id))
+
+@app.route('/guardarformaPago',methods=['post'])
+def guardarformaPago():
+    f = FormasPago()
+    f.idFormaPago = request.form['idFormaPago']
+    f.nombre = request.form['nombre']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        f.estatus=True
+    else:
+        f.estatus=False
+    f.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('formasPago/formasPagoEditar.html', formaPago = f.consultaIndividual(request.form['idFormaPago']))
+
+@app.route('/formasPagoEliminar/<int:id>')
+def formasPagoEliminar(id):
+    f = FormasPago()
+    f.eliminar(id)
+    flash('Se ha eliminado la forma de pago con éxito!!')
+    return redirect(url_for('formasPago'))
 
 if __name__ == '__main__':
     db.init_app(app)

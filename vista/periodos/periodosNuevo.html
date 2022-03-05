@@ -1,0 +1,36 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<br/><br/>
+<form  action="/registrarPeriodo" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>REGISTRO DE UN PERIODO</h1>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50" size="50" required/>
+    <br/><br/>
+    <label for="fechaInicio">Fecha de inicio: </label>
+    <input type="date" name="fechaInicio" id="fechaInicio" placeholder="Fecha de inicio"  required/>
+    <br/><br/>
+    <label for="fechaFin">Fecha de fin: </label>
+    <input type="date" name="fechaFin" id="fechaFin" placeholder="Fecha de fin"  required/>
+    <br/><br/>
+    {% if activado==1%}
+    <label>Estatus:</label>
+    <input type="checkbox" name="estatus" checked value="True">
+    {% else %}
+    <label>Estatus:</label>
+    <input type="checkbox" name="estatus" value="True">
+    {% endif %}
+    <br/><br/>
+    <a class="btn btn-dark" href="/periodos"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+</form>
+<br/><br/>
+{%endblock content%}

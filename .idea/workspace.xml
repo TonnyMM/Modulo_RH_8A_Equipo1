@@ -8,9 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
