@@ -1,0 +1,31 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<br/><br/>
+<form  action="/registrarTurno" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>REGISTRO DE UN TURNO</h1>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20" required/>
+    <br/><br/>
+    <label for="horaInicio">Hora de entrada: </label>
+    <input type="time" name="horaInicio" id="horaInicio" placeholder="Hora de inicio"  required/>
+    <br/><br/>
+    <label for="horaFin">Hora de salida: </label>
+    <input type="time" name="horaFin" id="horaFin" placeholder="Hora fin"  required/>
+    <br/><br/>
+    <label for="dias">Dias: </label>
+    <input type="text" name="dias" id="dias" placeholder="Dias"  required/>
+    <br/><br/>
+    <a class="btn btn-dark" href="/turnos"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+</form>
+<br/><br/>
+{%endblock content%}

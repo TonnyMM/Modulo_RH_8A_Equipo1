@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean,ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time
 from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
@@ -57,5 +57,82 @@ class Ciudades(db.Model):
     def consultaGeneral(self):
         return self.query.all()
 
+class Departamentos(db.Model):
+    __tablename__ = 'Departamentos'
+    idDepartamento=Column(Integer, primary_key=True)
+    nombre = Column(String(50), unique=True)
+    estatus = Column(Boolean, default=True)
 
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class Puestos(db.Model):
+    __tablename__ = 'Puestos'
+    idPuesto=Column(Integer, primary_key=True)
+    nombre = Column(String(60), unique=True)
+    salarioMinimo  = Column(Float)
+    salarioMaximo  = Column(Float)
+    estatus = Column(Boolean, default=True)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class Turnos(db.Model):
+    __tablename__ = 'Turnos'
+    idTurno = Column(Integer, primary_key=True)
+    nombre = Column(String(20), unique=True)
+    horaInicio  = Column(Time)
+    horaFin  = Column(Time)
+    dias = Column(String(30))
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
 

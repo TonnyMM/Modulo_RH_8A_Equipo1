@@ -1,7 +1,7 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<h1>LISTADO DE ESTADOS</h1>
+<h1>LISTADO DE TURNOS</h1>
 {% if get_flashed_messages() %}
 {% for m in get_flashed_messages()%}
 <div class="alert alert-success alert-dismissible">
@@ -11,29 +11,27 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/estadosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
+<a href="/turnosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
 <br/><br/>
 <table class="table table-bordered" >
     <thead class="table-dark">
     <tr>
         <th>ID</th>
         <th>NOMBRE</th>
-        <th>SIGLAS</th>
-        <th>ESTATUS</th>
+        <th>HORA INICIO</th>
+        <th>HORA FIN</th>
+        <th>DIAS</th>
         <th>EDITAR</th>
     </tr>
     </thead>
-    {% for e in estados %}
+    {% for t in turnos %}
     <tr>
-        <td>{{e.idEstado}}</td>
-        <td>{{e.nombre}}</td>
-        <td>{{e.siglas}}</td>
-        {% if e.estatus==1%}
-        <td>ACTIVO</td>
-        {%else%}
-        <td>INACTIVO</td>
-        {% endif %}
-        <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td>{{t.idTurno}}</td>
+        <td>{{t.nombre}}</td>
+        <td>{{t.horaInicio}}</td>
+        <td>{{t.horaFin}}</td>
+        <td>{{t.dias}}</td>
+        <td><a href="/turnosEditar/{{t.idTurno}}"><span class="glyphicon glyphicon-edit"></span></a></td>
     </tr>
     {% endfor %}
 </table>

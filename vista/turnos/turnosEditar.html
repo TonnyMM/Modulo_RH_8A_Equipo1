@@ -1,0 +1,50 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<br/><br/>
+<form  action="/guardarTurno" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>MODIFICACIÓN DE DATOS DE UN TURNO</h1>
+    <input type="hidden" name="idTurno" id="idTurno" value="{{turno.idTurno}}" readonly/>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" value="{{turno.nombre}}" maxlength="20" required/>
+    <br/><br/>
+    <label for="horaInicio">Hora de entrada: </label>
+    <input type="time" name="horaInicio" id="horaInicio" value="{{turno.horaInicio}}"  required/>
+    <br/><br/>
+    <label for="horaFin">Hora de salida: </label>
+    <input type="time" name="horaFin" id="horaFin" value="{{turno.horaFin}}"  required/>
+    <br/><br/>
+    <label for="dias">Dias: </label>
+    <input type="text" name="dias" id="dias" value="{{turno.dias}}"  required/>
+    <br/><br/>
+    <a class="btn btn-dark" href="/turnos"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
+    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+</form>
+<br/><br/>
+<div id="elim"  class="modal fade" role="dialog">
+    <div class="modal-dialog" role="eliminar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminación del turno: {{turno.nombre}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿ Esta seguro de que quiere eliminar este registro ?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/turnosEliminar/{{turno.idTurno}}" class="btn btn-info">Si</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}

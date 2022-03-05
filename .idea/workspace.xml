@@ -7,12 +7,8 @@
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/estados/estadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosListado.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
