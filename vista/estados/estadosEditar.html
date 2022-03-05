@@ -5,24 +5,36 @@
 <form  action="/guardarEstado" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE UN ESTADO</h1>
     <input type="hidden" name="idEstado" id="idEstado" value="{{estado.idEstado}}" readonly/>
-    <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" value="{{estado.nombre}}" maxlength="60" required/>
+    <div class="form-group">
+    <label class="control-label col-sm-1" for="nombre">Nombre: </label>
+        <div class="col-sm-8">
+    <input type="text" name="nombre" id="nombre" value="{{estado.nombre}}" maxlength="60" class="form-control"  required/>
+        </div>
+    </div>
     <br/></br>
-    <label for="siglas">Siglas: </label>
-    <input type="text" name="siglas" id="siglas" value="{{estado.siglas}}" maxlength="10" required/>
+    <div class="form-group">
+    <label class="control-label col-sm-1" for="siglas">Siglas: </label>
+        <div class="col-sm-8">
+    <input class="form-control" type="text" name="siglas" id="siglas" value="{{estado.siglas}}" maxlength="10" required/>
+        </div>
+    </div>
     <br/></br>
     <div>
+
         {% if estado.estatus==True%}
-        <label>Estatus:</label>
+        <label class="control-label col-sm-1">Estatus:</label>
+        <div class="col-sm-8">
         <input type="checkbox" name="estatus" checked value="True">
+        </div>
         {% else %}
-        <label>Estatus:</label>
+        <label class="control-label col-sm-1">Estatus:</label>
+    </div>
         <input type="checkbox" name="estatus" value="True">
         {% endif %}
     </div></br>
     <br/>
     <a class="btn btn-dark" href="/estados"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
+    <button type="submit" id="guardar" style="background-color: #389242;"  class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
@@ -38,7 +50,7 @@
     <div class="modal-dialog" role="eliminar">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button  type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Eliminación del estado: {{estado.nombre}}</h4>
             </div>
             <div class="modal-body">

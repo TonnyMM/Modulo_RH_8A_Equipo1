@@ -1,5 +1,5 @@
 body{
-   background-image: url('../img/fond.jpg');
+   background-color:  #f4fbfc;
        background-size: cover;
        height: 100%;
 }
@@ -9,7 +9,7 @@ h1{
    size: 40px;
    padding-bottom: 15px;
    text-align: center;
-   color:white;
+   color: #243326;
 }
 
 #encabezadoPrincipal{
@@ -44,7 +44,7 @@ footer{
    font-size: 20px;
 }
 #piePagina{
-    color: white;
+    color: #243326;
 }
 #naveg{
     color: white;
@@ -60,6 +60,7 @@ footer{
 	width: 100%;
 	padding: 20px;;
 	text-align: center;
+	color: #243326;
 }
 .reloj .caja_segundos{
 	display: inline-block;
@@ -67,22 +68,22 @@ footer{
 
 
 th{
-    color: white;
+   /* color: white;*/
 }
 table, th tr, td{
     font-family: Arial Narrow;
     font-size: 20px;
-    text-align: center;
+    text-align: justify;
 }
 
 .table th{
-    background-color: #0D0C0C;
+  background-color:   #dfddd1;
     text-transform:uppercase;
-    text-align: center;
+    text-align: justify;
 }
 .table{
-    background-color: white;
-    color:black;
+   /* background-color: white;
+    color:black; */
     width: 90%;
     margin: auto;
 }
@@ -94,8 +95,8 @@ table, th tr, td{
 .formularios{
     border-radius: 30px;
     /*background-color: #69816B;*/
-    background-color: #075019;
-    border:3px solid #092C0C;
+    background-color: #b2b59b  ;
+    border:3px solid #b2b59b;
     padding: 20px;
     width: 50%;
     margin: auto;
