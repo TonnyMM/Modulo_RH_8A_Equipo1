@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,flash,redirect,url_for
 from flask_bootstrap import Bootstrap
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
@@ -271,6 +271,94 @@ def turnosEliminar(id):
     t.eliminar(id)
     flash('Se ha eliminado el turno con éxito!!')
     return redirect(url_for('turnos'))
+
+#######################################################################################################################
+@app.route('/percepciones')
+def percepciones():
+    p = Percepciones()
+    percepciones = p.consultaGeneral()
+    return render_template('percepciones/percepcionesListado.html',percepciones = percepciones)
+
+@app.route('/percepcionesNuevo')
+def percepcionesNuevo():
+    return render_template('percepciones/percepcionesNuevo.html')
+
+@app.route('/registrarPercepcion',methods=['post'])
+def registrarPercepcion():
+    p = Percepciones()
+    p.nombre = request.form['nombre']
+    p.descripcion = request.form['descripcion']
+    p.diasPagar = request.form['diasPagar']
+    p.insertar()
+    flash('Se ha registrado un nueva percepcion con éxito!!')
+    return render_template('percepciones/percepcionesNuevo.html')
+
+@app.route('/percepcionesEditar/<int:id>')
+def percepcionesEditar(id):
+    p = Percepciones()
+    return render_template('percepciones/percepcionesEditar.html', percepcion = p.consultaIndividual(id))
+
+@app.route('/guardarPercepcion',methods=['post'])
+def guardarPercepcion():
+    p = Percepciones()
+    p.idPercepcion = request.form['idPercepcion']
+    p.nombre = request.form['nombre']
+    p.descripcion = request.form['descripcion']
+    p.diasPagar = request.form['diasPagar']
+    p.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('percepciones/percepcionesEditar.html', percepcion = p.consultaIndividual(request.form['idPercepcion']))
+
+@app.route('/percepcionesEliminar/<int:id>')
+def percepcionesEliminar(id):
+    p = Percepciones()
+    p.eliminar(id)
+    flash('Se ha eliminado la percepción con éxito!!')
+    return redirect(url_for('percepciones'))
+
+#######################################################################################################################
+@app.route('/deducciones')
+def deducciones():
+    d = Deducciones()
+    deducciones = d.consultaGeneral()
+    return render_template('deducciones/deduccionesListado.html',deducciones = deducciones)
+
+@app.route('/deduccionesNuevo')
+def deduccionesNuevo():
+    return render_template('deducciones/deduccionesNuevo.html')
+
+@app.route('/registrarDeduccion',methods=['post'])
+def registrarDeduccion():
+    d = Deducciones()
+    d.nombre = request.form['nombre']
+    d.descripcion = request.form['descripcion']
+    d.porcentaje = request.form['porcentaje']
+    d.insertar()
+    flash('Se ha registrado un nueva deducción con éxito!!')
+    return render_template('deducciones/deduccionesNuevo.html')
+
+@app.route('/deduccionesEditar/<int:id>')
+def deduccionesEditar(id):
+    d = Deducciones()
+    return render_template('deducciones/deduccionesEditar.html', deduccion = d.consultaIndividual(id))
+
+@app.route('/guardarDeduccion',methods=['post'])
+def guardarDeduccion():
+    d = Deducciones()
+    d.idDeduccion = request.form['idDeduccion']
+    d.nombre = request.form['nombre']
+    d.descripcion = request.form['descripcion']
+    d.porcentaje = request.form['porcentaje']
+    d.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('deducciones/deduccionesEditar.html', deduccion = d.consultaIndividual(request.form['idDeduccion']))
+
+@app.route('/deduccionesEliminar/<int:id>')
+def deduccionesEliminar(id):
+    d = Deducciones()
+    d.eliminar(id)
+    flash('Se ha eliminado la deducción con éxito!!')
+    return redirect(url_for('deducciones'))
 
 if __name__ == '__main__':
     db.init_app(app)

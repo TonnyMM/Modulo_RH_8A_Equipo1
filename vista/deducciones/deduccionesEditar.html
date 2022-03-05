@@ -2,19 +2,19 @@
 {% block content %}
 {{super()}}
 <br/><br/>
-<form  action="/guardarPercepcion" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>MODIFICACIÓN DE DATOS DE UNA PERCEPCIÓN</h1>
-    <input type="hidden" name="idPercepcion" id="idPercepcion" value="{{percepcion.idPercepcion}}" readonly/>
+<form  action="/guardarDeduccion" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>MODIFICACIÓN DE DATOS DE UNA DECUCCIÓN</h1>
+    <input type="hidden" name="idDeduccion" id="idDeduccion" value="{{deduccion.idDeduccion}}" readonly/>
     <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" value="{{percepcion.nombre}}" maxlength="30" required/>
+    <input type="text" name="nombre" id="nombre" value="{{deduccion.nombre}}" maxlength="30" required/>
     <br/><br/>
-    <label for="descripcion">Hora de entrada: </label>
-    <input type="text" name="descripcion" id="descripcion" value="{{percepcion.descripcion}}" maxlength="80" size="80" required/>
+    <label for="descripcion">Descripción: </label>
+    <input type="text" name="descripcion" id="descripcion" value="{{deduccion.descripcion}}" maxlength="80" size="80" required/>
     <br/><br/>
-    <label for="diasPagar">Hora de salida: </label>
-    <input type="number" name="diasPagar" id="diasPagar" value="{{percepcion.diasPagar}}"  required/>
+    <label for="porcentaje">Porcentaje: </label>
+    <input type="number" name="porcentaje" id="porcentaje" value="{{deduccion.porcentaje}}"  required/>
     <br/><br/>
-    <a class="btn btn-dark" href="/percepciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="btn btn-dark" href="/deducciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
     {% if get_flashed_messages() %}
@@ -32,13 +32,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Eliminación de la percepción: {{percepcion.nombre}}</h4>
+                <h4 class="modal-title">Eliminación de la deducción: {{deduccion.nombre}}</h4>
             </div>
             <div class="modal-body">
                 <p>¿ Esta seguro de que quiere eliminar este registro ?</p>
             </div>
             <div class="modal-footer">
-                <a href="/percepcionesEliminar/{{percepcion.idPercepcion}}" class="btn btn-info">Si</a>
+                <a href="/deduccionesEliminar/{{deduccion.idDeduccion}}" class="btn btn-info">Si</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

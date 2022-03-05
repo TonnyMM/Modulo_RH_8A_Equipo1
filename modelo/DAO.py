@@ -136,3 +136,54 @@ class Turnos(db.Model):
     def consultaGeneral(self):
         return self.query.all()
 
+class Percepciones(db.Model):
+    __tablename__ = 'Percepciones'
+    idPercepcion = Column(Integer, primary_key=True)
+    nombre = Column(String(30), unique=True)
+    descripcion = Column(String(80))
+    diasPagar = Column(Integer)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class Deducciones(db.Model):
+    __tablename__ = 'Deducciones'
+    idDeduccion = Column(Integer, primary_key=True)
+    nombre = Column(String(30), unique=True)
+    descripcion = Column(String(80),unique=True)
+    porcentaje = Column(Float)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()

@@ -1,7 +1,7 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<h1>LISTADO DE PERCEPCIONES</h1>
+<h1>LISTADO DE DEDUCCIONES</h1>
 {% if get_flashed_messages() %}
 {% for m in get_flashed_messages()%}
 <div class="alert alert-success alert-dismissible">
@@ -11,7 +11,7 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/percepcionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
+<a href="/deduccionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
 <br/><br/>
 <table class="table table-bordered" >
     <thead class="table-dark">
@@ -19,17 +19,17 @@
         <th>ID</th>
         <th>NOMBRE</th>
         <th>DESCRIPCIÓN</th>
-        <th>DIAS A PAGAR</th>
+        <th>PORCENTAJE</th>
         <th>EDITAR</th>
     </tr>
     </thead>
-    {% for p in percepciones %}
+    {% for d in deducciones %}
     <tr>
-        <td>{{p.idPercepcion}}</td>
-        <td>{{p.nombre}}</td>
-        <td>{{p.descripcion}}</td>
-        <td>{{p.diasPagar}}</td>
-        <td><a href="/percepcionesEditar/{{p.idPercepcion}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td>{{d.idDeduccion}}</td>
+        <td>{{d.nombre}}</td>
+        <td>{{d.descripcion}}</td>
+        <td>{{d.porcentaje}}</td>
+        <td><a href="/deduccionesEditar/{{d.idDeduccion}}"><span class="glyphicon glyphicon-edit"></span></a></td>
     </tr>
     {% endfor %}
 </table>

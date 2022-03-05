@@ -2,18 +2,18 @@
 {% block content %}
 {{super()}}
 <br/><br/>
-<form  action="/registrarPercepcion" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>REGISTRO DE UNA PERCEPCIÓN</h1>
+<form  action="/registrarDeduccion" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>REGISTRO DE UNA DEDUCCIÓN</h1>
     <label for="nombre">Nombre: </label>
     <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="30" size="30" required/>
     <br/><br/>
     <label for="descripcion">Descripción: </label>
     <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" maxlength="80" size="80" required/>
     <br/><br/>
-    <label for="diasPagar">Dias a Pagar: </label>
-    <input type="number" name="diasPagar" id="diasPagar" placeholder="Dias a Pagar"  required/>
+    <label for="porcentaje">Porcentaje: </label>
+    <input type="number" name="porcentaje" id="porcentaje" placeholder="Porcentaje a deducir" size="30" required/>
     <br/><br/>
-    <a class="btn btn-dark" href="/percepciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="btn btn-dark" href="/deducciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
