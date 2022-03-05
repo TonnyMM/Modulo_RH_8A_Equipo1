@@ -1,4 +1,6 @@
 body{
+    margin: 50;
+  margin-bottom: 40px;
    background-color:  #f4fbfc;
        background-size: cover;
        height: 100%;
@@ -35,16 +37,31 @@ padding: 5px;
    margin-bottom: 0px;
 }
 footer{
-   background: rgba(0,0,0,.5);
+   background: #d0dacd;
    color: black;
    font-size: 20px;
    font-family: Arial Narrow;
+    position: absolute;
+
+  bottom: 0;
+  width: 100%;
+  height: 100px;
 }
 #descrip{
    font-size: 20px;
 }
+
+html {
+  min-height: 100%;
+  position: relative;
+
+}
+
+
 #piePagina{
     color: #243326;
+
+
 }
 #naveg{
     color: white;

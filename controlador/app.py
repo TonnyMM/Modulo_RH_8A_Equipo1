@@ -142,7 +142,7 @@ def registrarDepartamento():
     d.insertar()
     activado = 1
     flash('Se ha registrado un nuevo departamento con éxito!!')
-    return render_template('departamento/departamentosNuevo.html', activado=activado)
+    return render_template('departamentos/departamentosNuevo.html', activado=activado)
 
 @app.route('/departamentosEditar/<int:id>')
 def departamentosEditar(id):

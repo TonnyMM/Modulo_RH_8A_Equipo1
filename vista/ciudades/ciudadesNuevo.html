@@ -4,23 +4,30 @@
 <br/><br/>
 <form  action="/registrarCiudad" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UNA CIUDAD</h1>
-    <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" required/>
+    <div  class="form-group">
+    <label class="control-label col-sm-2"  for="nombre">Nombre: </label>
+        <div class="col-sm-10">
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" class="form-control"  required/>
+        </div>
+    </div>
     <br/><br/>
-
+<div  class="form-group">
     <div class="dropdown">
-        <label for="idEstado">Estado: </label>
-        <select id="idEstado" name="idEstado">
+        <label class="control-label col-sm-2"  for="idEstado">Estado: </label>
+        <div class="col-sm-10">
+        <select class="form-control" id="idEstado" name="idEstado">
             <option value="x" selected disabled>Selecciona</option>
             {% for e in estados%}
             <option value="{{e.idEstado}}" >{{e.nombre}}</option>
             {% endfor %}
         </select>
+        </div>
+    </div>
     </div>
 
-    <br/>
+    <br/><br>
     <a class="btn btn-dark" href="/ciudades"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <button style="background-color: #389242;"  type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
