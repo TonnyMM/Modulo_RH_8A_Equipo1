@@ -1,125 +1,126 @@
-body{
-    margin: 50;
+body {
+  margin: 50;
   margin-bottom: 40px;
-   background-color:  #f4fbfc;
-       background-size: cover;
-       height: 100%;
+  background-color: #f4fbfc;
+  background-size: cover;
+  height: 100%;
 }
 
-h1{
-   font-family: Georgia;
-   size: 40px;
-   padding-bottom: 15px;
-   text-align: center;
-   color: #243326;
+h1 {
+  font-family: Georgia;
+  size: 40px;
+  padding-bottom: 15px;
+  text-align: center;
+  color: #243326;
 }
 
-#encabezadoPrincipal{
-background-color: #0d0d0e;
-color: #F3F5F4;
-padding-bottom: 0px;
-opacity: 0.8;
+#encabezadoPrincipal {
+  background-color: #0d0d0e;
+  color: #f3f5f4;
+  padding-bottom: 0px;
+  opacity: 0.8;
 }
 
-.navbar-brand{
-padding: 5px;
+.navbar-brand {
+  padding: 5px;
 }
 
-#menu{
-   /*background-color: rgb(79, 80, 74);*/
-   color: white;
+#menu {
+  /*background-color: rgb(79, 80, 74);*/
+  color: white;
 }
-#naveg, #encabezadoPrincipal{
-   padding: 10px;
-   font-size: 20px;
-   font-family:Arial Narrow;
-   margin-top: 0px;
-   margin-bottom: 0px;
+#naveg,
+#encabezadoPrincipal {
+  padding: 10px;
+  font-size: 20px;
+  font-family: Arial Narrow;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
-footer{
-   background: #d0dacd;
-   color: black;
-   font-size: 20px;
-   font-family: Arial Narrow;
-    position: absolute;
+footer {
+  background: #d0dacd;
+  color: black;
+  font-size: 20px;
+  font-family: Arial Narrow;
+  position: absolute;
 
   bottom: 0;
   width: 100%;
-  height: 100px;
+  height: 58px;
 }
-#descrip{
-   font-size: 20px;
+#descrip {
+  font-size: 20px;
 }
 
 html {
   min-height: 100%;
   position: relative;
-
 }
 
-
-#piePagina{
-    color: #243326;
-
-
+#piePagina {
+  color: #243326;
+  background: #d0dacd;
 }
-#naveg{
-    color: white;
+#naveg {
+  color: white;
 }
 /* Estilos para el reloj */
-.widget p{
-	display: inline-block;
-	line-height: 10px;
+.widget p {
+  display: inline-block;
+  line-height: 10px;
 }
 
-.reloj{
-	font-family: Oswald, Arial;
-	width: 100%;
-	padding: 20px;;
-	text-align: center;
-	color: #243326;
-}
-.reloj .caja_segundos{
-	display: inline-block;
+.reloj {
+  font-family: Oswald, Arial;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  color: #243326;
+  background: #d0dacd;
 }
 
-
-th{
-   /* color: white;*/
-}
-table, th tr, td{
-    font-family: Arial Narrow;
-    font-size: 20px;
-    text-align: justify;
+.reloj .caja_segundos {
+  display: inline-block;
 }
 
-.table th{
-  background-color:   #dfddd1;
-    text-transform:uppercase;
-    text-align: justify;
+th {
+  /* color: white;*/
 }
-.table{
-   /* background-color: white;
+table,
+th tr,
+td {
+  font-family: Arial Narrow;
+  font-size: 20px;
+  text-align: justify;
+}
+
+.table th {
+  background-color: #dfddd1;
+  text-transform: uppercase;
+  text-align: justify;
+}
+.table {
+  /* background-color: white;
     color:black; */
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
-#nuevo1{
-    margin-left: 5%;
-    color:black;
-    size: 20 px;
+#nuevo1 {
+  margin-left: 5%;
+  color: black;
+  size: 20 px;
 }
-.formularios{
-    border-radius: 30px;
-    /*background-color: #69816B;*/
-    background-color: #b2b59b  ;
-    border:3px solid #b2b59b;
-    padding: 20px;
-    width: 50%;
-    margin: auto;
-    font-family: Arial Narrow;
-    font-size:15px;
+.formularios {
+  border-radius: 30px;
+  /*background-color: #69816B;*/
+  background-color: #b2b59b;
+  border: 3px solid #b2b59b;
+  padding: 20px;
+  width: 50%;
+  margin: auto;
+  font-family: Arial Narrow;
+  font-size: 15px;
 }
-label{
-    color: white;
+label {
+  color: white;
 }

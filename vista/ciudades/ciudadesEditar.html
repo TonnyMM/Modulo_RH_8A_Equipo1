@@ -4,48 +4,55 @@
 <br /><br />
 <form action="/guardarCiudad" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE UNA CIUDAD</h1>
-    <input class="form-control"  type="hidden" name="idCiudad" id="idCiudad" value="{{ciudad.idCiudad}}" readonly />
+    <input class="form-control" type="hidden" name="idCiudad" id="idCiudad" value="{{ciudad.idCiudad}}" readonly />
     <div class="form-group">
-    <label  class="control-label col-sm-1" for="nombre">Nombre: </label>
-    <div class="col-sm-8">
-    <input  class="form-control" type="text" name="nombre" id="nombre" value="{{ciudad.nombre}}" maxlength="80" required />
-</div></div>
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{ciudad.nombre}}" maxlength="80"
+                required />
+        </div>
+    </div>
     <br /><br />
 
     <div class="dropdown">
         <div class="form-group">
-        <label class="control-label col-sm-1"  for="idEstado">Estado: </label>
-        <div class="col-sm-8">
-        <select  class="form-control" id="idEstado" name="idEstado">
-            {%for e in estados%}
-            {% if e.idEstado == ciudad.idEstado %}
-            <option value="{{e.idEstado}}" selected>{{e.nombre}}</option>
-            {%else%}
-            <option value="{{e.idEstado}}">{{e.nombre}}</option>
-            {%endif%}
-            {% endfor %}
-        </select>
-        </div></div>
+            <label class="control-label col-sm-2" for="idEstado">Estado: </label>
+            <div class="col-sm-8">
+                <select class="form-control" id="idEstado" name="idEstado">
+                    {%for e in estados%}
+                    {% if e.idEstado == ciudad.idEstado %}
+                    <option value="{{e.idEstado}}" selected>{{e.nombre}}</option>
+                    {%else%}
+                    <option value="{{e.idEstado}}">{{e.nombre}}</option>
+                    {%endif%}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
     </div>
 
     <br /></br>
     <div>
         {% if ciudad.estatus==True%}
         <div class="form-group">
-        <label class="control-label col-sm-1" >Estatus:</label><div class="col-sm-8">
-        <input type="checkbox" name="estatus" checked value="True">
-        </div>
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" checked value="True">
+            </div>
         </div>
         {% else %}
         <div class="form-group">
-        <label class="control-label col-sm-1" >Estatus:</label><div class="col-sm-8">
-        <input type="checkbox" name="estatus" value="True">
-    </div></div>
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" value="True">
+            </div>
+        </div>
         {% endif %}
-    </div></br>
+    </div><br />
     <br />
     <a class="btn btn-dark" href="/ciudades"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved">
+    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-saved">
             Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>

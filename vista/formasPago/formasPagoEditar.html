@@ -5,21 +5,35 @@
 <form action="/guardarformaPago" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE DATOS DE UNA FORMA DE PAGO</h1>
     <input type="hidden" name="idFormaPago" id="idFormaPago" value="{{formaPago.idFormaPago}}" readonly />
-    <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" value="{{formaPago.nombre}}" maxlength="50" size="50" required />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{formaPago.nombre}}" maxlength="50" size="50"
+                required />
+        </div>
+    </div>
     <br /><br />
     <div>
         {% if formaPago.estatus==True%}
-        <label>Estatus:</label>
-        <input type="checkbox" name="estatus" checked value="True">
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" checked value="True">
+            </div>
+        </div>
         {% else %}
-        <label>Estatus:</label>
-        <input type="checkbox" name="estatus" value="True">
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" value="True">
+            </div>
+        </div>
         {% endif %}
     </div>
     <br /><br />
     <a class="btn btn-dark" href="/formasPago"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved">
+    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-saved">
             Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>

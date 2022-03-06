@@ -1,22 +1,39 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<br/><br/>
-<form  action="/guardarPercepcion" method="post" class="formularios" enctype="multipart/form-data">
+<br /><br />
+<form action="/guardarPercepcion" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE DATOS DE UNA PERCEPCIÓN</h1>
-    <input type="hidden" name="idPercepcion" id="idPercepcion" value="{{percepcion.idPercepcion}}" readonly/>
-    <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" value="{{percepcion.nombre}}" maxlength="30" required/>
-    <br/><br/>
-    <label for="descripcion">Hora de entrada: </label>
-    <input type="text" name="descripcion" id="descripcion" value="{{percepcion.descripcion}}" maxlength="80" size="80" required/>
-    <br/><br/>
-    <label for="diasPagar">Hora de salida: </label>
-    <input type="number" name="diasPagar" id="diasPagar" value="{{percepcion.diasPagar}}"  required/>
-    <br/><br/>
+    <input type="hidden" name="idPercepcion" id="idPercepcion" value="{{percepcion.idPercepcion}}" readonly />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{percepcion.nombre}}"
+                maxlength="30" required />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="descripcion">Hora de entrada: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="descripcion" id="descripcion"
+                value="{{percepcion.descripcion}}" maxlength="80" size="80" required />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="diasPagar">Hora de salida: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="number" name="diasPagar" id="diasPagar" value="{{percepcion.diasPagar}}"
+                required />
+        </div>
+    </div>
+    <br /><br />
     <a class="btn btn-dark" href="/percepciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
-    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
+    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
+    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
+            class="glyphicon glyphicon-trash"></span></a>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -26,8 +43,8 @@
     {% endfor %}
     {% endif %}
 </form>
-<br/><br/>
-<div id="elim"  class="modal fade" role="dialog">
+<br /><br />
+<div id="elim" class="modal fade" role="dialog">
     <div class="modal-dialog" role="eliminar">
         <div class="modal-content">
             <div class="modal-header">
