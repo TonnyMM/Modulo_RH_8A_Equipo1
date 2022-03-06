@@ -1,6 +1,9 @@
+import turtle
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date
 from sqlalchemy.orm import relationship
+
+
 
 db = SQLAlchemy()
 
@@ -29,6 +32,30 @@ class Estados(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarEstados(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Estados.nombre==nombre).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
+    
+    def consultarEstSig(self,siglas):
+        salida={"estatus":"","mensaje":""}
+        estadosig=None
+        estadosig=self.query.filter(Estados.siglas==siglas).first()
+        if estadosig!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="Las siglas "+siglas+" ya se encuentran registradas."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Las siglas "+siglas+" estan libres."
+        return salida
 
 class Ciudades(db.Model):
     __tablename__='Ciudades'
@@ -56,6 +83,18 @@ class Ciudades(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarCiudades(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        ciudad=None
+        ciudad=self.query.filter(Ciudades.nombre==nombre).first()
+        if ciudad!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Departamentos(db.Model):
     __tablename__ = 'Departamentos'
@@ -81,6 +120,18 @@ class Departamentos(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarDepartamentos(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        departamento=None
+        departamento=self.query.filter(Departamentos.nombre==nombre).first()
+        if departamento!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Puestos(db.Model):
     __tablename__ = 'Puestos'
@@ -108,6 +159,18 @@ class Puestos(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarPuestos(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        puesto=None
+        puesto=self.query.filter(Puestos.nombre==nombre).first()
+        if puesto!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Turnos(db.Model):
     __tablename__ = 'Turnos'
@@ -135,6 +198,18 @@ class Turnos(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarTurnos(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        turno=None
+        turno=self.query.filter(Turnos.nombre==nombre).first()
+        if turno!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Percepciones(db.Model):
     __tablename__ = 'Percepciones'
@@ -161,6 +236,18 @@ class Percepciones(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarPercepciones(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        percepcion=None
+        percepcion=self.query.filter(Percepciones.nombre==nombre).first()
+        if percepcion!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Deducciones(db.Model):
     __tablename__ = 'Deducciones'
@@ -187,6 +274,18 @@ class Deducciones(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarDeducciones(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        deduccion=None
+        deduccion=self.query.filter(Deducciones.nombre==nombre).first()
+        if deduccion!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class Periodos(db.Model):
     __tablename__ = 'Periodos'
@@ -214,6 +313,18 @@ class Periodos(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarPeriodos(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        periodo=None
+        periodo=self.query.filter(Periodos.nombre==nombre).first()
+        if periodo!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
 
 class FormasPago(db.Model):
     __tablename__ = 'FormasPago'
@@ -239,3 +350,15 @@ class FormasPago(db.Model):
 
     def consultaGeneral(self):
         return self.query.all()
+    
+    def consultarFormasPago(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        formaPago=None
+        formaPago=self.query.filter(FormasPago.nombre==nombre).first()
+        if formaPago!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El nombre "+nombre+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida

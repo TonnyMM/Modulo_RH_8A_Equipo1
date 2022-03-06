@@ -1,14 +1,16 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
+<script src="..\static\js\validacion.js"></script>
 <br /><br />
 <form action="/registrarTurno" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UN TURNO</h1>
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
-            <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20"
+            <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20" onblur="consultarTurno()"
                 required />
+                <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
     <br /><br />

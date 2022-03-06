@@ -4,7 +4,7 @@ from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Pe
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
-
+import json
 
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://userModRecursosHumanos:Hola.123@localhost/Mod_Recursos_Humanos'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
@@ -117,6 +117,58 @@ def ciudadesEliminar(id):
     c.eliminar(id)
     flash('Se ha eliminado la ciudad con éxito!!')
     return redirect(url_for('ciudades'))
+
+#######################################################################################################################
+
+@app.route('/estado/nombre/<string:nombre>',methods=['get'])
+def consultarEstado(nombre):
+    estado=Estados()
+    return json.dumps(estado.consultarEstados(nombre))
+
+@app.route('/estadoSig/siglas/<string:siglas>',methods=['get'])
+def consultarEstadoSig(siglas):
+    estadoSig=Estados()
+    return json.dumps(estadoSig.consultarEstSig(siglas))
+
+@app.route('/ciudad/nombre/<string:nombre>',methods=['get'])
+def consultarCiudad(nombre):
+    ciudad=Ciudades()
+    return json.dumps(ciudad.consultarCiudades(nombre))
+
+@app.route('/departamento/nombre/<string:nombre>',methods=['get'])
+def consultarDepartamento(nombre):
+    departamento=Departamentos()
+    return json.dumps(departamento.consultarDepartamentos(nombre))
+
+@app.route('/puesto/nombre/<string:nombre>',methods=['get'])
+def consultarPuestos(nombre):
+    puesto=Puestos()
+    return json.dumps(puesto.consultarPuestos(nombre))
+
+@app.route('/turno/nombre/<string:nombre>',methods=['get'])
+def consultarTurno(nombre):
+    turno=Turnos()
+    return json.dumps(turno.consultarTurnos(nombre))
+
+@app.route('/percepcion/nombre/<string:nombre>',methods=['get'])
+def consultarPercepcion(nombre):
+    percepcion=Percepciones()
+    return json.dumps(percepcion.consultarPercepciones(nombre))
+
+@app.route('/deduccion/nombre/<string:nombre>',methods=['get'])
+def consultarDeduccion(nombre):
+    deduccion=Deducciones()
+    return json.dumps(deduccion.consultarDeducciones(nombre))
+
+@app.route('/periodo/nombre/<string:nombre>',methods=['get'])
+def consultarPeriodo(nombre):
+    periodo=Periodos()
+    return json.dumps(periodo.consultarPeriodos(nombre))
+
+@app.route('/formaPago/nombre/<string:nombre>',methods=['get'])
+def consultarFormaPago(nombre):
+    formaPago=FormasPago()
+    return json.dumps(formaPago.consultarFormasPago(nombre))
 
 #######################################################################################################################
 @app.route('/departamentos')
