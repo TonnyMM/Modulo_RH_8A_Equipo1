@@ -1,13 +1,13 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<br/><br/>
-<form  action="/guardarformaPago" method="post" class="formularios" enctype="multipart/form-data">
+<br /><br />
+<form action="/guardarformaPago" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE DATOS DE UNA FORMA DE PAGO</h1>
-    <input type="hidden" name="idFormaPago" id="idFormaPago" value="{{formaPago.idFormaPago}}" readonly/>
+    <input type="hidden" name="idFormaPago" id="idFormaPago" value="{{formaPago.idFormaPago}}" readonly />
     <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" value="{{formaPago.nombre}}" maxlength="50" size="50" required/>
-    <br/><br/>
+    <input type="text" name="nombre" id="nombre" value="{{formaPago.nombre}}" maxlength="50" size="50" required />
+    <br /><br />
     <div>
         {% if formaPago.estatus==True%}
         <label>Estatus:</label>
@@ -17,10 +17,12 @@
         <input type="checkbox" name="estatus" value="True">
         {% endif %}
     </div>
-    <br/><br/>
+    <br /><br />
     <a class="btn btn-dark" href="/formasPago"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
-    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
+    <button type="submit" id="guardar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved">
+            Guardar</span></button>
+    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
+            class="glyphicon glyphicon-trash"></span></a>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -30,8 +32,8 @@
     {% endfor %}
     {% endif %}
 </form>
-<br/><br/>
-<div id="elim"  class="modal fade" role="dialog">
+<br /><br />
+<div id="elim" class="modal fade" role="dialog">
     <div class="modal-dialog" role="eliminar">
         <div class="modal-content">
             <div class="modal-header">

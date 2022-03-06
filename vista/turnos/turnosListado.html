@@ -11,18 +11,19 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/turnosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
-<br/><br/>
-<table class="table table-hover" >
+<a href="/turnosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file">
+        <b>Nuevo</b></span></a>
+<br /><br />
+<table class="table table-hover">
     <thead class="table-dark">
-    <tr>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>HORA INICIO</th>
-        <th>HORA FIN</th>
-        <th>DIAS</th>
-        <th>EDITAR</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>HORA INICIO</th>
+            <th>HORA FIN</th>
+            <th>DIAS</th>
+            <th>EDITAR</th>
+        </tr>
     </thead>
     {% for t in turnos %}
     <tr>
@@ -36,5 +37,5 @@
     {% endfor %}
 </table>
 </div>
-<br/>
+<br />
 {%endblock content%}

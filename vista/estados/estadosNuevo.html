@@ -1,28 +1,31 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<br/><br/>
-<form  action="/registrarEstado" method="post" class="formularios" enctype="multipart/form-data">
+<br /><br />
+<form action="/registrarEstado" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UN ESTADO</h1>
     <div class="form-group">
-    <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+        <label class="control-label col-sm-2" for="nombre">Nombre:</label>
         <div class="col-sm-10">
-            <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" class="form-control" required/>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" class="form-control"
+                required />
         </div>
     </div>
-    <br/>
-<br/>
+    <br />
+    <br />
     <div class="form-group">
-    <label class="control-label col-sm-2" for="siglas">Siglas: </label>
+        <label class="control-label col-sm-2" for="siglas">Siglas: </label>
         <div class="col-sm-10">
-            <input type="text" name="siglas" id="siglas" placeholder="Siglas" maxlength="10" class="form-control" required/>
+            <input type="text" name="siglas" id="siglas" placeholder="Siglas" maxlength="10" class="form-control"
+                required />
         </div>
     </div>
-    <br/>
+    <br />
 
-    <br/>
+    <br />
     <a class="btn btn-dark" href="/estados"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="registrar" style="background-color: #389242;" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <button type="submit" id="registrar" style="background-color: #389242;" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -32,5 +35,5 @@
     {% endfor %}
     {% endif %}
 </form>
-<br/><br/>
+<br /><br />
 {%endblock content%}

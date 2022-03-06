@@ -1,35 +1,43 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<br/><br/>
-<form  action="/registrarTurno" method="post" class="formularios" enctype="multipart/form-data">
+<br /><br />
+<form action="/registrarTurno" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UN TURNO</h1>
-    <div  class="form-group">
-    <label class="control-label col-sm-2" for="nombre">Nombre: </label><div class="col-sm-10">
-    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20" required/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20"
+                required />
+        </div>
     </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="horaInicio">Hora de entrada: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="time" name="horaInicio" id="horaInicio" placeholder="Hora de inicio"
+                required />
+        </div>
     </div>
-    <br/><br/>
-         <div  class="form-group">
-    <label class="control-label col-sm-2" for="horaInicio">Hora de entrada: </label><div class="col-sm-10">
-    <input class="form-control" type="time" name="horaInicio" id="horaInicio" placeholder="Hora de inicio"  required/>
-         </div>
-         </div>
-    <br/><br/>
-              <div  class="form-group">
-    <label class="control-label col-sm-2" for="horaFin">Hora de salida: </label><div class="col-sm-10">
-    <input class="form-control" type="time" name="horaFin" id="horaFin" placeholder="Hora fin"  required/>
-              </div>
-              </div>
-    <br/><br/>
-                   <div  class="form-group">
-    <label class="control-label col-sm-2" for="dias">Dias: </label><div class="col-sm-10">
-    <input class="form-control" type="text" name="dias" id="dias" placeholder="Dias"  required/>
-                   </div>
-                   </div>
-    <br/><br/>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="horaFin">Hora de salida: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="time" name="horaFin" id="horaFin" placeholder="Hora fin" required />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="dias">Dias: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="dias" id="dias" placeholder="Dias" required />
+        </div>
+    </div>
+    <br/> <br/>
+
     <a class="btn btn-dark" href="/turnos"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -39,5 +47,5 @@
     {% endfor %}
     {% endif %}
 </form>
-<br/><br/>
+<br /><br />
 {%endblock content%}

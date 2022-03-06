@@ -11,26 +11,27 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/ciudadesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
-<br/><br/>
+<a href="/ciudadesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file">
+        <b>Nuevo</b></span></a>
+<br /><br />
 <table class="table table-hover">
     <thead class="table-dark">
-    <tr>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>ESTADO</th>
-        <th>ESTATUS</th>
-        <th>EDITAR</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>ESTADO</th>
+            <th>ESTATUS</th>
+            <th>EDITAR</th>
+        </tr>
     </thead>
     {% for c in ciudades %}
     <tr>
         <td>{{c.idCiudad}}</td>
         <td>{{c.nombre}}</td>
         {%for e in estados%}
-            {%if e.idEstado == c.idEstado%}
-                <td>{{e.nombre}}</td>
-            {%endif%}
+        {%if e.idEstado == c.idEstado%}
+        <td>{{e.nombre}}</td>
+        {%endif%}
         {%endfor%}
         {% if c.estatus==1%}
         <td>ACTIVO</td>
@@ -42,5 +43,5 @@
     {% endfor %}
 </table>
 </div>
-<br/>
+<br />
 {%endblock content%}

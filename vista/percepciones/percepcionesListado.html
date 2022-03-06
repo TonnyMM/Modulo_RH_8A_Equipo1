@@ -11,17 +11,18 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/percepcionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"> <b>Nuevo</b></span></a>
-<br/><br/>
-<table class="table table-hover" >
+<a href="/percepcionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file">
+        <b>Nuevo</b></span></a>
+<br /><br />
+<table class="table table-hover">
     <thead class="table-dark">
-    <tr>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>DESCRIPCIÓN</th>
-        <th>DIAS A PAGAR</th>
-        <th>EDITAR</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th>DIAS A PAGAR</th>
+            <th>EDITAR</th>
+        </tr>
     </thead>
     {% for p in percepciones %}
     <tr>
@@ -34,5 +35,5 @@
     {% endfor %}
 </table>
 </div>
-<br/>
+<br />
 {%endblock content%}

@@ -1,33 +1,33 @@
 {% extends 'bootstrap/base.html'%}
-    {% block styles %}
-        {{super()}}
-        <link rel="icon" href="/static/img/Logo.png">
-        <link href="{{url_for('static',filename='css/estilos.css')}}" rel="stylesheet">
-    {% endblock %}
-    {% block body %}
-        {% block scripts %}
-            {{super()}}
-        {% endblock %}
-        <div class="jumbotron" id="encabezadoPrincipal" style="background-color: #3c523d">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img src="{{url_for('static',filename='img/Logo.png')}}" width="150px" height="150px">
-                    </div>
+{% block styles %}
+{{super()}}
+<link rel="icon" href="/static/img/Logo.png">
+<link href="{{url_for('static',filename='css/estilos.css')}}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+{% block scripts %}
+{{super()}}
+{% endblock %}
+<div class="jumbotron" id="encabezadoPrincipal" style="background-color: #3c523d">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{url_for('static',filename='img/Logo.png')}}" width="150px" height="150px">
+            </div>
 
-                    <div class="col-md-8">
-                        <h1 >AGROTEC</h1>
-                        <p id="descrip"><b>"RECURSOS HUMANOS"</b></p>
-                    </div>
-                    <div class="col-md">
-                        <img src="{{url_for('static',filename='img/logo2.png')}}"width="150px" height="150px">
-                    </div>
-                </div>
+            <div class="col-md-8">
+                <h1>AGROTEC</h1>
+                <p id="descrip"><b>"RECURSOS HUMANOS"</b></p>
+            </div>
+            <div class="col-md">
+                <img src="{{url_for('static',filename='img/logo2.png')}}" width="150px" height="150px">
             </div>
         </div>
+    </div>
+</div>
 
 {% block navbar %}
-<nav class="navbar navbar-default" id="naveg" style="background-color: #8ca889;" >
+<nav class="navbar navbar-default" id="naveg" style="background-color: #8ca889;">
     <div class="container-fluid" id="menu">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -70,8 +70,10 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Usuario</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/administrativosEditar"> <span class="glyphicon glyphicon-edit"></span> Editar Perfil</a></li>
-                        <li><a href="/cerrarSesion"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+                        <li><a href="/administrativosEditar"> <span class="glyphicon glyphicon-edit"></span> Editar
+                                Perfil</a></li>
+                        <li><a href="/cerrarSesion"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -85,28 +87,30 @@
 </div>
 {% endblock %}
 
-<footer class="container-fluid text-center" id="piePagina" >
-    <br/>
-    <div class="wrap"><!-- centrar reloj -->
-		<div class="widget"> <!-- conjunto de fecha y hora -->
-			<div class="fecha">
-				<p id="diaSemana" class="diaSemana"></p>
-				<p id="dia" class="dia"></p>
-				<p>de </p>
-				<p id="mes" class="mes"></p>
-				<p>del </p>
-				<p id="year" class="year"></p>
-			</div>
-			<div class="reloj">
-				<p id="horas" class="horas"></p>
-				<p>:</p>
-				<p id="minutos" class="minutos"></p>
+<footer class="container-fluid text-center" id="piePagina">
+    <br />
+    <div class="wrap">
+        <!-- centrar reloj -->
+        <div class="widget">
+            <!-- conjunto de fecha y hora -->
+            <div class="fecha">
+                <p id="diaSemana" class="diaSemana"></p>
+                <p id="dia" class="dia"></p>
+                <p>de </p>
+                <p id="mes" class="mes"></p>
+                <p>del </p>
+                <p id="year" class="year"></p>
+            </div>
+            <div class="reloj">
+                <p id="horas" class="horas"></p>
+                <p>:</p>
+                <p id="minutos" class="minutos"></p>
                 <p>:</p>
                 <p id="segundos" class="segundos"></p>
                 <p id="ampm" class="ampm"></p>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
     <script src="..\static\js\reloj.js"></script>
 </footer>
 {% endblock %}

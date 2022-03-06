@@ -1,32 +1,36 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<br/><br/>
-<form  action="/registrarDeduccion" method="post" class="formularios" enctype="multipart/form-data">
+<br /><br />
+<form action="/registrarDeduccion" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UNA DEDUCCIÓN</h1>
-    <div  class="form-group">
-    <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
-    <input class="form-control"   type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="30" size="30" required/>
-    </div>
-    </div>
-    <br/><br/>
-        <div  class="form-group">
-    <label class="control-label col-sm-2" for="descripcion">Descripción: </label>
-            <div class="col-sm-10">
-    <input class="form-control"   type="text" name="descripcion" id="descripcion" placeholder="Descripción" maxlength="80" size="80" required/>
+            <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="30"
+                size="30" required />
         </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="descripcion">Descripción: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Descripción"
+                maxlength="80" size="80" required />
         </div>
-    <br/><br/>
-            <div  class="form-group">
-    <label class="control-label col-sm-2" for="porcentaje">Porcentaje: </label>
-                <div class="col-sm-10">
-    <input class="form-control"   type="number" name="porcentaje" id="porcentaje" placeholder="Porcentaje a deducir" size="30" required/>
-            </div>
-            </div>
-    <br/><br/>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="porcentaje">Porcentaje: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="number" name="porcentaje" id="porcentaje"
+                placeholder="Porcentaje a deducir" size="30" required />
+        </div>
+    </div>
+    <br /><br />
     <a class="btn btn-dark" href="/deducciones"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button style="background-color: #389242;"  type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -36,5 +40,5 @@
     {% endfor %}
     {% endif %}
 </form>
-<br/><br/>
+<br /><br />
 {%endblock content%}
