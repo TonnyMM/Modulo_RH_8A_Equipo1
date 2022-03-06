@@ -4,19 +4,29 @@
 <br/><br/>
 <form  action="/registrarformaPago" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UNA NUEVA FORMA DE PAGO</h1>
-    <label for="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20" size="20" required/>
+    <div  class="form-group">
+    <label class="control-label col-sm-2" for="nombre">Nombre: </label><div class="col-sm-10">
+    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="20" size="20" required/>
+    </div>
+    </div>
     <br/><br/>
     {% if activado==1%}
-        <label>Estatus:</label>
-        <input type="checkbox" name="estatus" checked value="True">
+        <div  class="form-group">
+        <label class="form-check-label col-sm-2" >Estatus:</label><div class="col-sm-10">
+
+        <input class="form-check-input" type="checkbox" name="estatus" checked value="True">
+        </div>
+        </div>
     {% else %}
-        <label>Estatus:</label>
-        <input type="checkbox" name="estatus" value="True">
+            <div  class="form-group">
+        <label class="control-label col-sm-2" >Estatus:</label><div class="col-sm-10">
+        <input class="form-check-input" type="checkbox" name="estatus" value="True">
+            </div>
+            </div>
     {% endif %}
     <br/><br/>
     <a class="btn btn-dark" href="/formasPago"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
