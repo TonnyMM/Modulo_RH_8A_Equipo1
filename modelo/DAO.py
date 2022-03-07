@@ -31,6 +31,27 @@ class Empleados(UserMixin,db.Model):
     tipo = Column(String(10), nullable=False)
     estatus = Column(String, default=True)
 
+    # Metodos para agregar un cliente
+    def agregar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaUsuarios(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    # Metodos para editar un empleado
+    def editarUsua(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminacionLogica(self, id):
+        empleado = self.consultaIndividual(id)
+        empleado.estatus = 'Inactivo'
+        empleado.editar()
+
 class Estados(db.Model):
     __tablename__ = 'Estados'
     idEstado=Column(Integer, primary_key=True)
