@@ -2,6 +2,7 @@ import turtle
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 import datetime
 db = SQLAlchemy()
@@ -31,6 +32,29 @@ class Empleados(UserMixin,db.Model):
     tipo = Column(String(10), nullable=False)
     estatus = Column(String, default=True)
 
+    @property  # Implementa el metodo Get (para acceder a un valor)
+    def password(self):
+        raise AttributeError('El password no tiene acceso de lectura')
+
+    @password.setter  # Definir el metodo set para el atributo password_hash
+    def password(self, password):  # Se informa el password en formato plano para hacer el cifrado
+        self.password_hash = generate_password_hash(password)
+
+    def validarPassword(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def is_active(self):
+        if self.estatus == True:
+            return True
+        else:
+            return False
+
+    def validar(self, email, password):
+        empleado = Empleados.query.filter(Empleados.email == email.first())
+        if empleado != None and Empleados.validarPassword(password) and Empleados.is_active():
+            return empleado
+        else:
+            return None
     # Metodos para agregar un cliente
     def agregar(self):
         db.session.add(self)
