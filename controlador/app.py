@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,flash,redirect,url_for
 from flask_bootstrap import Bootstrap
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)

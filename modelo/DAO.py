@@ -1,11 +1,35 @@
 import turtle
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date
+from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
 from sqlalchemy.orm import relationship
-
-
-
+from flask_login import UserMixin
+import datetime
 db = SQLAlchemy()
+class Empleados(UserMixin,db.Model):
+    __tablename__= 'Empleados'
+    idEmpleado = Column(Integer, primary_key=True)
+    nombre = Column(String(30), unique=True)
+    apellidoPaterno = Column(String(30), unique=True)
+    apellidoMaterno = Column(String(30), unique=True)
+    sexo = Column(String, nullable=False)
+    fechaNacimiento = Column(Date, nullable=False)
+    curp = Column(String(20), nullable=False, unique=True)
+    estadoCivil= Column(String(20),nullable=False)
+    fechaContratacion=Column(Date, nullable=False,default=datetime.date.today())
+    salarioDiario=Column(Float,nullable=False)
+    nss = Column(String(10),nullable=False, unique=True)
+    diasVacaciones = Column(Integer,nullable=False)
+    diasPermiso = Column(Integer,nullable=False)
+    fotografia = Column(BLOB)
+    direccion = Column(String(80),nullable=False)
+    colonia = Column(String(50), nullable=False)
+    codigoPostal = Column(String(5), nullable=False)
+    escolaridad = Column(String(80), nullable=False)
+    especialidad = Column(String(100), nullable=False)
+    email = Column(String(100), nullable=False)
+    password = Column(String(20), nullable=False)
+    tipo = Column(String(10), nullable=False)
+    estatus = Column(String, default=True)
 
 class Estados(db.Model):
     __tablename__ = 'Estados'
