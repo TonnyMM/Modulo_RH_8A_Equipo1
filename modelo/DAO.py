@@ -15,9 +15,9 @@ class Empleados(UserMixin,db.Model):
     sexo = Column(String, nullable=False)
     fechaNacimiento = Column(Date, nullable=False)
     curp = Column(String(20), nullable=False, unique=True)
-    estadoCivil= Column(String(20),nullable=False)
-    fechaContratacion=Column(Date, nullable=False,default=datetime.date.today())
-    salarioDiario=Column(Float,nullable=False)
+    estadoCivil = Column(String(20),nullable=False)
+    fechaContratacion = Column(Date, nullable=False,default=datetime.date.today())
+    salarioDiario = Column(Float,nullable=False)
     nss = Column(String(10),nullable=False, unique=True)
     diasVacaciones = Column(Integer,nullable=False)
     diasPermiso = Column(Integer,nullable=False)
@@ -27,54 +27,53 @@ class Empleados(UserMixin,db.Model):
     codigoPostal = Column(String(5), nullable=False)
     escolaridad = Column(String(80), nullable=False)
     especialidad = Column(String(100), nullable=False)
-    email = Column(String(100), nullable=False)
-    password = Column(String(20), nullable=False)
+    email = Column(String(100), nullable=False, unique=True)
+    clave = Column(String(20), nullable=False)
     tipo = Column(String(10), nullable=False)
-    estatus = Column(String, default=True)
+    estatus = Column(Boolean, default=True)
 
-    @property  # Implementa el metodo Get (para acceder a un valor)
-    def password(self):
-        raise AttributeError('El password no tiene acceso de lectura')
-
-    @password.setter  # Definir el metodo set para el atributo password_hash
-    def password(self, password):  # Se informa el password en formato plano para hacer el cifrado
-        self.password_hash = generate_password_hash(password)
-
-    def validarPassword(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def is_active(self):
-        if self.estatus == True:
-            return True
-        else:
-            return False
-
-    def validar(self, email, password):
-        empleado = Empleados.query.filter(Empleados.email == email.first())
-        if empleado != None and Empleados.validarPassword(password) and Empleados.is_active():
-            return empleado
-        else:
-            return None
-    # Metodos para agregar un cliente
-    def agregar(self):
+    #METODOS DEL CRUD
+    def insertar(self):
         db.session.add(self)
         db.session.commit()
-
-    def consultaUsuarios(self):
-        return self.query.all()
 
     def consultaIndividual(self, id):
         return self.query.get(id)
 
-    # Metodos para editar un empleado
-    def editarUsua(self):
+    def actualizar(self):
         db.session.merge(self)
         db.session.commit()
 
-    def eliminacionLogica(self, id):
-        empleado = self.consultaIndividual(id)
-        empleado.estatus = 'Inactivo'
-        empleado.editar()
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    #METODOS RELACIONADOS AL PERFILAMIENTO
+    def is_authenticated(self):
+
+        return True
+    def is_active(self):
+        return self.estatus
+
+    def get_id(self):
+        return self.idEmpleado
+
+    def is_admin(self):
+        if self.tipo == "admin":
+            return True
+        else:
+            return False
+
+    def is_staff(self):
+        if self.tipo == "staff":
+            return True
+        else:
+            return False
+
 
 class Estados(db.Model):
     __tablename__ = 'Estados'

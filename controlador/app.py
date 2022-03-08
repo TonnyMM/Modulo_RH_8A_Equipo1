@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,flash,redirect,url_for
 from flask_bootstrap import Bootstrap
 from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados
+from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
@@ -10,13 +11,16 @@ app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://userModRecursosHumanos:Ho
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 
+
 @app.route('/')
 def inicio():
     return render_template('comunes/login.html')
 
+
+#######################################################################################################################
 @app.route('/recopilarDatosLogin',methods=['post'])
 def validarUsuario():
-    return render_template('comunes/index.html')
+   return render_template('comunes/index.html')
 
 #######################################################################################################################
 @app.route('/estados')
