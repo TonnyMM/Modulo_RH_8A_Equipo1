@@ -52,6 +52,11 @@ def cerrarSesion():
 def consultarImagenUsuario(id):
     e = Empleados()
     return e.consultaIndividual(id).fotografia
+
+@app.route('/index')
+@login_required
+def index():
+    return render_template('comunes/index.html')
 #######################################################################################################################
 @app.route('/estados')
 @login_required

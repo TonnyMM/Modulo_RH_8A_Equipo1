@@ -6,22 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosListado.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
