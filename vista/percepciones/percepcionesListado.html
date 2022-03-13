@@ -11,8 +11,10 @@
 {% endfor %}
 {% endif %}
 </div>
-<a href="/percepcionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file">
-        <b>Nuevo</b></span></a>
+<a href="/percepcionesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+<div class="Buscador">
+    <input id="myInput" type="text" placeholder="Buscar">
+</div>
 <br /><br />
 <table class="table table-hover">
     <thead class="table-dark">
@@ -24,6 +26,7 @@
             <th>EDITAR</th>
         </tr>
     </thead>
+    <tbody id="myTable">
     {% for p in percepciones %}
     <tr>
         <td>{{p.idPercepcion}}</td>
@@ -33,6 +36,7 @@
         <td><a href="/percepcionesEditar/{{p.idPercepcion}}"><span class="glyphicon glyphicon-edit"></span></a></td>
     </tr>
     {% endfor %}
+    </tbody>
 </table>
 </div>
 <br />

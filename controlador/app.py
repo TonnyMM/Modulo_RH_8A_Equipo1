@@ -46,6 +46,12 @@ def validarUsuario():
 def cerrarSesion():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/empleados/imagen/<int:id>')
+@login_required
+def consultarImagenUsuario(id):
+    e = Empleados()
+    return e.consultaIndividual(id).fotografia
 #######################################################################################################################
 @app.route('/estados')
 @login_required

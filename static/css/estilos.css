@@ -118,3 +118,7 @@ td {
 label {
   color: white;
 }
+.Buscador{
+    float: right;
+    margin-right: 5%;
+}

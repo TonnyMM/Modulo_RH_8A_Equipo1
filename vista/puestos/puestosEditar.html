@@ -3,7 +3,7 @@
 {{super()}}
 <br /><br />
 <form action="/guardarPuesto" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>MODIFICACIÓN DE DATOS DE UN DEPATAMENTO</h1>
+    <h1>MODIFICACIÓN DE DATOS DE UN PUESTO</h1>
     <input type="hidden" name="idPuesto" id="idPuesto" value="{{puesto.idPuesto}}" readonly />
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
@@ -17,7 +17,7 @@
         <label class="control-label col-sm-2" for="salarioMinimo">Salario Minimo: </label>
         <div class="col-sm-8">
             <input class="form-control" type="number" name="salarioMinimo" id="salarioMinimo"
-                value="{{puesto.salarioMinimo}}" required />
+                   step="0.1" value="{{puesto.salarioMinimo}}" required />
         </div>
     </div>
     <br /><br />
@@ -25,7 +25,7 @@
         <label class="control-label col-sm-2" for="salarioMaximo">Salario Máximo: </label>
         <div class="col-sm-8">
             <input class="form-control" type="number" name="salarioMaximo" id="salarioMaximo"
-                value="{{puesto.salarioMaximo}}" required />
+                   step="0.1" value="{{puesto.salarioMaximo}}" required />
         </div>
     </div>
     <br /><br />

@@ -3,6 +3,17 @@
 {{super()}}
 <link rel="icon" href="/static/img/Logo.png">
 <link href="{{url_for('static',filename='css/estilos.css')}}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 {% endblock %}
 {% block body %}
 {% block scripts %}
@@ -68,7 +79,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" id="usuar">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" style="color:#001b0d;" data-toggle="dropdown"><img src="/usuarios/imagen/{{current_user.idUsuario}}" width="28px"> {{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}}</a>
+                    <a class="dropdown-toggle" style="color:#001b0d;" data-toggle="dropdown"><img src="/empleados/imagen/{{current_user.idEmpleado}}" width="30px"> {{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}}</a>
                     <ul class="dropdown-menu">
                         <li><a href="/administrativosEditar"> <span class="glyphicon glyphicon-edit"></span> Editar
                                 Perfil</a></li>
