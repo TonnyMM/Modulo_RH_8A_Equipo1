@@ -1,8 +1,6 @@
-import turtle
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
 from sqlalchemy.orm import relationship
-from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 import datetime
 db = SQLAlchemy()
@@ -10,16 +8,16 @@ class Empleados(UserMixin,db.Model):
     __tablename__= 'Empleados'
     idEmpleado = Column(Integer, primary_key=True)
     nombre = Column(String(30), unique=True)
-    apellidoPaterno = Column(String(30), unique=True)
-    apellidoMaterno = Column(String(30), unique=True)
+    apellidoPaterno = Column(String(30))
+    apellidoMaterno = Column(String(30))
     sexo = Column(String, nullable=False)
     fechaNacimiento = Column(Date, nullable=False)
     curp = Column(String(20), nullable=False, unique=True)
     estadoCivil = Column(String(20),nullable=False)
     fechaContratacion = Column(Date, nullable=False,default=datetime.date.today())
-    salarioDiario = Column(Float,nullable=False)
+    salarioDiaro = Column(Float,nullable=False)
     nss = Column(String(10),nullable=False, unique=True)
-    diasVacaciones = Column(Integer,nullable=False)
+    diasVaciones = Column(Integer,nullable=False)
     diasPermiso = Column(Integer,nullable=False)
     fotografia = Column(BLOB)
     direccion = Column(String(80),nullable=False)
@@ -52,28 +50,38 @@ class Empleados(UserMixin,db.Model):
     def consultaGeneral(self):
         return self.query.all()
 
-    #METODOS RELACIONADOS AL PERFILAMIENTO
-    def is_authenticated(self):
+    def validar (self, email, clave):
+        empleado=None
+        empleado=self.query.filter(Empleados.email==email, Empleados.clave==clave, Empleados.estatus ==True).first()
+        return empleado
 
+    #MÉTODOS PARA CUESTIONES DE PERFILAMIENTO
+    def is_authenticated(self):
         return True
+
     def is_active(self):
         return self.estatus
 
     def get_id(self):
         return self.idEmpleado
 
-    def is_admin(self):
-        if self.tipo == "admin":
+    def is_administrador(self):
+        if self.tipo=="A":
             return True
         else:
             return False
 
     def is_staff(self):
-        if self.tipo == "staff":
+        if self.tipo=="S":
             return True
         else:
             return False
 
+    def is_empleado(self):
+        if self.tipo=="E":
+            return True
+        else:
+            return False
 
 class Estados(db.Model):
     __tablename__ = 'Estados'
