@@ -11,7 +11,9 @@
 {% endfor %}
 {% endif %}
 </div>
+{%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
 <a href="/turnosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+{%endif%}
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
@@ -24,7 +26,9 @@
             <th>HORA INICIO</th>
             <th>HORA FIN</th>
             <th>DIAS</th>
-            <th>EDITAR</th>
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+                <th>EDITAR</th>
+            {%endif%}
         </tr>
     </thead>
     <tbody id="myTable">
@@ -35,7 +39,9 @@
         <td>{{t.horaInicio}}</td>
         <td>{{t.horaFin}}</td>
         <td>{{t.dias}}</td>
-        <td><a href="/turnosEditar/{{t.idTurno}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+            <td><a href="/turnosEditar/{{t.idTurno}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        {%endif%}
     </tr>
     {% endfor %}
     </tbody>

@@ -405,61 +405,74 @@ def puestosEliminar(id):
 def turnos(page=1):
     t = Turnos()
     try:
-        
         paginacion=t.consultarPagina(page)
         turnos=paginacion.items
         paginas=paginacion.pages
         if paginas < page:
-            abort(404)
+           abort(404)
     except OperationalError:
-        flash("No hay Turnos registrados")
-        turnos=None
-    
+         flash("No hay Turnos registrados")
+         turnos=None
     return render_template('turnos/turnosListado.html',turnos = turnos,paginas=paginas,pagina=page)
 
 @app.route('/turnosNuevo')
 @login_required
 def turnosNuevo():
-    return render_template('turnos/turnosNuevo.html')
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+        return render_template('turnos/turnosNuevo.html')
+    else:
+        abort(404)
 
 @app.route('/registrarTurno',methods=['post'])
 @login_required
 def registrarTurno():
-    t = Turnos()
-    t.nombre = request.form['nombre']
-    t.horaInicio = request.form['horaInicio']
-    t.horaFin = request.form['horaFin']
-    t.dias = request.form['dias']
-    t.insertar()
-    flash('Se ha registrado un nuevo turno con éxito!!')
-    return render_template('turnos/turnosNuevo.html')
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+        t = Turnos()
+        t.nombre = request.form['nombre']
+        t.horaInicio = request.form['horaInicio']
+        t.horaFin = request.form['horaFin']
+        t.dias = request.form['dias']
+        t.insertar()
+        flash('Se ha registrado un nuevo turno con éxito!!')
+        return render_template('turnos/turnosNuevo.html')
+    else:
+        abort(404)
 
 @app.route('/turnosEditar/<int:id>')
 @login_required
 def turnosEditar(id):
-    t = Turnos()
-    return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+        t = Turnos()
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id))
+    else:
+        abort(404)
 
 @app.route('/guardarTurno',methods=['post'])
 @login_required
 def guardarTurno():
-    t = Turnos()
-    t.idTurno = request.form['idTurno']
-    t.nombre = request.form['nombre']
-    t.horaInicio = request.form['horaInicio']
-    t.horaFin = request.form['horaFin']
-    t.dias = request.form['horaFin']
-    t.actualizar()
-    flash('Se han guardado los cambios con éxito!!')
-    return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+        t = Turnos()
+        t.idTurno = request.form['idTurno']
+        t.nombre = request.form['nombre']
+        t.horaInicio = request.form['horaInicio']
+        t.horaFin = request.form['horaFin']
+        t.dias = request.form['horaFin']
+        t.actualizar()
+        flash('Se han guardado los cambios con éxito!!')
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']))
+    else:
+        abort(401)
 
 @app.route('/turnosEliminar/<int:id>')
 @login_required
 def turnosEliminar(id):
-    t = Turnos()
-    t.eliminar(id)
-    flash('Se ha eliminado el turno con éxito!!')
-    return redirect(url_for('turnos',page=1))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+        t = Turnos()
+        t.eliminar(id)
+        flash('Se ha eliminado el turno con éxito!!')
+        return redirect(url_for('turnos',page=1))
+    else:
+        abort(404)
 
 #######################################################################################################################
 
