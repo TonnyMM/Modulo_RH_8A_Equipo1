@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

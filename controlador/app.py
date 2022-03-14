@@ -69,6 +69,8 @@ def estados(page=1):
         paginacion=e.consultarPagina(page)
         estados=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay estados registrados")
         estados=None
@@ -133,6 +135,8 @@ def ciudades(page=1):
         paginacion=c.consultarPagina(page)
         ciudades=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay ciudades registrados")
         ciudades=None
@@ -260,6 +264,8 @@ def departamentos(page=1):
         paginacion=d.consultarPagina(page)
         departamento=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay Departamentos registrados")
         departamento=None
@@ -329,6 +335,8 @@ def puestos(page=1):
         paginacion=p.consultarPagina(page)
         puestos=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay Puestos registrados")
         puestos=None
@@ -401,6 +409,8 @@ def turnos(page=1):
         paginacion=t.consultarPagina(page)
         turnos=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay Turnos registrados")
         turnos=None
@@ -463,6 +473,8 @@ def percepciones(page=1):
         paginacion=p.consultarPagina(page)
         percepciones=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay percepciones registrados")
         percepciones=None
@@ -522,6 +534,8 @@ def deducciones(page=1):
         paginacion=p.consultarPagina(page)
         deducciones=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay deducciones registrados")
         deducciones=None
@@ -580,6 +594,8 @@ def periodos(page=1):
         paginacion=p.consultarPagina(page)
         periodos=paginacion.items
         paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
     except OperationalError:
         flash("No hay periodos registrados")
         periodos=None
@@ -653,6 +669,8 @@ def formasPago(page=1):
             paginacion=f.consultarPagina(page)
             formasPago=paginacion.items
             paginas=paginacion.pages
+            if paginas < page:
+                abort(404)
         except OperationalError:
             flash("No hay formasPago registrados")
             formasPago=None
