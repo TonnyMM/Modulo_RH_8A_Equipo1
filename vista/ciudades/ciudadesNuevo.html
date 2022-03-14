@@ -9,7 +9,7 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
             <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="60" class="form-control" onblur="consultarCiudad()"
-                required />
+                required pattern="[A-Za-z]{2,60}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 60" />
                 <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
@@ -29,7 +29,7 @@
     </div>
 
     <br /><br>
-    <a class="btn btn-dark" href="/ciudades"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="btn btn-dark" href="/ciudades/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
     {% if get_flashed_messages() %}

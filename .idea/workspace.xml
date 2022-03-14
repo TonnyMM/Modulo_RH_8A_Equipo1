@@ -6,20 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/estados/estadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/modelo/DAO.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="409">
-              <caret line="228" column="21" lean-forward="true" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
+              <caret line="228" column="21" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -120,11 +124,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectId" id="25a4ZEqSgQJ516Gmvaq2nDlM0Gp" />
   <component name="ProjectView">
@@ -197,7 +201,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../respaldo/Modulo_RH_8A_Equipo1" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -262,7 +266,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13152677" />
@@ -546,7 +550,7 @@
     <entry file="file://$PROJECT_DIR$/modelo/DAO.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="409">
-          <caret line="228" column="21" lean-forward="true" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
+          <caret line="228" column="21" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>

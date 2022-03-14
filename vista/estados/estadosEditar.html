@@ -8,14 +8,14 @@
     <div class="form-group">
     <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-8">
-    <input type="text" name="nombre" id="nombre" value="{{estado.nombre}}" maxlength="60" class="form-control"  required/>
+    <input type="text" name="nombre" id="nombre" value="{{estado.nombre}}" maxlength="60" class="form-control"  required pattern="[A-Za-z]{2,60}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 60" />
         </div>
     </div>
     <br/></br>
     <div class="form-group">
     <label class="control-label col-sm-2" for="siglas">Siglas: </label>
         <div class="col-sm-8">
-    <input class="form-control" type="text" name="siglas" id="siglas" value="{{estado.siglas}}" maxlength="10" required/>
+    <input class="form-control" type="text" name="siglas" id="siglas" value="{{estado.siglas}}" maxlength="10" required pattern="[A-Za-z.]{2,60}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 60"/>
         </div>
     </div>
     <br/></br>
@@ -33,7 +33,7 @@
         {% endif %}
     </div></br>
     <br/>
-    <a class="btn btn-dark" href="/estados"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="btn btn-dark" href="/estados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button type="submit" id="guardar" style="background-color: #389242;"  class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
     {% if get_flashed_messages() %}

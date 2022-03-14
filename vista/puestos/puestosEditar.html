@@ -9,7 +9,7 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-8">
             <input class="form-control" type="text" name="nombre" id="nombre" value="{{puesto.nombre}}" maxlength="60"
-                required />
+                required pattern="[A-Za-z]{2,60}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 60" />
         </div>
     </div>
     <br /><br />
@@ -47,7 +47,7 @@
         {% endif %}
     </div><br />
     <br />
-    <a class="btn btn-dark" href="/puestos"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="btn btn-dark" href="/puestos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
