@@ -46,4 +46,19 @@
 </table>
 </div>
 <br />
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
+        
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+            {% else %}
+            <li><a class="page-link" href="/periodos/{{pagina-1}}">Anterior</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+            {% if pagina >= paginas %}
+            <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+            {% else %}
+            <li><a class="page-link" href="/periodos/{{pagina+1}}">Siguiente</a></li>
+            {% endif %}
+    </ul>
+</div>
 {%endblock content%}

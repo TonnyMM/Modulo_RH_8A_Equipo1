@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
+from mysqlx import OperationalError
 from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
@@ -58,12 +59,21 @@ def consultarImagenUsuario(id):
 def index():
     return render_template('comunes/index.html')
 #######################################################################################################################
-@app.route('/estados')
+
+@app.route('/estados/<int:page>' )
 @login_required
-def estados():
+def estados(page=1):
     e = Estados()
-    estados = e.consultaGeneral()
-    return render_template('estados/estadosListado.html',estados = estados)
+    try:
+        
+        paginacion=e.consultarPagina(page)
+        estados=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay estados registrados")
+        estados=None
+    
+    return render_template('estados/estadosListado.html',estados = estados,paginas=paginas,pagina=page)
 
 @app.route('/estadosNuevo')
 @login_required
@@ -111,14 +121,21 @@ def estadosEliminar(id):
     return redirect(url_for('estados'))
 
 #######################################################################################################################
-@app.route('/ciudades')
+
+@app.route('/ciudades/<int:page>' )
 @login_required
-def ciudades():
+def ciudades(page=1):
     c = Ciudades()
-    ciudades = c.consultaGeneral()
-    e = Estados ()
-    estados = e.consultaGeneral()
-    return render_template('ciudades/ciudadesListado.html',ciudades = ciudades, estados = estados)
+    try:
+        
+        paginacion=c.consultarPagina(page)
+        ciudades=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay ciudades registrados")
+        ciudades=None
+    
+    return render_template('ciudades/ciudadesListado.html',ciudades = ciudades,paginas=paginas,pagina=page)
 
 @app.route('/ciudadesNuevo')
 @login_required
@@ -232,12 +249,22 @@ def consultarFormaPago(nombre):
     return json.dumps(formaPago.consultarFormasPago(nombre))
 
 #######################################################################################################################
-@app.route('/departamentos')
+@app.route('/departamentos/<int:page>' )
 @login_required
-def departamentos():
+def departamentos(page=1):
     d = Departamentos()
-    departamentos = d.consultaGeneral()
-    return render_template('departamentos/departamentosListado.html',departamentos = departamentos)
+    try:
+        
+        paginacion=d.consultarPagina(page)
+        departamento=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay Departamentos registrados")
+        departamento=None
+    
+    return render_template('departamentos/departamentosListado.html',departamentos = departamento,paginas=paginas,pagina=page)
+
+
 
 @app.route('/departamentosNuevo')
 @login_required
@@ -290,12 +317,21 @@ def departamentosEliminar(id):
     return redirect(url_for('departamentos'))
 
 #######################################################################################################################
-@app.route('/puestos')
+
+@app.route('/puestos/<int:page>' )
 @login_required
-def puestos():
+def puestos(page=1):
     p = Puestos()
-    puestos = p.consultaGeneral()
-    return render_template('puestos/puestosListado.html',puestos = puestos)
+    try:
+        
+        paginacion=p.consultarPagina(page)
+        puestos=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay Puestos registrados")
+        puestos=None
+    
+    return render_template('puestos/puestosListado.html',puestos = puestos,paginas=paginas,pagina=page)
 
 @app.route('/puestosNuevo')
 @login_required
@@ -352,12 +388,22 @@ def puestosEliminar(id):
     return redirect(url_for('puestos'))
 
 #######################################################################################################################
-@app.route('/turnos')
+
+
+@app.route('/turnos/<int:page>' )
 @login_required
-def turnos():
+def turnos(page=1):
     t = Turnos()
-    turnos = t.consultaGeneral()
-    return render_template('turnos/turnosListado.html',turnos = turnos)
+    try:
+        
+        paginacion=t.consultarPagina(page)
+        turnos=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay Turnos registrados")
+        turnos=None
+    
+    return render_template('turnos/turnosListado.html',turnos = turnos,paginas=paginas,pagina=page)
 
 @app.route('/turnosNuevo')
 @login_required
@@ -404,12 +450,22 @@ def turnosEliminar(id):
     return redirect(url_for('turnos'))
 
 #######################################################################################################################
-@app.route('/percepciones')
+
+
+@app.route('/percepciones/<int:page>' )
 @login_required
-def percepciones():
+def percepciones(page=1):
     p = Percepciones()
-    percepciones = p.consultaGeneral()
-    return render_template('percepciones/percepcionesListado.html',percepciones = percepciones)
+    try:
+        
+        paginacion=p.consultarPagina(page)
+        percepciones=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay percepciones registrados")
+        percepciones=None
+    
+    return render_template('percepciones/percepcionesListado.html',percepciones = percepciones,paginas=paginas,pagina=page)
 
 @app.route('/percepcionesNuevo')
 @login_required
@@ -454,12 +510,20 @@ def percepcionesEliminar(id):
     return redirect(url_for('percepciones'))
 
 #######################################################################################################################
-@app.route('/deducciones')
+
+@app.route('/deducciones/<int:page>' )
 @login_required
-def deducciones():
-    d = Deducciones()
-    deducciones = d.consultaGeneral()
-    return render_template('deducciones/deduccionesListado.html',deducciones = deducciones)
+def deducciones(page=1):
+    p = Deducciones()
+    try:
+        
+        paginacion=p.consultarPagina(page)
+        deducciones=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay deducciones registrados")
+        deducciones=None
+    return render_template('deducciones/deduccionesListado.html',deducciones = deducciones,paginas=paginas,pagina=page)
 
 @app.route('/deduccionesNuevo')
 @login_required
@@ -504,12 +568,21 @@ def deduccionesEliminar(id):
     return redirect(url_for('deducciones'))
 
 #######################################################################################################################
-@app.route('/periodos')
+
+@app.route('/periodos/<int:page>' )
 @login_required
-def periodos():
+def periodos(page=1):
     p = Periodos()
-    periodos = p.consultaGeneral()
-    return render_template('periodos/periodosListado.html',periodos = periodos)
+    try:
+        
+        paginacion=p.consultarPagina(page)
+        periodos=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay periodos registrados")
+        periodos=None
+    
+    return render_template('periodos/periodosListado.html',periodos = periodos,paginas=paginas,pagina=page)
 
 @app.route('/periodosNuevo')
 @login_required
@@ -566,13 +639,23 @@ def periodosEliminar(id):
     return redirect(url_for('periodos'))
 
 #######################################################################################################################
-@app.route('/formasPago')
+
+        
+@app.route('/formasPago/<int:page>' )
 @login_required
-def formasPago():
+def formasPago(page=1):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
         f = FormasPago()
-        formasPago = f.consultaGeneral()
-        return render_template('formasPago/formasPagoListado.html',formasPago = formasPago)
+        try:
+            
+            paginacion=f.consultarPagina(page)
+            formasPago=paginacion.items
+            paginas=paginacion.pages
+        except OperationalError:
+            flash("No hay formasPago registrados")
+            formasPago=None
+        
+        return render_template('formasPago/formasPagoListado.html',formasPago = formasPago,paginas=paginas,pagina=page)
     else:
         abort(404)
 

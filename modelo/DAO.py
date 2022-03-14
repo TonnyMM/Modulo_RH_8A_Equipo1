@@ -1,9 +1,13 @@
+from pickle import FALSE
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 import datetime
 db = SQLAlchemy()
+
+
+
 class Empleados(UserMixin,db.Model):
     __tablename__= 'Empleados'
     idEmpleado = Column(Integer, primary_key=True)
@@ -83,6 +87,9 @@ class Empleados(UserMixin,db.Model):
         else:
             return False
 
+
+
+
 class Estados(db.Model):
     __tablename__ = 'Estados'
     idEstado=Column(Integer, primary_key=True)
@@ -132,6 +139,10 @@ class Estados(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="Las siglas "+siglas+" estan libres."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Estados.idEstado.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Ciudades(db.Model):
     __tablename__='Ciudades'
@@ -171,6 +182,10 @@ class Ciudades(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Ciudades.idCiudad.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Departamentos(db.Model):
     __tablename__ = 'Departamentos'
@@ -208,6 +223,10 @@ class Departamentos(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Departamentos.idDepartamento.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Puestos(db.Model):
     __tablename__ = 'Puestos'
@@ -247,6 +266,10 @@ class Puestos(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Puestos.idPuesto.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Turnos(db.Model):
     __tablename__ = 'Turnos'
@@ -286,6 +309,10 @@ class Turnos(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Turnos.idTurno.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Percepciones(db.Model):
     __tablename__ = 'Percepciones'
@@ -324,6 +351,10 @@ class Percepciones(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Percepciones.idPercepcion.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Deducciones(db.Model):
     __tablename__ = 'Deducciones'
@@ -362,6 +393,10 @@ class Deducciones(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Deducciones.idDeduccion.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class Periodos(db.Model):
     __tablename__ = 'Periodos'
@@ -401,6 +436,10 @@ class Periodos(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Periodos.idPeriodo.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
 class FormasPago(db.Model):
     __tablename__ = 'FormasPago'
@@ -438,3 +477,7 @@ class FormasPago(db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(FormasPago.idFormaPago.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
