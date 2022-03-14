@@ -118,7 +118,7 @@ def estadosEliminar(id):
     e = Estados()
     e.eliminar(id)
     flash('Se ha eliminado el estado con éxito!!')
-    return redirect(url_for('estados'))
+    return redirect(url_for('estados',page=1))
 
 #######################################################################################################################
 
@@ -126,6 +126,8 @@ def estadosEliminar(id):
 @login_required
 def ciudades(page=1):
     c = Ciudades()
+    e = Estados ()
+    estados = e.consultaGeneral()
     try:
         
         paginacion=c.consultarPagina(page)
@@ -135,7 +137,7 @@ def ciudades(page=1):
         flash("No hay ciudades registrados")
         ciudades=None
     
-    return render_template('ciudades/ciudadesListado.html',ciudades = ciudades,paginas=paginas,pagina=page)
+    return render_template('ciudades/ciudadesListado.html',ciudades = ciudades,paginas=paginas,pagina=page,estados=estados)
 
 @app.route('/ciudadesNuevo')
 @login_required
@@ -184,7 +186,7 @@ def ciudadesEliminar(id):
     c = Ciudades()
     c.eliminar(id)
     flash('Se ha eliminado la ciudad con éxito!!')
-    return redirect(url_for('ciudades'))
+    return redirect(url_for('ciudades',page=1))
 
 #######################################################################################################################
 
@@ -314,7 +316,7 @@ def departamentosEliminar(id):
     d = Departamentos()
     d.eliminar(id)
     flash('Se ha eliminado el departamento con éxito!!')
-    return redirect(url_for('departamentos'))
+    return redirect(url_for('departamentos',page=1))
 
 #######################################################################################################################
 
@@ -385,7 +387,7 @@ def puestosEliminar(id):
     p = Puestos()
     p.eliminar(id)
     flash('Se ha eliminado el puesto con éxito!!')
-    return redirect(url_for('puestos'))
+    return redirect(url_for('puestos',page=1))
 
 #######################################################################################################################
 
@@ -447,7 +449,7 @@ def turnosEliminar(id):
     t = Turnos()
     t.eliminar(id)
     flash('Se ha eliminado el turno con éxito!!')
-    return redirect(url_for('turnos'))
+    return redirect(url_for('turnos',page=1))
 
 #######################################################################################################################
 
@@ -507,7 +509,7 @@ def percepcionesEliminar(id):
     p = Percepciones()
     p.eliminar(id)
     flash('Se ha eliminado la percepción con éxito!!')
-    return redirect(url_for('percepciones'))
+    return redirect(url_for('percepciones',page=1))
 
 #######################################################################################################################
 
@@ -565,7 +567,7 @@ def deduccionesEliminar(id):
     d = Deducciones()
     d.eliminar(id)
     flash('Se ha eliminado la deducción con éxito!!')
-    return redirect(url_for('deducciones'))
+    return redirect(url_for('deducciones',page=1))
 
 #######################################################################################################################
 
@@ -636,7 +638,7 @@ def periodosEliminar(id):
     p = Periodos()
     p.eliminar(id)
     flash('Se ha eliminado el periodo con éxito!!')
-    return redirect(url_for('periodos'))
+    return redirect(url_for('periodos',page=1))
 
 #######################################################################################################################
 
@@ -707,7 +709,7 @@ def formasPagoEliminar(id):
     f = FormasPago()
     f.eliminar(id)
     flash('Se ha eliminado la forma de pago con éxito!!')
-    return redirect(url_for('formasPago'))
+    return redirect(url_for('formasPago',page=1))
 
 @app.errorhandler(404)
 def error404(e):

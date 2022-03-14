@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
@@ -37,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controlador/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="651" column="6" selection-start-line="651" selection-start-column="6" selection-end-line="651" selection-end-column="6" />
+            <state relative-caret-position="663">
+              <caret line="120" column="46" lean-forward="true" selection-start-line="120" selection-start-column="46" selection-end-line="120" selection-end-column="46" />
               <folding>
                 <element signature="e#0#76#0" expanded="true" />
               </folding>
@@ -124,7 +114,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -266,7 +256,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13152677" />
@@ -559,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controlador/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="651" column="6" selection-start-line="651" selection-start-column="6" selection-end-line="651" selection-end-column="6" />
+        <state relative-caret-position="663">
+          <caret line="120" column="46" lean-forward="true" selection-start-line="120" selection-start-column="46" selection-end-line="120" selection-end-column="46" />
           <folding>
             <element signature="e#0#76#0" expanded="true" />
           </folding>
