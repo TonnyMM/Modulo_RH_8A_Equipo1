@@ -9,7 +9,8 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-8">
             <input class="form-control" type="text" name="nombre" id="nombre" value="{{turno.nombre}}" maxlength="20"
-                required pattern="[A-Za-z]{2,20}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 20" />
+                required pattern="[A-Za-zéóáíú% %]{2,20}"
+                title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 20" />
         </div>
     </div>
     <br /><br />
@@ -31,7 +32,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="dias">Dias: </label>
         <div class="col-sm-8">
-            <input class="form-control" type="number" name="dias" id="dias" value="{{turno.dias}}" required min="1"/>
+            <input class="form-control" type="number" name="dias" id="dias" value="{{turno.dias}}" required min="1" />
         </div>
     </div>
     <br /><br />
@@ -40,6 +41,7 @@
             class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>
+    {%if band==1%}
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">
@@ -48,6 +50,17 @@
     </div>
     {% endfor %}
     {% endif %}
+    {%else%}
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {%endif%}
+
 </form>
 <br /><br />
 <div id="elim" class="modal fade" role="dialog">

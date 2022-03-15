@@ -415,11 +415,11 @@ def turnos(page=1):
          turnos=None
     return render_template('turnos/turnosListado.html',turnos = turnos,paginas=paginas,pagina=page)
 
-@app.route('/turnosNuevo')
+@app.route('/turnosNuevo/<int:id>')
 @login_required
-def turnosNuevo():
+def turnosNuevo(id):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
-        return render_template('turnos/turnosNuevo.html')
+        return render_template('turnos/turnosNuevo.html',band=id)
     else:
         abort(404)
 
@@ -432,9 +432,14 @@ def registrarTurno():
         t.horaInicio = request.form['horaInicio']
         t.horaFin = request.form['horaFin']
         t.dias = request.form['dias']
-        t.insertar()
-        flash('Se ha registrado un nuevo turno con éxito!!')
-        return render_template('turnos/turnosNuevo.html')
+        
+        if t.horaInicio < t.horaFin:
+            t.insertar()
+            flash('Se ha registrado un nuevo turno con éxito!!')
+            return render_template('turnos/turnosNuevo.html',band=1)
+        else:
+            flash('Error!!')
+            return render_template('turnos/turnosNuevo.html',band=0)
     else:
         abort(404)
 
@@ -443,7 +448,8 @@ def registrarTurno():
 def turnosEditar(id):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
         t = Turnos()
-        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id))
+        band=1
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id),band=1)
     else:
         abort(404)
 
@@ -457,9 +463,13 @@ def guardarTurno():
         t.horaInicio = request.form['horaInicio']
         t.horaFin = request.form['horaFin']
         t.dias = request.form['horaFin']
-        t.actualizar()
-        flash('Se han guardado los cambios con éxito!!')
-        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']))
+        if t.horaInicio < t.horaFin:
+            t.actualizar()
+            flash('Se han guardado los cambios con éxito!!')
+            return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']), band=1)
+        else:
+            flash('Se ha registrado un horario invalido!!')
+            return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']),band=0)
     else:
         abort(401)
 
