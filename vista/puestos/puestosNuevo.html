@@ -50,14 +50,25 @@
     <a class="btn btn-dark" href="/puestos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
-    {% if get_flashed_messages() %}
-    {% for m in get_flashed_messages()%}
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>{{m}}</strong>
-    </div>
-    {% endfor %}
-    {% endif %}
+    {%if correcto == 1%}
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+    {%else%}
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+    {%endif%}
 </form>
 <br /><br />
 {%endblock content%}

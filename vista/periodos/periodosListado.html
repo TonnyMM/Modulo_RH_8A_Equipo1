@@ -34,17 +34,32 @@
     <tbody id="myTable">
     {% for p in periodos %}
     <tr>
-        <td>{{p.idPeriodo}}</td>
-        <td>{{p.nombre}}</td>
-        <td>{{p.fechaInicio}}</td>
-        <td>{{p.fechaFin}}</td>
-        {% if p.estatus==1%}
-        <td>ACTIVO</td>
+        {% if p.estatus == 1 %}
+            <td>{{p.idPeriodo}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.fechaInicio}}</td>
+            <td>{{p.fechaFin}}</td>
+            {% if p.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+            {% endif %}
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+                <td><a href="/periodosEditar/{{p.idPeriodo}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
         {%else%}
-        <td>INACTIVO</td>
-        {% endif %}
-        {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
-        <td><a href="/periodosEditar/{{p.idPeriodo}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{p.idPeriodo}}</td>
+                <td>{{p.nombre}}</td>
+                <td>{{p.fechaInicio}}</td>
+                <td>{{p.fechaFin}}</td>
+                {% if p.estatus==1%}
+                    <td>ACTIVO</td>
+                    {%else%}
+                    <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/periodosEditar/{{p.idPeriodo}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
         {%endif%}
     </tr>
     {% endfor %}

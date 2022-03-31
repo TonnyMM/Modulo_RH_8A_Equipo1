@@ -29,15 +29,29 @@
     <tbody id="myTable">
     {% for e in estados %}
     <tr>
-        <td>{{e.idEstado}}</td>
-        <td>{{e.nombre}}</td>
-        <td>{{e.siglas}}</td>
-        {% if e.estatus==1%}
-        <td>ACTIVO</td>
+        {% if e.estatus == 1 %}
+            <td>{{e.idEstado}}</td>
+            <td>{{e.nombre}}</td>
+            <td>{{e.siglas}}</td>
+            {% if e.estatus==1%}
+            <td>ACTIVO</td>
+            {%else%}
+            <td>INACTIVO</td>
+            {% endif %}
+            <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
         {%else%}
-        <td>INACTIVO</td>
-        {% endif %}
-        <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{e.idEstado}}</td>
+                <td>{{e.nombre}}</td>
+                <td>{{e.siglas}}</td>
+                {% if e.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/estadosEditar/{{e.idEstado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
+        {%endif%}
     </tr>
     {% endfor %}
     </tbody>

@@ -30,16 +30,31 @@
     <tbody id="myTable">
     {% for p in puestos %}
     <tr>
-        <td>{{p.idPuesto}}</td>
-        <td>{{p.nombre}}</td>
-        <td>{{p.salarioMinimo}}</td>
-        <td>{{p.salarioMaximo}}</td>
-        {% if p.estatus==1%}
-        <td>ACTIVO</td>
+        {% if p.estatus == 1 %}
+            <td>{{p.idPuesto}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{p.salarioMinimo}}</td>
+            <td>{{p.salarioMaximo}}</td>
+            {% if p.estatus==1%}
+                <td>ACTIVO</td>
+            {%else%}
+                <td>INACTIVO</td>
+            {% endif %}
+            <td><a href="/puestosEditar/{{p.idPuesto}}"><span class="glyphicon glyphicon-edit"></span></a></td>
         {%else%}
-        <td>INACTIVO</td>
-        {% endif %}
-        <td><a href="/puestosEditar/{{p.idPuesto}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{p.idPuesto}}</td>
+                <td>{{p.nombre}}</td>
+                <td>{{p.salarioMinimo}}</td>
+                <td>{{p.salarioMaximo}}</td>
+                {% if p.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/puestosEditar/{{p.idPuesto}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
+        {%endif%}
     </tr>
     {% endfor %}
     </tbody>

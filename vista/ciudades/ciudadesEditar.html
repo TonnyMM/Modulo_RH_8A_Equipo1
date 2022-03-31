@@ -3,17 +3,16 @@
 {{super()}}
 <br /><br />
 <form action="/guardarCiudad" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>MODIFICACIÓN DE UNA CIUDAD</h1>
+    <h1>EDICIÓN DE UNA CIUDAD</h1>
     <input class="form-control" type="hidden" name="idCiudad" id="idCiudad" value="{{ciudad.idCiudad}}" readonly />
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-8">
-            <input class="form-control" type="text" name="nombre" id="nombre" value="{{ciudad.nombre}}" 
-                required pattern="[A-Za-zéóáíú% %]{2,80}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 80"/>
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{ciudad.nombre}}" maxlength="80"
+                required pattern="[A-Za-zéóáíúÚ% %]{2,80}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 80"/>
         </div>
     </div>
     <br /><br />
-
     <div class="dropdown">
         <div class="form-group">
             <label class="control-label col-sm-2" for="idEstado">Estado: </label>
@@ -30,7 +29,6 @@
             </div>
         </div>
     </div>
-
     <br /></br>
     <div>
         {% if ciudad.estatus==True%}
@@ -74,7 +72,7 @@
                 <h4 class="modal-title">Eliminación de la ciudad: {{ciudad.nombre}}</h4>
             </div>
             <div class="modal-body">
-                <p>¿ Esta seguro de que quiere eliminar este registro de una ciudad ?</p>
+                <p>¿ Esta seguro de que quiere eliminar esta una ciudad ?</p>
             </div>
             <div class="modal-footer">
                 <a href="/ciudadesEliminar/{{ciudad.idCiudad}}" class="btn btn-info">Si</a>

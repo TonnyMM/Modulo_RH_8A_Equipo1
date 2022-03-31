@@ -29,19 +29,37 @@
     <tbody id="myTable">
     {% for c in ciudades %}
     <tr>
-        <td>{{c.idCiudad}}</td>
-        <td>{{c.nombre}}</td>
-        {%for e in estados%}
-        {%if e.idEstado == c.idEstado%}
-        <td>{{e.nombre}}</td>
-        {%endif%}
-        {%endfor%}
-        {% if c.estatus==1%}
-        <td>ACTIVO</td>
+        {% if c.estatus == 1 %}
+            <td>{{c.idCiudad}}</td>
+            <td>{{c.nombre}}</td>
+            {%for e in estados%}
+            {%if e.idEstado == c.idEstado%}
+            <td>{{e.nombre}}</td>
+            {%endif%}
+            {%endfor%}
+            {% if c.estatus==1%}
+            <td>ACTIVO</td>
+            {%else%}
+            <td>INACTIVO</td>
+            {% endif %}
+            <td><a href="/ciudadesEditar/{{c.idCiudad}}"><span class="glyphicon glyphicon-edit"></span></a></td>
         {%else%}
-        <td>INACTIVO</td>
-        {% endif %}
-        <td><a href="/ciudadesEditar/{{c.idCiudad}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{c.idCiudad}}</td>
+                <td>{{c.nombre}}</td>
+                {%for e in estados%}
+                {%if e.idEstado == c.idEstado%}
+                <td>{{e.nombre}}</td>
+                {%endif%}
+                {%endfor%}
+                {% if c.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/ciudadesEditar/{{c.idCiudad}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
+        {%endif%}
     </tr>
     {% endfor %}
     </tbody>

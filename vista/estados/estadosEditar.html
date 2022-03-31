@@ -3,7 +3,7 @@
 {{super()}}
 <br/><br/>
 <form  action="/guardarEstado" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>MODIFICACIÓN DE UN ESTADO</h1>
+    <h1>EDICIÓN DE ESTADO</h1>
     <input type="hidden" name="idEstado" id="idEstado" value="{{estado.idEstado}}" readonly/>
     <div class="form-group">
     <label class="control-label col-sm-2" for="nombre">Nombre: </label>
@@ -54,7 +54,7 @@
                 <h4 class="modal-title">Eliminación del estado: {{estado.nombre}}</h4>
             </div>
             <div class="modal-body">
-                <p>¿ Esta seguro de que quiere eliminar este registro de un estado ?</p>
+                <p>¿ Esta seguro de que quiere eliminar este estado ?</p>
             </div>
             <div class="modal-footer">
                 <a href="/estadosEliminar/{{estado.idEstado}}" class="btn btn-info">Si</a>

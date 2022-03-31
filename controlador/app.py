@@ -1,7 +1,8 @@
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, \
+     FormasPago, Empleados
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -117,8 +118,20 @@ def guardarEstado():
 @app.route('/estadosEliminar/<int:id>')
 @login_required
 def estadosEliminar(id):
-    e = Estados()
-    e.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        e = Estados()
+        e.eliminar(id)
+    else:
+        e = Estados()
+        e.idEstado = id
+        for est in e.consultaGeneral():
+            if est.idEstado == id:
+                nombre = est.nombre
+                siglas = est.siglas
+        e.nombre = nombre
+        e.siglas = siglas
+        e.estatus=False
+        e.actualizar()
     flash('Se ha eliminado el estado con éxito!!')
     return redirect(url_for('estados',page=1))
 
@@ -187,8 +200,20 @@ def guardarCiudad():
 @app.route('/ciudadesEliminar/<int:id>')
 @login_required
 def ciudadesEliminar(id):
-    c = Ciudades()
-    c.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        c = Ciudades()
+        c.eliminar(id)
+    else:
+        c = Ciudades()
+        c.idCiudad = id
+        for ciudad in c.consultaGeneral():
+            if ciudad.idEstado == id:
+                nombre = ciudad.nombre
+                idEstado = ciudad.idEstado
+        c.nombre = nombre
+        c.idEstado = idEstado
+        c.estatus=False
+        c.actualizar()
     flash('Se ha eliminado la ciudad con éxito!!')
     return redirect(url_for('ciudades',page=1))
 
@@ -319,8 +344,18 @@ def guardarDepartamento():
 @app.route('/departamentosEliminar/<int:id>')
 @login_required
 def departamentosEliminar(id):
-    d = Departamentos()
-    d.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        d = Departamentos()
+        d.eliminar(id)
+    else:
+        d = Departamentos()
+        for dep in d.consultaGeneral():
+            if dep.idDepartamento == id:
+                nombre = dep.nombre
+        d.idDepartamento=id
+        d.nombre=nombre
+        d.estatus=False
+        d.actualizar()
     flash('Se ha eliminado el departamento con éxito!!')
     return redirect(url_for('departamentos',page=1))
 
@@ -347,7 +382,8 @@ def puestos(page=1):
 @login_required
 def puestosNuevo():
     activado = 1
-    return render_template('puestos/puestosNuevo.html',activado=activado)
+    correcto= 1
+    return render_template('puestos/puestosNuevo.html',activado=activado, correcto =correcto)
 
 @app.route('/registrarPuesto',methods=['post'])
 @login_required
@@ -357,20 +393,25 @@ def registrarPuesto():
     p.salarioMinimo = request.form['salarioMinimo']
     p.salarioMaximo = request.form['salarioMaximo']
     estatus = request.values.get('estatus',False)
+    activado = 1
     if estatus=="True":
         p.estatus=True
     else:
         p.estatus=False
-    p.insertar()
-    activado = 1
-    flash('Se ha registrado un nuevo puesto con éxito!!')
-    return render_template('puestos/puestosNuevo.html', activado=activado)
+        activado = 0
+    if p.salarioMinimo<p.salarioMaximo:
+        p.insertar()
+        flash('Se ha registrado un nuevo puesto con éxito!!')
+        return render_template('puestos/puestosNuevo.html', activado=activado,correcto=1)
+    else:
+        flash('Error!!, el rango de pago fue ingresado incorrectamente!!')
+        return render_template('puestos/puestosNuevo.html', activado=activado,correcto=0)
 
 @app.route('/puestosEditar/<int:id>')
 @login_required
 def puestosEditar(id):
     p = Puestos()
-    return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(id))
+    return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(id),correcto = 1)
 
 @app.route('/guardarPuesto',methods=['post'])
 @login_required
@@ -385,15 +426,33 @@ def guardarPuesto():
         p.estatus=True
     else:
         p.estatus=False
-    p.actualizar()
-    flash('Se han guardado los cambios con éxito!!')
-    return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(request.form['idPuesto']))
+    if p.salarioMinimo<p.salarioMaximo:
+        p.actualizar()
+        flash('Se han guardado los cambios con éxito!!')
+        return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(request.form['idPuesto']),correcto = 1)
+    else:
+        flash('Error, el rango de salario ingresado no es válido!!')
+        return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(request.form['idPuesto']),correcto =0)
 
 @app.route('/puestosEliminar/<int:id>')
 @login_required
 def puestosEliminar(id):
-    p = Puestos()
-    p.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        p = Puestos()
+        p.eliminar(id)
+    else:
+        p = Puestos()
+        for pst in p.consultaGeneral():
+            if pst.idPuesto == id:
+                nombre = pst.nombre
+                salarioMinimo = pst.salarioMinimo
+                salarioMaximo = pst.salarioMaximo
+        p.idPuesto = id
+        p.nombre = nombre
+        p.salarioMinimo =salarioMinimo
+        p.salarioMaximo = salarioMaximo
+        p.estatus = False
+        p.actualizar()
     flash('Se ha eliminado el puesto con éxito!!')
     return redirect(url_for('puestos',page=1))
 
@@ -438,7 +497,7 @@ def registrarTurno():
             flash('Se ha registrado un nuevo turno con éxito!!')
             return render_template('turnos/turnosNuevo.html',band=1)
         else:
-            flash('Error!!')
+            flash('Error, el horario ingresado es incorrecto!!')
             return render_template('turnos/turnosNuevo.html',band=0)
     else:
         abort(404)
@@ -449,7 +508,7 @@ def turnosEditar(id):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
         t = Turnos()
         band=1
-        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id),band=1)
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id),band=band)
     else:
         abort(404)
 
@@ -468,7 +527,7 @@ def guardarTurno():
             flash('Se han guardado los cambios con éxito!!')
             return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']), band=1)
         else:
-            flash('Se ha registrado un horario invalido!!')
+            flash('Error, el horario ingresado es incorrecto!!')
             return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']),band=0)
     else:
         abort(401)
@@ -629,7 +688,7 @@ def periodos(page=1):
 @login_required
 def periodosNuevo():
     activado = 1
-    return render_template('periodos/periodosNuevo.html', activado = activado)
+    return render_template('periodos/periodosNuevo.html', activado = activado, correcto = 1)
 
 @app.route('/registrarPeriodo',methods=['post'])
 @login_required
@@ -641,18 +700,23 @@ def registrarPeriodo():
     estatus = request.values.get('estatus',False)
     if estatus=="True":
         p.estatus=True
+        activado = 1
     else:
         p.estatus=False
-    p.insertar()
-    activado = 1
-    flash('Se ha registrado un nuevo periodo con éxito!!')
-    return render_template('periodos/periodosNuevo.html', activado = activado)
+        activado = 0
+    if p.fechaInicio<p.fechaFin:
+        p.insertar()
+        flash('Se ha registrado un nuevo periodo con éxito!!')
+        return render_template('periodos/periodosNuevo.html', activado = activado,correcto = 1)
+    else:
+        flash('Error!!, las fechas ingresadas no son válidas')
+        return render_template('periodos/periodosNuevo.html', activado = activado,correcto = 0)
 
 @app.route('/periodosEditar/<int:id>')
 @login_required
 def periodosEditar(id):
     p = Periodos()
-    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(id))
+    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(id),correcto = 1)
 
 @app.route('/guardarPeriodo',methods=['post'])
 @login_required
@@ -667,15 +731,32 @@ def guardarPeriodo():
         p.estatus=True
     else:
         p.estatus=False
-    p.actualizar()
-    flash('Se han guardado los cambios con éxito!!')
-    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(request.form['idPeriodo']))
+    if p.fechaInicio<p.fechaFin:
+        p.actualizar()
+        flash('Se han guardado los cambios con éxito!!')
+        return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(request.form['idPeriodo']), correcto = 1)
+    else:
+        flash('Error!!, las fechas ingresadas no son válidas!!')
+        return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(request.form['idPeriodo']), correcto = 0)
 
 @app.route('/periodosEliminar/<int:id>')
 @login_required
 def periodosEliminar(id):
     p = Periodos()
-    p.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        p.eliminar(id)
+    else:
+        for per in p.consultaGeneral():
+            if per.idPeriodo == id:
+                nombre = per.nombre
+                fechaInicio = per.fechaInicio
+                fechaFin = per.fechaFin
+        p.idPeriodo = id
+        p.nombre = nombre
+        p.fechaInicio = fechaInicio
+        p.fechaFin = fechaFin
+        p.estatus = False
+        p.actualizar()
     flash('Se ha eliminado el periodo con éxito!!')
     return redirect(url_for('periodos',page=1))
 
@@ -748,7 +829,16 @@ def guardarformaPago():
 @login_required
 def formasPagoEliminar(id):
     f = FormasPago()
-    f.eliminar(id)
+    if current_user.is_authenticated and current_user.is_administrador():
+        f.eliminar(id)
+    else:
+        for form in f.consultaGeneral():
+            if form.idFormaPago == id:
+                nombre = form.nombre
+        f.idFormaPago = id
+        f.nombre = nombre
+        f.estatus = False
+        f.actualizar()
     flash('Se ha eliminado la forma de pago con éxito!!')
     return redirect(url_for('formasPago',page=1))
 

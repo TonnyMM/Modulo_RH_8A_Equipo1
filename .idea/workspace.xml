@@ -5,37 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Modulo_RH_8A_Equipo1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Modulo_RH_8A_Equipo1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/departamentos/departamentosListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/estados/estadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/percepciones/percepcionesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/estados/estadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/estados/estadosListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/formasPago/formasPagoListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/venv/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -175,7 +168,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../respaldo/Modulo_RH_8A_Equipo1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -185,18 +178,6 @@
       <recent name="D:\Tec\Modulo_RH_8A_Equipo1\static\img" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Modulo_RH_8A_Equipo1" />
@@ -205,7 +186,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\AntonioMM\AppData\Local\Programs\Python\Python37-32\python.exe" />
+      <option name="SDK_HOME" value="C:\Python37\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controlador" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -225,7 +206,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>

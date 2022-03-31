@@ -32,15 +32,28 @@
     <tbody id="myTable">
     {% for f in formasPago %}
     <tr>
-        <td>{{f.idFormaPago}}</td>
-        <td>{{f.nombre}}</td>
-        {% if f.estatus==1%}
-        <td>HABILITADO</td>
+        {% if f.estatus == 1 %}
+            <td>{{f.idFormaPago}}</td>
+            <td>{{f.nombre}}</td>
+            {% if f.estatus==1%}
+                <td>HABILITADO</td>
+            {%else%}
+                <td>DESHABILITADO</td>
+            {% endif %}
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+                <td><a href="/formasPagoEditar/{{f.idFormaPago}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
         {%else%}
-        <td>DESHABILITADO</td>
-        {% endif %}
-        {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
-        <td><a href="/formasPagoEditar/{{f.idFormaPago}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{f.idFormaPago}}</td>
+                <td>{{f.nombre}}</td>
+                {% if f.estatus==1%}
+                    <td>HABILITADO</td>
+                {%else%}
+                    <td>DESHABILITADO</td>
+                {% endif %}
+                <td><a href="/formasPagoEditar/{{f.idFormaPago}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
         {%endif%}
     </tr>
     {% endfor %}

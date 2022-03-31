@@ -3,7 +3,7 @@
 {{super()}}
 <br /><br />
 <form action="/guardarPuesto" method="post" class="formularios" enctype="multipart/form-data">
-    <h1>MODIFICACIÓN DE DATOS DE UN PUESTO</h1>
+    <h1>EDICIÓN DE DATOS DE UN PUESTO</h1>
     <input type="hidden" name="idPuesto" id="idPuesto" value="{{puesto.idPuesto}}" readonly />
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
@@ -52,14 +52,25 @@
             class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>
-    {% if get_flashed_messages() %}
-    {% for m in get_flashed_messages()%}
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>{{m}}</strong>
-    </div>
-    {% endfor %}
-    {% endif %}
+    {%if correcto == 1%}
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+    {%else%}
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+    {%endif%}
 </form>
 <br /><br />
 <div id="elim" class="modal fade" role="dialog">

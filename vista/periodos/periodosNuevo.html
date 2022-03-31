@@ -9,7 +9,7 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
             <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50" onblur="consultarPeriodo()"
-                size="50" required pattern="[A-Za-zéóáíú% %]{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                size="50" required pattern="[A-Za-zéóáíú ÚÁÉÍÓ% % 0-9]{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
                 <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
@@ -48,14 +48,25 @@
     <a class="btn btn-dark" href="/periodos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
-    {% if get_flashed_messages() %}
-    {% for m in get_flashed_messages()%}
-    <div class="alert alert-success alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>{{m}}</strong>
-    </div>
-    {% endfor %}
-    {% endif %}
+    {%if correcto == 1%}
+        {% if get_flashed_messages() %}
+            {% for m in get_flashed_messages()%}
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{m}}</strong>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {%else%}
+        {% if get_flashed_messages() %}
+            {% for m in get_flashed_messages()%}
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{m}}</strong>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {%endif%}
 </form>
 <br /><br />
 {%endblock content%}

@@ -52,36 +52,29 @@ $(document).ready(function(){
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/index"><span class="glyphicon glyphicon-home"></span></a>
                 </li>
-                {%if current_user.is_authenticated and current_user.is_administrador()%}
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:#001b0d;" href="/estados/1">Estados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="color:#001b0d;" href="/ciudades/1">Ciudades</a>
-                    </li>
-                {%endif%}
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/turnos/1">Turnos</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Ubicaciones</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/estados/1">Estados</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/ciudades/1">Ciudades</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/ciudades/1">Sucursales</a></li>
+                    </ul>
                 </li>
-                {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/departamentos/1">Departamentos</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Catalogos</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/turnos/1">Turnos</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/departamentos/1">Departamentos</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/puestos/1">Puestos</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/periodos/1">Periodos</a></li>
+                    </ul>
                 </li>
-                {%endif%}
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/percepciones/1">Percepciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/deducciones/1">Deducciones</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/periodos/1">Periodos</a>
-                </li>
-                {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/puestos/1">Puestos</a>
-                </li>
-                {%endif%}
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/formasPago/1">Formas de pago</a>
                 </li>

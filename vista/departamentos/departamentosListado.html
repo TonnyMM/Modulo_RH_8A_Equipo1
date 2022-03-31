@@ -15,7 +15,7 @@
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
-<br /><br />
+<br /><br/>
 <table class="table table-hover">
     <thead class="table-dark">
         <tr>
@@ -28,15 +28,29 @@
     <tbody id="myTable">
         {% for d in departamentos %}
         <tr>
-            <td>{{d.idDepartamento}}</td>
-            <td>{{d.nombre}}</td>
-            {% if d.estatus==1%}
-            <td>ACTIVO</td>
+            {% if d.estatus == 1 %}
+                <td>{{d.idDepartamento}}</td>
+                <td>{{d.nombre}}</td>
+                {% if d.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/departamentosEditar/{{d.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a>
+                </td>
             {%else%}
-            <td>INACTIVO</td>
-            {% endif %}
-            <td><a href="/departamentosEditar/{{d.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a>
-            </td>
+                {%if current_user.is_authenticated and current_user.is_administrador()%}
+                    <td>{{d.idDepartamento}}</td>
+                    <td>{{d.nombre}}</td>
+                    {% if d.estatus==1%}
+                    <td>ACTIVO</td>
+                    {%else%}
+                    <td>INACTIVO</td>
+                    {% endif %}
+                    <td><a href="/departamentosEditar/{{d.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                {%endif%}
+            {%endif%}
         </tr>
         {% endfor %}
     </tbody>
