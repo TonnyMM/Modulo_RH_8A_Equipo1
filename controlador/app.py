@@ -1,8 +1,8 @@
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, \
-     FormasPago, Empleados
+
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -393,9 +393,9 @@ def registrarPuesto():
     p.salarioMinimo = request.form['salarioMinimo']
     p.salarioMaximo = request.form['salarioMaximo']
     estatus = request.values.get('estatus',False)
-    activado = 1
     if estatus=="True":
         p.estatus=True
+        activado = 1
     else:
         p.estatus=False
         activado = 0
@@ -769,7 +769,6 @@ def formasPago(page=1):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
         f = FormasPago()
         try:
-            
             paginacion=f.consultarPagina(page)
             formasPago=paginacion.items
             paginas=paginacion.pages
@@ -778,7 +777,6 @@ def formasPago(page=1):
         except OperationalError:
             flash("No hay formasPago registrados")
             formasPago=None
-        
         return render_template('formasPago/formasPagoListado.html',formasPago = formasPago,paginas=paginas,pagina=page)
     else:
         abort(404)
@@ -841,6 +839,110 @@ def formasPagoEliminar(id):
         f.actualizar()
     flash('Se ha eliminado la forma de pago con éxito!!')
     return redirect(url_for('formasPago',page=1))
+
+#######################################################################################################################
+@app.route('/sucursales/<int:page>')
+@login_required
+def sucursales(page=1):
+    s = Sucursales()
+    try:
+        paginacion=s.consultarPagina(page)
+        sucursales=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay sucursales registradas")
+        sucursales=None
+    return render_template('sucursales/sucursalesListado.html',sucursales = sucursales,paginas=paginas,pagina=page)
+
+@app.route('/sucursalesNuevo')
+@login_required
+def sucursalesNuevo():
+    activado = 1
+    c = Ciudades()
+    return render_template('sucursales/sucursalesNuevo.html', activado = activado, ciudades = c.consultaGeneral())
+
+@app.route('/registrarSucursal',methods=['post'])
+@login_required
+def registrarsucursal():
+    s = Sucursales()
+    s.nombre = request.form['nombre']
+    s.telefono=request.form['telefono']
+    s.direccion = request.form['direccion']
+    s.colonia=request.form['colonia']
+    s.codigoPostal = request.form['codigoPostal']
+    s.presupuesto=request.form['presupuesto']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        s.estatus=True
+        activado = 1
+    else:
+        s.estatus=False
+        activado = 0
+    s.idCiudad=request.form['idCiudad']
+    s.insertar()
+    flash('Se ha registrado la sucursal con éxito!!')
+    return render_template('sucursales/sucursalesNuevo.html', activado = activado)
+
+@app.route('/sucursalesEditar/<int:id>')
+@login_required
+def sucursalesEditar(id):
+    s = Sucursales()
+    c = Ciudades()
+    return render_template('sucursales/sucursalesEditar.html', sucursal = s.consultaIndividual(id),
+                           ciudades = c.consultaGeneral())
+
+@app.route('/guardarSucursal',methods=['post'])
+@login_required
+def guardarSucursal():
+    s = Sucursales()
+    s.idSucursal = request.form['idSucursal']
+    s.nombre = request.form['nombre']
+    s.telefono=request.form['telefono']
+    s.direccion = request.form['direccion']
+    s.colonia=request.form['colonia']
+    s.codigoPostal = request.form['codigoPostal']
+    s.presupuesto=request.form['presupuesto']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        s.estatus=True
+    else:
+        s.estatus=False
+    s.actualizar()
+    c = Ciudades()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('sucursales/sucursalesEditar.html',
+                           sucursal = s.consultaIndividual(request.form['idSucursal']),ciudades = c.consultaGeneral())
+
+@app.route('/sucursalesEliminar/<int:id>')
+@login_required
+def sucursalesEliminar(id):
+    s = Sucursales()
+    if current_user.is_authenticated and current_user.is_administrador():
+        s.eliminar(id)
+    else:
+        for suc in s.consultaGeneral():
+            if suc.idSucursal == id:
+                nombre = suc.nombre
+                telefono = suc.telefono
+                direccion = suc.direccion
+                colonia = suc.colonia
+                codigoPostal = suc.codigoPostal
+                presupuesto = suc.presupuesto
+                idCiudad = suc.idCiudad
+        s.idSucursal = id
+        s.nombre = nombre
+        s.telefono =telefono
+        s.direccion = direccion
+        s.colonia = colonia
+        s.codigoPostal = codigoPostal
+        s.presupuesto = presupuesto
+        s.idCiudad = idCiudad
+        s.estatus = False
+        s.actualizar()
+    flash('Se ha eliminado la sucursal con éxito!!')
+    return redirect(url_for('sucursales',page=1))
 
 @app.errorhandler(404)
 def error404(e):

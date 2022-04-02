@@ -218,3 +218,11 @@ function consultarFormaPago(){
     };
     ajax.send();
 }
+function validarSalario(){
+    var smin=document.getElementById("salarioMinimo").value;
+    var smax=document.getElementById("salarioMaximo").value;
+    var div=document.getElementById("notificacionesSalario");
+    if (smin>smax){
+
+    }
+}

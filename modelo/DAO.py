@@ -7,7 +7,6 @@ import datetime
 db = SQLAlchemy()
 
 
-
 class Empleados(UserMixin,db.Model):
     __tablename__= 'Empleados'
     idEmpleado = Column(Integer, primary_key=True)
@@ -86,8 +85,6 @@ class Empleados(UserMixin,db.Model):
             return True
         else:
             return False
-
-
 
 
 class Estados(db.Model):
@@ -481,3 +478,42 @@ class FormasPago(db.Model):
     def consultarPagina(self, pagina):
         paginacion=self.query.order_by(FormasPago.idFormaPago.asc()).paginate(pagina,per_page=5,error_out=False)
         return paginacion
+
+class Sucursales(db.Model):
+    __tablename__ = 'Sucursales'
+    idSucursal = Column(Integer, primary_key=True)
+    nombre = Column(String(50), unique=True)
+    telefono = Column(String(15), unique=True)
+    direccion = Column(String(80), unique=True)
+    colonia = Column(String(50))
+    codigoPostal = Column(String(5))
+    presupuesto = Column(Float)
+    estatus = Column(Boolean, default=True)
+    idCiudad = Column(Integer, ForeignKey('Ciudades.idCiudad'))
+    ciudad=relationship('Ciudades',backref='sucursales', lazy="select")
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Sucursales.idSucursal.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
+
+
+

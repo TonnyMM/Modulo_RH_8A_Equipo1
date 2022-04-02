@@ -18,7 +18,7 @@
         <label class="control-label col-sm-2" for="salarioMinimo">Salario Minimo: </label>
         <div class="col-sm-10">
             <input class="form-control" type="text" type="number" name="salarioMinimo" id="salarioMinimo"
-             min="1"      step="0.1" placeholder="salarioMinimo" required />
+             min="1"      step="0.1" placeholder="salarioMinimo" required onblur="validarSalario()"/>
         </div>
     </div>
     <br /><br />
@@ -26,8 +26,9 @@
         <label class="control-label col-sm-2" for="salarioMaximo">Salario Máximo: </label>
         <div class="col-sm-10">
             <input class="form-control" type="text" type="number" name="salarioMaximo" id="salarioMaximo"
-                   step="0.1" placeholder="salarioMaximo" required />
+                   step="0.1" placeholder="salarioMaximo" required onblur="validarSalario()"/>
         </div>
+        <div id="notificacionesSalario" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
     </div>
     <br /><br />
 
@@ -42,7 +43,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2">Estatus:</label>
         <div class="col-sm-10">
-            <input type="checkbox" name="estatus" value="True">
+            <input type="checkbox" name="estatus" value="False">
         </div>
     </div>
     {% endif %}

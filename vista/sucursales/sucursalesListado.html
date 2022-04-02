@@ -1,0 +1,91 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>LISTADO DE SUCURSALES</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+<a href="/sucursalesNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+<div class="Buscador">
+    <input id="myInput" type="text" placeholder="Buscar">
+</div>
+<br /><br />
+<table class="table table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>TELEFONO</th>
+        <th>DIRECCION</th>
+        <th>COLONIA</th>
+        <th>CÓDIGO POSTAL</th>
+        <th>PRESUPUESTO</th>
+        <th>ESTATUS</th>
+        <th>CIUDAD</th>
+        <th>EDITAR</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for s in sucursales %}
+    <tr>
+        {% if s.estatus == 1 %}
+        <td>{{s.idSucursal}}</td>
+        <td>{{s.nombre}}</td>
+        <td>{{s.telefono}}</td>
+        <td>{{s.direccion}}</td>
+        <td>{{s.colonia}}</td>
+        <td>{{s.codigoPostal}}</td>
+        <td>{{s.presupuesto}}</td>
+        {% if s.estatus==1%}
+            <td>ACTIVO</td>
+        {%else%}
+            <td>INACTIVO</td>
+        {% endif %}
+        <td>{{s.ciudad.nombre}}</td>
+        <td><a href="/sucursalesEditar/{{s.idSucursal}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        {%else%}
+            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                <td>{{s.idSucursal}}</td>
+                <td>{{s.nombre}}</td>
+                <td>{{s.telefono}}</td>
+                <td>{{s.direccion}}</td>
+                <td>{{s.colonia}}</td>
+                <td>{{s.codigoPostal}}</td>
+                <td>{{s.presupuesto}}</td>
+                {% if s.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td>{{s.ciudad.nombre}}</td>
+                <td><a href="/sucursalesEditar/{{s.idSucursal}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
+        {%endif%}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br />
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
+
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% else %}
+        <li><a class="page-link" href="/sucursales/{{pagina-1}}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+        {% if pagina >= paginas %}
+        <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+        {% else %}
+        <li><a class="page-link" href="/sucursales/{{pagina+1}}">Siguiente</a></li>
+        {% endif %}
+    </ul>
+</div>
+{%endblock content%}

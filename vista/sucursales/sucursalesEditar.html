@@ -1,0 +1,130 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<br /><br />
+<form action="/guardarSucursal" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>EDICIÓN DE UNA SUCURSAL</h1>
+    <input class="form-control" type="hidden" name="idSucursal" id="idSucuersal" value="{{sucursal.idSucursal}}" readonly />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Nombre: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{sucursal.nombre}}" maxlength="50"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="telefono">Teléfono: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="telefono" id="telefono" value="{{sucursal.telefono}}" maxlength="15"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="direccion">Dirección: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="direccion" id="direccion" value="{{sucursal.direccion}}" maxlength="80"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="colonia">Dirección: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="colonia" id="colonia" value="{{sucursal.colonia}}" maxlength="50"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="colonia">codigoPostal: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" value="{{sucursal.codigoPostal}}" maxlength="5"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="presupuesto">codigoPostal: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="number" name="presupuesto" id="presupuesto" value="{{sucursal.presupuesto}}"/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="dropdown">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="idCiudad">Cuidad: </label>
+            <div class="col-sm-8">
+                <select class="form-control" id="idCiudad" name="idCiudad">
+                    {%for c in ciudades%}
+                    {% if c.idCiudad == sucursal.idCiudad %}
+                    <option value="{{c.idCiudad}}" selected>{{c.nombre}}</option>
+                    {%else%}
+                    <option value="{{c.idCiudad}}">{{c.nombre}}</option>
+                    {%endif%}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /></br>
+
+    <div>
+        {% if sucursal.estatus==True%}
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" checked value="True">
+            </div>
+        </div>
+        {% else %}
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" value="True">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <br /><br />
+    <a class="btn btn-dark" href="/sucursales/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-saved">
+            Guardar</span></button>
+    <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
+            class="glyphicon glyphicon-trash"></span></a>
+
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</form>
+<br /><br />
+
+<div id="elim" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="eliminar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminación de la sucursal: {{sucursal.nombre}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿ Esta seguro de que quiere eliminar esta sucursal ?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/sucursalesEliminar/{{sucursal.idSucursal}}" class="btn btn-info">Si</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}
