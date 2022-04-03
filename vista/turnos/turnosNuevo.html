@@ -29,18 +29,24 @@
             <input class="form-control" type="time" name="horaFin" id="horaFin" placeholder="Hora fin" required />
         </div>
     </div>
-    <br /><br />
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="dias">Dias: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="number" name="dias" id="dias" placeholder="Dias" required min="1" />
-        </div>
-    </div>
-    <br /> <br />
+    <br /><br /><br />
+    <label class="dias">Seleccione los dias: </label>
+    <br/>
+    <ul class="list">
+        <li><input type="checkbox" name="L" value="Lunes"> <b>Lunes </b></li>
+        <li><input type="checkbox" name="M" value="Martes"> <b>Martes </b></li>
+        <li><input type="checkbox" name="MI" value="Miercoles"> <b>Miercoles </b></li>
+        <li><input type="checkbox" name="J" value="Jueves"> <b>Jueves </b></li>
+        <li><input type="checkbox" name="V" value="Viernes"> <b>Viernes </b></li>
+        <li><input type="checkbox" name="S" value="Sabado"> <b>Sabado </b></li>
+        <li><input type="checkbox" name="D" value="Domingo"> <b>Domingo </b></li>
+    </ul>
+    <br /> 
 
     <a class="btn btn-dark" href="/turnos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+
     {%if band == 1%}
         {% if get_flashed_messages() %}
             {% for m in get_flashed_messages()%}

@@ -2,6 +2,8 @@
 {% block content %}
 {{super()}}
 <script src="..\static\js\validacion.js"></script>
+<link rel="stylesheet" href="..\static\css\fontawesome.min.css">
+
 <br /><br />
 <form action="/registrarSucursal" method="post" class="formularios" enctype="multipart/form-data">
     <h1>REGISTRO DE UNA SUCURSAL</h1>
@@ -15,16 +17,16 @@
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="telefono">Teléfono: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="telefono" id="telefono" placeholder="Teléfono" maxlength="12"
+        <div class="col-sm-3">
+            <input class="form-control" type="tel" name="telefono" id="telefono" placeholder="Teléfono" maxlength="12"
                    required />
         </div>
-    </div>
+    <!--</div>
     <br /><br />
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="direccion">Dirección: </label>
-        <div class="col-sm-10">
+    <div class="form-group">-->
+        <label class="control-label col-sm-2" for="direccion" id="ladDerecho1">Dirección: </label>
+        <div class="col-sm-5">
             <input class="form-control" type="text" name="direccion" id="direccion" placeholder="Dirección" maxlength="80"
                    required />
         </div>
@@ -42,17 +44,17 @@
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="codigoPostal">Código Postal: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" placeholder="#####" maxlength="5"
+        <div class="col-sm-3">
+            <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" placeholder="C.P." maxlength="5"
                    required />
         </div>
-    </div>
+    <!--</div>
     <br /><br />
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="presupuesto">Presupuesto: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="number" name="presupuesto" id="presupuesto" placeholder="Presupuesto" maxlength="50"
+    <div class="form-group">-->
+        <label class="control-label col-sm-2" for="presupuesto" id="ladDerecho"> Presupuesto: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" name="presupuesto" id="presupuesto" placeholder="Presupuesto" step="0.1" maxlength="50"
                    required />
         </div>
     </div>
@@ -61,7 +63,7 @@
     <div class="form-group">
         <div class="dropdown">
             <label class="control-label col-sm-2" for="idCiudad">Ciudad: </label>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
                 <select class="form-control" id="idCiudad" name="idCiudad">
                     <option value="x" selected disabled>Selecciona</option>
                     {% for c in ciudades%}
@@ -70,25 +72,25 @@
                 </select>
             </div>
         </div>
-    </div>
-    <br /><br>
+    <!--</div>
+    <br /><br>-->
 
     {% if activado==1%}
-    <div class="form-group">
-        <label class="control-label col-sm-2">Estatus:</label>
-        <div class="col-sm-10">
-            <input type="checkbox" name="estatus" checked value="True">
+    <!--<div class="form-group">-->
+        <div class="est">
+            <label for="estatus">Estatus: </label>
+            <input type="checkbox" id="estatus" name="estatus" checked value="True">
         </div>
     </div>
     {% else %}
-    <div class="form-group">
-        <label class="control-label col-sm-2">Estatus:</label>
-        <div class="col-sm-10">
+    <!--<div class="form-group">-->
+        <div class="est">
+            <label for="estatus">Estatus: </label>
             <input type="checkbox" name="estatus" value="True">
         </div>
     </div>
     {% endif %}
-    <br /><br />
+    <br />
 
     <a class="btn btn-dark" href="/sucursales/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span

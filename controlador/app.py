@@ -490,15 +490,39 @@ def registrarTurno():
         t.nombre = request.form['nombre']
         t.horaInicio = request.form['horaInicio']
         t.horaFin = request.form['horaFin']
-        t.dias = request.form['dias']
-        
-        if t.horaInicio < t.horaFin:
-            t.insertar()
-            flash('Se ha registrado un nuevo turno con éxito!!')
-            return render_template('turnos/turnosNuevo.html',band=1)
-        else:
-            flash('Error, el horario ingresado es incorrecto!!')
-            return render_template('turnos/turnosNuevo.html',band=0)
+        dias = ''
+        lunes = request.values.get('L',False)
+        if lunes=='Lunes':
+            dias+=lunes
+            dias+=' '
+        martes = request.values.get('M',False)
+        if martes =='Martes':
+            dias+=martes
+            dias+=' '
+        miercoles = request.values.get('MI',False)
+        if miercoles=="Miercoles":
+            dias +=miercoles
+            dias+=' '
+        jueves = request.values.get('J',False)
+        if jueves=="Jueves":
+            dias +=jueves
+            dias+=' '
+        viernes = request.values.get('V',False)
+        if viernes=="Viernes":
+            dias +=viernes
+            dias+=' '
+        sabado = request.values.get('S',False)
+        if sabado=="Sabado":
+            dias +=sabado
+            dias+=' '
+        domingo = request.values.get('D',False)
+        if domingo=="Domingo":
+            dias +=domingo
+            dias+=' '
+        t.dias = dias
+        t.insertar()
+        flash('Se ha registrado un nuevo turno con éxito!!')
+        return render_template('turnos/turnosNuevo.html',band=1)
     else:
         abort(404)
 
@@ -508,7 +532,42 @@ def turnosEditar(id):
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
         t = Turnos()
         band=1
-        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id),band=band)
+        turno = t.consultaIndividual(id)
+        dias = turno.dias
+        ar_dias = dias.split()
+        lunes =''
+        martes = ''
+        miercoles = ''
+        jueves = ''
+        viernes = ''
+        sabado = ''
+        domingo = ''
+        tam = len(ar_dias)
+        l = 0
+        for l in ar_dias:
+            if l == 'Lunes':
+                lunes = l
+        for l in ar_dias:
+            if l == 'Martes':
+                martes = l
+        for l in ar_dias:
+            if l == 'Miercoles':
+                miercoles = l
+        for l in ar_dias:
+            if l == 'Jueves':
+                jueves = l
+        for l in ar_dias:
+            if l == 'Viernes':
+                viernes = l
+        for l in ar_dias:
+            if l == 'Sabado':
+                sabado = l
+        for l in ar_dias:
+            if l == 'Domingo':
+                domingo = l
+
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(id),band=band,
+                               l = lunes,m=martes,mi=miercoles,j=jueves,v=viernes,s=sabado,d=domingo)
     else:
         abort(404)
 
@@ -521,14 +580,40 @@ def guardarTurno():
         t.nombre = request.form['nombre']
         t.horaInicio = request.form['horaInicio']
         t.horaFin = request.form['horaFin']
-        t.dias = request.form['horaFin']
-        if t.horaInicio < t.horaFin:
-            t.actualizar()
-            flash('Se han guardado los cambios con éxito!!')
-            return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']), band=1)
-        else:
-            flash('Error, el horario ingresado es incorrecto!!')
-            return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']),band=0)
+        dias = ''
+        lunes = request.values.get('L',False)
+        if lunes=='Lunes':
+            dias+=lunes
+            dias+=' '
+        martes = request.values.get('M',False)
+        if martes =='Martes':
+            dias+=martes
+            dias+=' '
+        miercoles = request.values.get('MI',False)
+        if miercoles=="Miercoles":
+            dias +=miercoles
+            dias+=' '
+        jueves = request.values.get('J',False)
+        if jueves=="Jueves":
+            dias +=jueves
+            dias+=' '
+        viernes = request.values.get('V',False)
+        if viernes=="Viernes":
+            dias +=viernes
+            dias+=' '
+        sabado = request.values.get('S',False)
+        if sabado=="Sabado":
+            dias +=sabado
+            dias+=' '
+        domingo = request.values.get('D',False)
+        if domingo=="Domingo":
+            dias +=domingo
+            dias+=' '
+        t.dias = dias
+        t.actualizar()
+        flash('Se han guardado los cambios con éxito!!')
+        return render_template('turnos/turnosEditar.html', turno = t.consultaIndividual(request.form['idTurno']), band=1,
+                               l = lunes,m=martes,mi=miercoles,j=jueves,v=viernes,s=sabado,d=domingo)
     else:
         abort(401)
 

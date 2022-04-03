@@ -28,14 +28,48 @@
             <input class="form-control" type="time" name="horaFin" id="horaFin" value="{{turno.horaFin}}" required />
         </div>
     </div>
-    <br /><br />
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="dias">Dias: </label>
-        <div class="col-sm-8">
-            <input class="form-control" type="number" name="dias" id="dias" value="{{turno.dias}}" required min="1" />
-        </div>
-    </div>
-    <br /><br />
+    <br /><br /><br />
+    <label class="dias">Dias que cubre el turno: </label>
+    <br />
+    <ul class="list">
+        {%if l == 'Lunes'%}
+            <li><input type="checkbox" name="L" value="Lunes" checked> <b>Lunes </b></li>
+        {%else%}
+            <li><input type="checkbox" name="L" value="Lunes"> <b>Lunes </b></li>
+        {%endif%}
+        {%if m == 'Martes'%}
+            <li><input type="checkbox" name="M" value="Martes" checked> <b>Martes </b></li>
+        {%else%}
+            <li><input type="checkbox" name="M" value="Martes"> <b>Martes </b></li>
+        {%endif%}
+        {%if mi == 'Miercoles'%}
+            <li><input type="checkbox" name="MI" value="Miercoles" checked> <b>Miercoles </b></li>
+        {%else%}
+            <li><input type="checkbox" name="MI" value="Miercoles"> <b>Miercoles </b></li>
+        {%endif%}
+        {%if j == 'Jueves'%}
+            <li><input type="checkbox" name="J" value="Jueves" checked> <b>Jueves </b></li>
+        {%else%}
+            <li><input type="checkbox" name="J" value="Jueves"> <b>Jueves </b></li>
+        {%endif%}
+        {%if v == 'Viernes'%}
+            <li><input type="checkbox" name="V" value="Viernes" checked> <b>Viernes </b></li>
+        {%else%}
+            <li><input type="checkbox" name="V" value="Viernes"> <b>Viernes </b></li>
+        {%endif%}
+
+        {%if s == 'Sabado'%}
+            <li><input type="checkbox" name="S" value="Sabado" checked> <b>Sabado </b></li>
+        {%else%}
+            <li><input type="checkbox" name="S" value="Sabado"> <b>Sabado </b></li>
+        {%endif%}
+        {%if d == 'Domingo'%}
+            <li><input type="checkbox" name="D" value="Domingo" checked> <b>Domingo </b></li>
+        {%else%}
+            <li><input type="checkbox" name="D" value="Domingo"> <b>Domingo </b></li>
+        {%endif%}
+    </ul>
+    <br />
     <a class="btn btn-dark" href="/turnos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
@@ -71,7 +105,7 @@
                 <h4 class="modal-title">Eliminación del turno: {{turno.nombre}}</h4>
             </div>
             <div class="modal-body">
-                <p>¿ Esta seguro de que quiere eliminar este registro ?</p>
+                <p>¿ Esta seguro de que quiere eliminar este turno ?</p>
             </div>
             <div class="modal-footer">
                 <a href="/turnosEliminar/{{turno.idTurno}}" class="btn btn-info">Si</a>

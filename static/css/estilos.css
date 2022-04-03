@@ -119,7 +119,33 @@ td {
 label {
   color: white;
 }
+
+#ladDerecho1,#ladDerecho, #ladiz,#ladiz1{
+    margin-top: 6px;
+    color: white;
+}
+.est{
+  display: inline;
+  margin-left: 20px;
+}
 .Buscador{
     float: right;
     margin-right: 5%;
 }
+
+.dias{
+  margin-left: 12px;
+}
+#L,#M,#MI,#J,#V,#S,#DO{
+  color: white;
+}
+.list{
+  list-style: none;
+  color: white;
+  margin-left: 0px;
+}
+.list li{
+  display: inline;
+  padding-right: 30px;
+}
+

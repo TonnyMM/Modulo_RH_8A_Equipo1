@@ -8,56 +8,56 @@
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
-        <div class="col-sm-8">
+        <div class="col-sm-10">
             <input class="form-control" type="text" name="nombre" id="nombre" value="{{sucursal.nombre}}" maxlength="50"/>
         </div>
     </div>
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="telefono">Teléfono: </label>
-        <div class="col-sm-8">
+        <label class="control-label col-sm-2" for="telefono" id="ladiz1">Teléfono: </label>
+        <div class="col-sm-3">
             <input class="form-control" type="text" name="telefono" id="telefono" value="{{sucursal.telefono}}" maxlength="15"/>
         </div>
-    </div>
+    <!--</div>
     <br /><br />
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="direccion">Dirección: </label>
-        <div class="col-sm-8">
+    <div class="form-group">-->
+        <label class="control-label col-sm-2" for="direccion" id="ladDerecho1">Dirección: </label>
+        <div class="col-sm-5">
             <input class="form-control" type="text" name="direccion" id="direccion" value="{{sucursal.direccion}}" maxlength="80"/>
         </div>
     </div>
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="colonia">Dirección: </label>
-        <div class="col-sm-8">
+        <label class="control-label col-sm-2" for="colonia">Colonia: </label>
+        <div class="col-sm-10">
             <input class="form-control" type="text" name="colonia" id="colonia" value="{{sucursal.colonia}}" maxlength="50"/>
         </div>
     </div>
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="colonia">codigoPostal: </label>
-        <div class="col-sm-8">
+        <label class="control-label col-sm-2" for="codigoPostal" id="ladiz">codigoPostal: </label>
+        <div class="col-sm-3">
             <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" value="{{sucursal.codigoPostal}}" maxlength="5"/>
         </div>
-    </div>
+    <!--</div>
     <br /><br />
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="presupuesto">codigoPostal: </label>
-        <div class="col-sm-8">
-            <input class="form-control" type="number" name="presupuesto" id="presupuesto" value="{{sucursal.presupuesto}}"/>
+    <div class="form-group">-->
+        <label class="control-label col-sm-2" for="presupuesto" id="ladDerecho">Presupuesto: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" name="presupuesto" id="presupuesto" step="0.1" value="{{sucursal.presupuesto}}"/>
         </div>
     </div>
-    <br /><br />
+    <br />
 
     <div class="dropdown">
         <div class="form-group">
             <label class="control-label col-sm-2" for="idCiudad">Cuidad: </label>
-            <div class="col-sm-8">
+            <div class="col-sm-5">
                 <select class="form-control" id="idCiudad" name="idCiudad">
                     {%for c in ciudades%}
                     {% if c.idCiudad == sucursal.idCiudad %}
@@ -69,21 +69,21 @@
                 </select>
             </div>
         </div>
-    </div>
-    <br /></br>
+    <!--</div>
+    <br /></br>-->
 
     <div>
         {% if sucursal.estatus==True%}
-        <div class="form-group">
-            <label class="control-label col-sm-2">Estatus:</label>
-            <div class="col-sm-8">
-                <input type="checkbox" name="estatus" checked value="True">
+        <!--<div class="form-group">-->
+            <div class="est">
+                <label for="estatus">Estatus:  </label>
+                <input id="estatus" type="checkbox" name="estatus" checked value="True">
             </div>
         </div>
         {% else %}
-        <div class="form-group">
-            <label class="control-label col-sm-2">Estatus:</label>
-            <div class="col-sm-8">
+        <!--<div class="form-group">-->
+            <div class="est">
+                <label for="estatus">Estatus:  </label>
                 <input type="checkbox" name="estatus" value="True">
             </div>
         </div>

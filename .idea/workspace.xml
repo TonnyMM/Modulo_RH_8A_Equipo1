@@ -7,11 +7,11 @@
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/validacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/validacion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/sucursales/sucursalesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/sucursales/sucursalesEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +156,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Proyecto---califSecVillaRosa" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
