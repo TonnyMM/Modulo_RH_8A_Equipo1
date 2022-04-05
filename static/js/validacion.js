@@ -42,6 +42,19 @@ function consultarEstadoSig(){
     ajax.send();
 }
 
+function vnombre(){
+    
+      
+    var nombre=document.getElementById("nombre1").value;
+    if(nombre=="")
+    {
+        console.log("hola")
+        document.getElementById("next").setAttribute("disabled","true");
+    }else{
+        document.getElementById("next").removeAttribute("disabled");
+    }
+
+}
 
 function consultarCiudad(){
     var ajax=new XMLHttpRequest();

@@ -31,6 +31,11 @@ class Empleados(UserMixin,db.Model):
     email = Column(String(100), nullable=False, unique=True)
     clave = Column(String(20), nullable=False)
     tipo = Column(String(10), nullable=False)
+    idDepartamento = Column(Integer,ForeignKey('Departamentos.idDepartamento'))
+    idPuesto = Column(Integer,ForeignKey('Puestos.idPuesto'))
+    idCiudad = Column(Integer,ForeignKey('Ciudades.idCiudad'))
+    idSucursal = Column(Integer,ForeignKey('Sucursales.idSucursal'))
+    idTurno = Column(Integer,ForeignKey('Turnos.idTurno'))
     estatus = Column(Boolean, default=True)
 
     #METODOS DEL CRUD
@@ -57,6 +62,10 @@ class Empleados(UserMixin,db.Model):
         empleado=None
         empleado=self.query.filter(Empleados.email==email, Empleados.clave==clave, Empleados.estatus ==True).first()
         return empleado
+    
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Empleados.idEmpleado.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
 
     #MÉTODOS PARA CUESTIONES DE PERFILAMIENTO
     def is_authenticated(self):

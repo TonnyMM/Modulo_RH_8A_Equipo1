@@ -1,3 +1,4 @@
+import re
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
@@ -59,6 +60,110 @@ def consultarImagenUsuario(id):
 @login_required
 def index():
     return render_template('comunes/index.html')
+#######################################################################################################################
+
+@app.route('/empleados/<int:page>')
+def empleados(page=1):
+    e = Empleados()
+    d = Departamentos()
+    p = Puestos()
+    try:
+        puestos= p.consultaGeneral()
+        departamentos = d.consultaGeneral()
+        paginacion=e.consultarPagina(page)
+        empleados=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay estados registrados")
+        empleados=None
+    return render_template('empleados/empleadosListado.html',empleados = empleados,paginas=paginas,pagina=page, puestos=puestos,departamentos=departamentos)
+
+
+@app.route('/empleados/imagen/<int:id>')
+@login_required
+def consultarImagenEmpledos(id):
+
+        e = Empleados()
+        return e.consultaIndividual(id).foto
+
+@app.route('/empleadosNuevo')
+def empleadosNuevo():
+    d = Departamentos()
+    departamentos = d.consultaGeneral()
+    p = Puestos()
+    puestos = p.consultaGeneral()
+    c = Ciudades()
+    ciudades = c.consultaGeneral()
+    s = Sucursales()
+    sucursales = s.consultaGeneral()
+    t = Turnos()
+    turnos = t.consultaGeneral()
+    activado = 1
+    return render_template('empleados/empleadosNuevo.html',departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos)
+
+@app.route('/registrarEmpleados',methods=['post'])
+def registrarEmpleados():
+    e = Empleados()
+    e.nombre = request.form['nombre']
+    e.fotografia = request.files['fotografia'].read()
+    e.apellidoPaterno = request.form["apellidoPaterno"]
+    e.apellidoMaterno = request.form["apellidoMaterno"]
+    e.sexo = request.form["sexo"]
+    e.fechaNacimiento = request.form['fechaNacimiento']
+    e.curp = request.form["curp"]    
+    e.estadoCivil = request.form["estadoCivil"]    
+    e.fechaContratacion = request.form['fechaContratacion']
+    e.tipo = request.form['tipo']
+    e.salarioDiaro = request.form["salarioDiario"]
+    e.nss = request.form["nss"]
+    e.diasVaciones = request.form["diasVacaciones"]
+    e.diasPermiso = request.form["diasPermiso"]
+    e.direccion = request.form["direccion"]
+    e.colonia = request.form["colonia"]
+    e.codigoPostal = request.form["codigoPostal"]
+    e.escolaridad = request.form["escolaridad"]
+    e.especialidad = request.form["especialidad"]
+    e.email = request.form["email"]
+    e.clave = request.form["password"]
+    e.idDepartamento= request.form["idDepartamento"]
+    e.idPuesto= request.form["idPuesto"]
+    e.idCiudad= request.form["idCiudad"]
+    e.idCiudad = request.form["idCiudad"]
+    e.idSucursal = request.form["idSucursal"]
+    e.idTurno = request.form["idTurno"]
+    e.insertar()
+    flash('Se ha registrado un nuevo empleado con éxito!!')
+    return render_template('empleados/empleadosNuevo.html')
+
+@app.route('/empleadosEditar/<int:id>')
+def empleadosEditar(id):
+    e = Empleados()
+    return render_template('empleados/empleadosEditar.html', empleado = e.consultaIndividual(id))
+
+@app.route('/guardarEmpleados',methods=['post'])
+def guardarEmpleado():
+    e = Empleados()
+    e.idEmpleadi = request.form['idDepartamento']
+    e.nombre = request.form['nombre']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        e.estatus=True
+    else:
+        e.estatus=False
+    e.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('empleados/empleadosEditar.html', empleados = e.consultaIndividual(request.form['idEmpleado']))
+
+@app.route('/empleadosEliminar/<int:id>')
+def empleadosEliminar(id):
+    e = Empleados()
+    e.eliminar(id)
+    flash('Se ha eliminado el empleado con éxito!!')
+    return redirect(url_for('empleados'))
+
+
 #######################################################################################################################
 
 @app.route('/estados/<int:page>' )
@@ -225,6 +330,7 @@ def consultarEstado(nombre):
     estado=Estados()
     return json.dumps(estado.consultarEstados(nombre))
 
+
 @app.route('/estadoSig/siglas/<string:siglas>',methods=['get'])
 @login_required
 def consultarEstadoSig(siglas):
@@ -236,6 +342,7 @@ def consultarEstadoSig(siglas):
 def consultarCiudad(nombre):
     ciudad=Ciudades()
     return json.dumps(ciudad.consultarCiudades(nombre))
+
 
 @app.route('/departamento/nombre/<string:nombre>',methods=['get'])
 @login_required
