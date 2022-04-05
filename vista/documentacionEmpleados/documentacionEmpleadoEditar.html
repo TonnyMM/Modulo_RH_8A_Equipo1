@@ -1,0 +1,97 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
+<br /><br />
+<form action="/guardardocumentacionEmpleado" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>EDICIÓN DE DOCUMENTO</h1>
+
+    <div class="form-group">
+        <div class="doc">
+            <label for="documento">Documento: </label>
+            <input type="file" name="documento" id="documento" accept=".pdf">
+        </div>
+        <br/>
+        <a data-toggle="modal" data-target="#pdf" id="imgn"><span class="glyphicon glyphicon-eye-open"><b> Visualizar</b></span></a>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombreEmpleado">Empleado: </label>
+        <div class="col-sm-10">
+            <input type="hidden" name="idDocumento" value="{{documento.idDocumento}}">
+            <input type="hidden" name="idEmpleado" value="{{documento.idEmpleado}}">
+            <input type="text" name="nombre" id="nombreEmpleado" value="{{documento.Empleado.nombre}} {{documento.Empleado.apellidoPaterno}} {{documento.Empleado.apellidoMaterno}}" class="form-control" readonly/>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombreDocumento">Nombre: </label>
+        <div class="col-sm-10">
+            <input type="text" name="nombreDocumento" id="nombreDocumento" value="{{documento.nombreDocumento}}" maxlength="80"
+                   required class="form-control" />
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaEntrega">Fecha de entrega: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="date" name="fechaEntrega" id="fechaEntrega" value="{{documento.fechaEntrega}}"
+                   required />
+        </div>
+    </div>
+    <br/><br><br/>
+
+    <a class="btn btn-dark" href="/documentacionEmpleado/1,{{documento.idEmpleado}}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+    <a data-toggle="modal" data-target="#eliminarUs" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
+
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</form>
+<br /><br />
+<!--MODAL PARA MOSTRAR LA PDF-->
+<div id="pdf" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h4 class="modal-title">{{documento.nombreDocumento}}</h4>
+            </div>
+            <div class="modal-body">
+                <embed src="data:application/pdf;base64,/empleadoDocumento/{{documento.idDocumento}}" type="application/pdf" width="100%" height="600px"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--ELIMINAR USUARIO-->
+<div id="eliminarUs"  class="modal fade" role="dialog">
+    <div class="modal-dialog" role="eliminar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminación del documento: {{documento.nombreDocumento}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿ Esta seguro de que quiere eliminar este Usuario ?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/administrativosEliminar/{{documento.idDocumento}}" class="btn btn-info">Si</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}

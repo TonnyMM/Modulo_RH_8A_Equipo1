@@ -1,0 +1,54 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>DOCUMENTOS DE EMPLEADOS</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+<div class="Buscador">
+    <input id="myInput" type="text" placeholder="Buscar">
+</div>
+<br /><br />
+<table class="table table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>EMPLEADO</th>
+        <th>FECHA DE CONTRATACIÓN</th>
+        <th>CONSULTAR DOCUMENTACIÓN</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for e in empleados %}
+    <tr>
+        <td>{{e.idEmpleado}}</td>
+        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+        <td>{{e.fechaContratacion}}</td>
+        <td><a href="/documentacionEmpleado/1,{{e.idEmpleado}}"><span class="glyphicon glyphicon-level-up"></span></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br />
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
+
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% else %}
+        <li><a class="page-link" href="/EmpleadosDocumentacion/{{pagina-1}}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+        {% if pagina >= paginas %}
+        <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+        {% else %}
+        <li><a class="page-link" href="/EmpleadosDocumentacion/{{pagina+1}}">Siguiente</a></li>
+        {% endif %}
+    </ul>
+</div>
+{%endblock content%}

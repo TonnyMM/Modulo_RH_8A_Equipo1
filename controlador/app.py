@@ -3,7 +3,7 @@ from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
 
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -1135,6 +1135,98 @@ def sucursalesEliminar(id):
         s.actualizar()
     flash('Se ha eliminado la sucursal con éxito!!')
     return redirect(url_for('sucursales',page=1))
+
+#######################################################################################################################
+@app.route('/EmpleadosDocumentacion/<int:page>')
+@login_required
+def EmpleadosDocumentacion(page=1):
+    e = Empleados()
+    try:
+        paginacion=e.consultarPagina(page)
+        empleados=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay Empleados registradas")
+        empleados=None
+    return render_template('documentacionEmpleados/empleadosDoc.html',empleados = empleados,
+                           paginas=paginas,pagina=page)
+
+@app.route('/documentacionEmpleado/<int:page>,<int:id>')
+@login_required
+def documentacionEmpleado(id,page=1):
+    d = DocumentacionEmpleado()
+    e = Empleados()
+    try:
+        paginacion=d.consultarPagina(page)
+        documentacionEmpleado=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay documentacion del empleado")
+        documentacionEmpleado=None
+    return render_template('documentacionEmpleados/documentacionEmpleadoListado.html',documentacionEmpleado = documentacionEmpleado,
+                           paginas=paginas,pagina=page, empleado = e.consultaIndividual(id))
+
+@app.route('/documentacionEmpleadoNuevo/<int:id>')
+@login_required
+def documentacionEmpleadoNuevo(id):
+    e = Empleados()
+    return render_template('documentacionEmpleados/documentacionEmpleadoNuevo.html', empleado=e.consultaIndividual(id))
+
+@app.route('/registrardocumentacionEmpleado',methods=['post'])
+@login_required
+def registrardocumentacionEmpleado():
+    d = DocumentacionEmpleado()
+    d.nombreDocumento = request.form['nombreDocumento']
+    d.fechaEntrega = request.form['fechaEntrega']
+    d.idEmpleado= request.form['idEmpleado']
+    d.documento = request.files['documento'].read()
+    d.insertar()
+    e = Empleados()
+    for emp in e.consultaGeneral():
+        if emp.idEmpleado == int(request.form['idEmpleado']):
+            empleado = emp
+    flash('Se ha guardado el documento con éxito!!')
+    return render_template('documentacionEmpleados/documentacionEmpleadoNuevo.html', empleado = empleado)
+
+
+@app.route('/documentacionEmpleadoEditar/<int:id>')
+@login_required
+def documentacionEmpleadoEditar(id):
+    d = DocumentacionEmpleado()
+    return render_template('documentacionEmpleados/documentacionEmpleadoEditar.html', documento = d.consultaIndividual(id))
+
+
+@app.route('/guardardocumentacionEmpleado',methods=['post'])
+@login_required
+def guardardocumentacionEmpleado():
+    d = DocumentacionEmpleado()
+    d.idDocumento = request.form['idDocumento']
+    d.nombreDocumento = request.form['nombreDocumento']
+    d.fechaEntrega =request.form['fechaEntrega']
+    d.documento = request.files['documento'].read()
+    d.idEmpleado =request.form['idEmpleado']
+    d.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('documentacionEmpleados/documentacionEmpleadoEditar.html',documento = d.consultaIndividual(request.form['idDocumento']))
+
+@app.route('/administrativosEliminar/<int:id>')
+@login_required
+def administrativosEliminar(id):
+    d = DocumentacionEmpleado()
+    d.eliminar(id)
+    idE = request.form['idEmpleado']
+    flash('Se ha eliminado el documento de forma permanente!!')
+    return redirect(url_for('documentacionEmpleado',idE,page=1))
+
+@app.route('/empleadoDocumento/<int:id>')
+@login_required
+def empleadoDocumento(id):
+    d = DocumentacionEmpleado()
+    return d.consultaIndividual(id).documento
 
 @app.errorhandler(404)
 def error404(e):

@@ -101,8 +101,12 @@ td {
   margin: auto;
 }
 
-#nuevo1 {
+#nuevo1, #nuevo11{
   margin-left: 5%;
+  color: black;
+  size: 20 px;
+}
+#nuevo_esp{
   color: black;
   size: 20 px;
 }
@@ -445,4 +449,23 @@ Fomulario fieldset -------------------------------------------------------------
   object-fit: cover
 }
 
+#datos{
+  width: 40%;
+  margin: auto;
+}
 
+.dias{
+  margin-left: 12px;
+}
+#L,#M,#MI,#J,#V,#S,#DO{
+  color: white;
+}
+.list{
+  list-style: none;
+  color: white;
+  margin-left: 0px;
+}
+.list li{
+  display: inline;
+  padding-right: 30px;
+}

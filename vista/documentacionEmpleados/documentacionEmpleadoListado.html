@@ -1,0 +1,99 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+
+
+<h1>DOCUMENTACIÓN DEL EMPLEADO</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+<table class="table table-hover" id="datos">
+    <tr>
+        <th>EMPLEADO</th>
+        <th>PUESTO</th>
+    </tr>
+    <tr>
+        <td>{{empleado.nombre}} {{empleado.apellidoPaterno}} {{empleado.apellidoMaterno}}</td>
+        <td>{{empleado.Puesto.nombre}}</td>
+    </tr>
+</table>
+<br />
+<a class="btn btn-dark" id="nuevo11" href="/EmpleadosDocumentacion/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+<a href="/documentacionEmpleadoNuevo/{{empleado.idEmpleado}}" class="btn btn-success" id="nuevo_esp"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+<div class="Buscador">
+    <input id="myInput" type="text" placeholder="Buscar">
+</div>
+<br /><br />
+<table class="table table-hover" id="users">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE DEL DOCUMENTO</th>
+        <th>FECHA DE ENTREGA</th>
+        <th>DOCUMENTO</th>
+        <th>EDITAR</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for d in documentacionEmpleado%}
+    <tr>
+        {%if empleado.idEmpleado == d.idEmpleado%}
+            <td>{{d.idDocumento}}</td>
+            <td>{{d.nombreDocumento}}</td>
+            <td>{{d.fechaEntrega}}</td>
+            <td><a data-toggle="modal" data-target="#pdff{{d.idDocumento}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b> Visualizar</b></span></a></td>
+
+            <div id="pdff{{d.idDocumento}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">X</button>
+                            <h4 class="modal-title">{{d.nombreDocumento}}</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <form  method="post" action="/edit_profile">
+                                <div class="form-group">
+                                    <embed id="pdf" src="data:application/pdf;base64,/empleadoDocumento/{{d.idDocumento}}" type="application/pdf" width="100%" height="600px"/>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <td><a href="/documentacionEmpleadoEditar/{{d.idDocumento}}"><span class="glyphicon glyphicon-edit"><b> Editar</b></span></a></td>
+        {%endif%}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br />
+
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
+
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% else %}
+        <li><a class="page-link" href="/EmpleadosDocumentacion/{{pagina-1}}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+        {% if pagina >= paginas %}
+        <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+        {% else %}
+        <li><a class="page-link" href="/EmpleadosDocumentacion/{{pagina+1}}">Siguiente</a></li>
+        {% endif %}
+    </ul>
+</div>
+{%endblock content%}
