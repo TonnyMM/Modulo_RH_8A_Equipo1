@@ -1258,9 +1258,9 @@ def guardardocumentacionEmpleado():
     flash('Se han guardado los cambios con éxito!!')
     return render_template('documentacionEmpleados/documentacionEmpleadoEditar.html',documento = d.consultaIndividual(request.form['idDocumento']))
 
-@app.route('/administrativosEliminar/<int:id>')
+@app.route('/documentoEliminar/<int:id>')
 @login_required
-def administrativosEliminar(id):
+def documentoEliminar(id):
     d = DocumentacionEmpleado()
     d.eliminar(id)
     idE = request.form['idEmpleado']

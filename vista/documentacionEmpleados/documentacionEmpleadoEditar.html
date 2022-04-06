@@ -68,7 +68,7 @@
                 <h4 class="modal-title">{{documento.nombreDocumento}}</h4>
             </div>
             <div class="modal-body">
-                <embed src="data:application/pdf;base64,/empleadoDocumento/{{documento.idDocumento}}" type="application/pdf" width="100%" height="600px"/>
+                <embed src="/empleadoDocumento/{{documento.idDocumento}}" type="application/pdf" width="100%" height="600px"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -88,7 +88,7 @@
                 <p>¿ Esta seguro de que quiere eliminar este Usuario ?</p>
             </div>
             <div class="modal-footer">
-                <a href="/administrativosEliminar/{{documento.idDocumento}}" class="btn btn-info">Si</a>
+                <a href="/documentoEliminar/{{documento.idDocumento}}" class="btn btn-info">Si</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

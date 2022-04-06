@@ -5,51 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/reloj.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/reloj.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/venv/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controlador/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vista/empleados/empleadosListado.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modelo/DAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -200,18 +165,6 @@
       <recent name="D:\Tec\Modulo_RH_8A_Equipo1\static\img" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Modulo_RH_8A_Equipo1" />
@@ -220,7 +173,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\AntonioMM\AppData\Local\Programs\Python\Python37-32\python.exe" />
+      <option name="SDK_HOME" value="C:\Python37\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controlador" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -240,7 +193,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
   <component name="SvnConfiguration">
     <configuration />
   </component>

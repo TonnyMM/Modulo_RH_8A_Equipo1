@@ -78,9 +78,9 @@ $(document).ready(function(){
 	
 	$(".next").click(function(){
 		//
-		//if(//nombre=="" || foto=="")
-		//false)
-		//{
+		if(nombre=="" || foto=="")
+		
+		{
 			//
 			current_fs = $(this).parent();
 			next_fs = $(this).parent().next();
