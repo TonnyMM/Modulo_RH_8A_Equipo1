@@ -107,7 +107,7 @@ def empleadosNuevo():
     sucursales = s.consultaGeneral()
     t = Turnos()
     turnos = t.consultaGeneral()
-    activado = 1
+    
     return render_template('empleados/empleadosNuevo.html',departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos)
 
 @app.route('/registrarEmpleados',methods=['post'])
@@ -147,13 +147,51 @@ def registrarEmpleados():
 @app.route('/empleadosEditar/<int:id>')
 def empleadosEditar(id):
     e = Empleados()
-    return render_template('empleados/empleadosEditar.html', empleado = e.consultaIndividual(id))
+    d = Departamentos()
+    departamentos = d.consultaGeneral()
+    p = Puestos()
+    puestos = p.consultaGeneral()
+    c = Ciudades()
+    ciudades = c.consultaGeneral()
+    s = Sucursales()
+    sucursales = s.consultaGeneral()
+    t = Turnos()
+    turnos = t.consultaGeneral()
+    return render_template('empleados/empleadosEditar.html', empleado = e.consultaIndividual(id),departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos)
 
 @app.route('/guardarEmpleados',methods=['post'])
 def guardarEmpleado():
     e = Empleados()
-    e.idEmpleadi = request.form['idDepartamento']
+    e.idEmpleado = request.form['idEmpleado']
     e.nombre = request.form['nombre']
+    fotografia=request.files['fotografia'].read()
+    if fotografia:
+        e.fotografia=fotografia
+    e.apellidoPaterno = request.form["apellidoPaterno"]
+    e.apellidoMaterno = request.form["apellidoMaterno"]
+    e.sexo = request.form["sexo"]
+    e.fechaNacimiento = request.form['fechaNacimiento']
+    e.curp = request.form["curp"]    
+    e.estadoCivil = request.form["estadoCivil"]    
+    e.fechaContratacion = request.form['fechaContratacion']
+    e.tipo = request.form['tipo']
+    e.salarioDiaro = request.form["salarioDiario"]
+    e.nss = request.form["nss"]
+    e.diasVaciones = request.form["diasVacaciones"]
+    e.diasPermiso = request.form["diasPermiso"]
+    e.direccion = request.form["direccion"]
+    e.colonia = request.form["colonia"]
+    e.codigoPostal = request.form["codigoPostal"]
+    e.escolaridad = request.form["escolaridad"]
+    e.especialidad = request.form["especialidad"]
+    e.email = request.form["email"]
+    e.clave = request.form["password"]
+    e.idDepartamento= request.form["idDepartamento"]
+    e.idPuesto= request.form["idPuesto"]
+    e.idCiudad= request.form["idCiudad"]
+    e.idCiudad = request.form["idCiudad"]
+    e.idSucursal = request.form["idSucursal"]
+    e.idTurno = request.form["idTurno"]
     estatus = request.values.get('estatus',False)
     if estatus=="True":
         e.estatus=True
@@ -161,7 +199,7 @@ def guardarEmpleado():
         e.estatus=False
     e.actualizar()
     flash('Se han guardado los cambios con éxito!!')
-    return render_template('empleados/empleadosEditar.html', empleados = e.consultaIndividual(request.form['idEmpleado']))
+    return render_template('empleados/empleadosEditar.html', empleado = e.consultaIndividual(request.form['idEmpleado']))
 
 @app.route('/empleadosEliminar/<int:id>')
 def empleadosEliminar(id):

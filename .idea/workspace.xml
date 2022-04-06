@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vista/empleados/empleadosListado.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="163" column="24" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
+            <state relative-caret-position="604">
+              <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -108,7 +107,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -256,7 +255,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13152677" />
@@ -560,8 +559,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vista/empleados/empleadosListado.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="163" column="24" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
+        <state relative-caret-position="604">
+          <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
         </state>
       </provider>
     </entry>

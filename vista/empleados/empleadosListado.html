@@ -11,14 +11,38 @@
 {% endfor %}
 {% endif %}
 
-
+<script>
+    $(document).ready(function(){
+        $("#myInput2").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable2 tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      $(document).ready(function(){
+        $("#myInput3").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable3 tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      $(document).ready(function(){
+        $("#myInput4").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable4 tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+</script>
 
 <ul class="nav nav-tabs" id="ex1">
     <li class="active"><a data-toggle="tab" href="#menu1">Datos Personales</a></li>
     <li><a data-toggle="tab" href="#menu2">Datos Profesionales</a></li>
     <li><a data-toggle="tab" href="#menu3">Datos de Contratacion</a></li>
     <li><a data-toggle="tab" href="#menu4">Datos de Sesion</a></li>
-    <li><a data-toggle="tab" href="#menu5">Documentos</a></li>
 </ul>
 
 <div class="tab-content">
@@ -87,7 +111,7 @@
         <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
                 class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
         <div class="Buscador">
-            <input id="myInput" type="text" placeholder="Buscar">
+            <input id="myInput2" type="text" placeholder="Buscar">
         </div>
         <br /><br />
         <table class="table table-hover">
@@ -103,7 +127,7 @@
                     <th>EDITAR</th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="myTable2">
                 {% for e in empleados %}
                 <tr>
                     {% if e.estatus == 1 %}
@@ -132,7 +156,7 @@
         <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
             class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
         <div class="Buscador">
-            <input id="myInput" type="text" placeholder="Buscar">
+            <input id="myInput3" type="text" placeholder="Buscar">
         </div>
         <br /><br />
         <table class="table table-hover">
@@ -154,7 +178,7 @@
                     <th>EDITAR</th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="myTable3">
                 {% for e in empleados %}
                 <tr>
                     {% if e.estatus == 1 %}
@@ -208,7 +232,7 @@
             <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
                 class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
             <div class="Buscador">
-                <input id="myInput" type="text" placeholder="Buscar">
+                <input id="myInput4" type="text" placeholder="Buscar">
             </div>
             <br /><br />
             <table class="table table-hover">
@@ -222,7 +246,7 @@
                         <th>EDITAR</th>
                     </tr>
                 </thead>
-                <tbody id="myTable">
+                <tbody id="myTable4">
                     {% for e in empleados %}
                     <tr>
                         {% if e.estatus == 1 %}
@@ -262,14 +286,10 @@
         
     </div>
 
-
-    <div id="menu5" class="tab-pane fade">
-            
-
         <!------Aqui va todo lo de DOCUMENTOS-------------------------------------------------------------------------------------------------->
 
         
-    </div>
+
 </div>
 
     

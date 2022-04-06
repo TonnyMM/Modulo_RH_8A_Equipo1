@@ -78,11 +78,13 @@ $(document).ready(function(){
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/formasPago/1">Formas de pago</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/EmpleadosDocumentacion/1">Documentación de empleados</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color:#001b0d;" href="/empleados/1">Empleados</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Empleados</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/empleados/1">Gestion de Empleados</a></li>
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/EmpleadosDocumentacion/1">Documentación de empleados</a></li>
+                        
+                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="usuar">
