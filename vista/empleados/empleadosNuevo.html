@@ -18,7 +18,7 @@
 
     <!-- progressbar -->
     <ul id="progressbar" class="nav nav-tabs">
-        <li class="active" id="account"><strong>Datos Personales</strong></li>
+        <li class="active" id="account" ><strong>Datos Personales</strong></li>
         <li id="personal"><strong>Datos Profesionales</strong></li>
         <li id="payment"><strong>Datos de Contratacion</strong></li>
         <li id="confirm"><strong>Datos de Sesion</strong></li>
@@ -45,8 +45,9 @@
             <label class="control-label col-sm-1" for="nombre">Nombre: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50"
-                    required pattern="[A-Za-zéóáíú% %{2,50}" 
+                    required pattern="[A-Za-z éóáíú% %]{2,60}"
                     title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
         </div>
         <br /><br />
@@ -73,7 +74,7 @@
                 <label class="control-label col-sm-1" for="sexo">Sexo: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="sexo" name="sexo" required>
-                        <option disabled selected>Seleccionar</option>
+                        <option disabled selected value="">Seleccionar</option>
                         <option value="F">Mujer</option>
                         <option value="M">Hombre</option>
                     </select>
@@ -118,7 +119,7 @@
                 <label class="control-label col-sm-1" for="estadoCivil">Estado Civil: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="estadoCivil" required name="estadoCivil">
-                        <option disabled selected>Seleccionar</option>
+                        <option disabled selected value="">Seleccionar</option>
                         <option value="Soltero">Soltero</option>
                         <option value="Casado">Casado</option>
                     </select>
@@ -129,7 +130,7 @@
         <br /><br /><br />
         <div class="col-sm-1">
         <a class="btn btn-dark" href="/empleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
-        <input type="button" name="next" class="next action-button" id="next" value="Siguiente" />
+        <input type="button" name="next" class="next action-button" id="next" onclick="datoP()" value="Siguiente" />
 
     </fieldset>
 
@@ -174,8 +175,8 @@
 
         <div class="col-sm-1"><a class="btn btn-dark" href="/empleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
         
-        <input type="button" name="next" class="next action-button" value="Siguiente" /> <input type="button" name="Atras"
-            class="previous action-button-previous" value="Previous" />
+        <input type="button" name="next" class="next action-button" onclick="datoPro()" value="Siguiente" /> <input type="button" name="Previous"
+            class="previous action-button-previous" value="Atras" />
     </fieldset>
     <fieldset>
 
@@ -186,7 +187,7 @@
             <label class="control-label col-sm-1">Ciudad: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idCiudad" name="idCiudad" required>
-                    <option value="x" selected disabled>Selecciona</option>
+                    <option value="" selected disabled >Selecciona</option>
                     {% for c in ciudades%}
                     <option value="{{c.idCiudad}}">{{c.nombre}}</option>
                     {% endfor %}
@@ -196,7 +197,7 @@
             <label class="control-label col-sm-1" for="sucursal">Sucursal: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idSucursal" required name="idSucursal">
-                    <option value="x" selected disabled>Selecciona</option>
+                    <option value="" selected disabled>Selecciona</option>
                     {% for c in ciudades%}
                     {% for s in sucursales%}
                         {%if c.idCiudad == s.idCiudad%}
@@ -213,7 +214,7 @@
             <label class="control-label col-sm-1">Departamento:</label>
             <div class="col-sm-5">
                 <select class="form-control" id="idDepartamento" name="idDepartamento" required>
-                    <option value="x" selected disabled>Selecciona</option>
+                    <option value="" selected disabled>Selecciona</option>
                     {% for d in departamentos%}
                     <option value="{{d.idDepartamento}}">{{d.nombre}}</option>
                     {% endfor %}
@@ -223,7 +224,7 @@
             <label class="control-label col-sm-1" for="puesto">Puesto: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idPuesto" name="idPuesto" required>
-                    <option value="x" selected disabled>Selecciona</option>
+                    <option value="" selected disabled>Selecciona</option>
                     {% for p in puestos%}
                         <option value="{{p.idPuesto}}">{{p.nombre}}</option>
                     {% endfor %}
@@ -242,7 +243,7 @@
                 <label class="control-label col-sm-1" for="tipo">Tipo : </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="tipo" name="tipo" required>
-                        <option disabled selected>Seleccionar</option>
+                        <option disabled selected value="">Seleccionar</option>
                         <option value="E">Empleado</option>
                         <option value="S">Staff</option>
                         <option value="A">Administrador</option>
@@ -257,7 +258,7 @@
                 <label class="control-label col-sm-1" for="turno">Turno: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="idTurno" name="idTurno" required>
-                        <option value="x" selected disabled>Selecciona</option>
+                        <option value="" selected disabled>Selecciona</option>
                         {% for p in turnos%}
                         <option value="{{p.idTurno}}">{{p.nombre}}</option>
                         {% endfor %}
@@ -266,7 +267,7 @@
 
             <label class="control-label col-sm-1" for="salarioDiario">Salario diario: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="number" name="salarioDiario" id="fechaContratacsalarioDiarioion"
+                <input class="form-control" type="number" name="salarioDiario" id="salarioDiario"
                     placeholder="Salario" required />
             </div>
         </div>
@@ -290,8 +291,8 @@
         <br /><br /><br />
         <div class="col-sm-1"><a class="btn btn-dark" href="/empleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
         
-        <input type="button" name="next" class="next action-button" value="Siguiente" /> <input type="button" name="Atras"
-            class="previous action-button-previous" value="Previous" />
+        <input type="button" name="next" class="next action-button" onclick="datoContra()" value="Siguiente" /> <input type="button" name="Previous"
+            class="previous action-button-previous" value="Atras" />
 
 
     </fieldset>
@@ -318,15 +319,13 @@
 
         <div class="col-sm-1">
         <a class="btn btn-dark" href="/empleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
-        </div>
-        <div id="ya">
-             <input type="button" name="previous" class="previous action-button-previous col-sm-10" value="Atras" />
-             <br/>
-
-        <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+        </div><input type="button" name="previous" class="previous action-button-previous col-sm-10" value="Atras" />
+        
+        <br /><br /><br /><br />
+        <button style="background-color: #389242;" type="submit"  class="btn btn-info"><span
                     class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
             
-        </div> 
+        
                   
 
     </fieldset>

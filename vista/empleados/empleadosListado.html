@@ -39,10 +39,10 @@
 </script>
 
 <ul class="nav nav-tabs" id="ex1">
-    <li class="active"><a data-toggle="tab" href="#menu1">Datos Personales</a></li>
-    <li><a data-toggle="tab" href="#menu2">Datos Profesionales</a></li>
-    <li><a data-toggle="tab" href="#menu3">Datos de Contratacion</a></li>
-    <li><a data-toggle="tab" href="#menu4">Datos de Sesion</a></li>
+    <li class="active"><a data-toggle="tab" href="#menu1" style="color: darkgreen;">Datos Personales</a></li>
+    <li><a data-toggle="tab" href="#menu2" style="color: darkgreen;">Datos Profesionales</a></li>
+    <li><a data-toggle="tab" href="#menu3" style="color: darkgreen;">Datos de Contratacion</a></li>
+    <li><a data-toggle="tab" href="#menu4" style="color: darkgreen;">Datos de Sesion</a></li>
 </ul>
 
 <div class="tab-content">
@@ -212,8 +212,8 @@
                                 <td>{{t.nombre}}</td>
                             {%endif%}
                         {%endfor%}
-                        <td>{{e.salarioDiario}}</td>
-                        <td>{{e.diasVacaciones}}</td>
+                        <td>{{e.salarioDiaro}}</td>
+                        <td>{{e.diasVaciones}}</td>
                         <td>{{e.diasPermiso}}</td>
                         <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
                         </td>

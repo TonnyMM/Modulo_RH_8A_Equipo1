@@ -125,6 +125,14 @@
                         <option readonly selected value="{{empleado.estadoCivil}}" >Seleccionar</option>
                         <option value="Soltero">Soltero</option>
                         <option value="Casado">Casado</option>
+
+                        {%if empleado.estadoCivil == 'Soltero' %}
+                            <option  selected value="Soltero">Soltero</option>
+                            <option   value="Casado">Casado</option>
+                            {%else%}
+                            <option   value="Soltero">Soltero</option>
+                            <option  selected value="Casado">Casado</option>
+                        {%endif%}
                     </select>
                 </div>
             </div>
@@ -300,7 +308,7 @@
 
             <label class="control-label col-sm-1" for="salarioDiario">Salario diario: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="number" name="salarioDiario" id="fechaContratacsalarioDiarioion" value="{{empleado.fechaNacimiento}}"
+                <input class="form-control" type="number" name="salarioDiario" id="salarioDiario" value="{{empleado.salarioDiaro}}"
                     placeholder="Salario" required />
             </div>
         </div>
@@ -310,7 +318,7 @@
             <label class="control-label col-sm-1" for="diasVacaciones">Dias Vacacionales: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="number" name="diasVacaciones" id="diasVacaciones"
-                    placeholder="selecciona dias" value="{{empleado.diasVacaciones}}" required />
+                    placeholder="selecciona dias" value="{{empleado.diasVaciones}}" required />
             </div>
 
             <label class="control-label col-sm-1" for="diasPermiso">Dias con permiso: </label>
@@ -343,7 +351,7 @@
             <label class="control-label col-sm-1" for="password">Contraseña: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="password" name="password" id="password" placeholder="password" maxlength="50"
-                    required pattern="[A-Za-zéóáíú% %{2,50}" value="{{empleado.password}}"
+                    required pattern="[A-Za-zéóáíú% %{2,50}" value="{{empleado.clave}}"
                     title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
             </div>
         </div>

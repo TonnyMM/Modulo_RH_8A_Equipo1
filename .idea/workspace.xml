@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/reloj.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/reloj.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/venv/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +75,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -165,6 +168,18 @@
       <recent name="D:\Tec\Modulo_RH_8A_Equipo1\static\img" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Modulo_RH_8A_Equipo1" />
@@ -173,7 +188,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Python37\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\AntonioMM\AppData\Local\Programs\Python\Python37-32\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controlador" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -208,8 +223,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13152677" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

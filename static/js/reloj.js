@@ -63,6 +63,109 @@ $(function() {
 	})
 })
 //jQuery time
+		var nombre=document.getElementById("nombre").value;
+		var apellidoPaterno=document.getElementById("apellidoPaterno").value;
+		var apellidoMaterno=document.getElementById("apellidoMaterno").value;
+		var sexo=document.getElementById("sexo").value;
+		var fechaNacimiento=document.getElementById("fechaNacimiento").value;
+		var direccion=document.getElementById("direccion").value;
+		var colonia=document.getElementById("colonia").value;
+		var codigoPostal=document.getElementById("codigoPostal").value;
+		var estadoCivil=document.getElementById("estadoCivil").value;
+		var escolaridad=document.getElementById("escolaridad").value;
+		var especialidad=document.getElementById("especialidad").value;
+		var curp=document.getElementById("curp").value;
+		var nss=document.getElementById("nss").value;
+		var idCiudad=document.getElementById("idCiudad").value;
+		var idSucursal=document.getElementById("idSucursal").value;
+		var idDepartamento=document.getElementById("idDepartamento").value;
+		var idPuesto=document.getElementById("idPuesto").value;
+		var fechaContratacion=document.getElementById("fechaContratacion").value;
+		var tipo=document.getElementById("tipo").value;
+		var idTurno=document.getElementById("idTurno").value;
+		var salarioDiario=document.getElementById("salarioDiario").value;
+		var diasVacaciones=document.getElementById("diasVacaciones").value;
+		var diasPermiso=document.getElementById("diasPermiso").value;
+		var email=document.getElementById("email").value;
+		var password=document.getElementById("password").value;
+
+
+var band=true;
+function datoP()
+{
+	nombre=document.getElementById("nombre").value;
+	apellidoPaterno=document.getElementById("apellidoPaterno").value;
+	apellidoMaterno=document.getElementById("apellidoMaterno").value;
+	sexo=document.getElementById("sexo").value;
+	fechaNacimiento=document.getElementById("fechaNacimiento").value;
+	direccion=document.getElementById("direccion").value;
+	colonia=document.getElementById("colonia").value;
+	codigoPostal=document.getElementById("codigoPostal").value;
+	estadoCivil=document.getElementById("estadoCivil").value;
+
+	if(nombre=="" || apellidoMaterno=="" || apellidoPaterno=="" || sexo=="" || fechaNacimiento=="" || direccion=="" || colonia=="" || codigoPostal=="" || estadoCivil=="")
+	{
+		band=false;
+		console.log("falta nombre");
+	} else{
+		band=true;
+		console.log("cambio");
+	}
+}
+function datoPro()
+{
+	
+	escolaridad=document.getElementById("escolaridad").value;
+	especialidad=document.getElementById("especialidad").value;
+	curp=document.getElementById("curp").value;
+	nss=document.getElementById("nss").value;
+
+	if(escolaridad=="" || especialidad=="" || curp=="" || nss=="" )
+	{
+		band=false;
+		console.log("falta nombre");
+	} else{
+		band=true;
+		console.log("cambio");
+	}
+}
+function datoContra()
+{
+	
+	idCiudad=document.getElementById("idCiudad").value;
+	idSucursal=document.getElementById("idSucursal").value;
+	idDepartamento=document.getElementById("idDepartamento").value;
+	idPuesto=document.getElementById("idPuesto").value;
+	fechaContratacion=document.getElementById("fechaContratacion").value;
+	tipo=document.getElementById("tipo").value;
+	idTurno=document.getElementById("idTurno").value;
+	salarioDiario=document.getElementById("salarioDiario").value;
+	diasVacaciones=document.getElementById("diasVacaciones").value;
+	diasPermiso=document.getElementById("diasPermiso").value;
+	if(idCiudad=="" || idSucursal=="" || idDepartamento=="" || idPuesto=="" || fechaContratacion=="" || tipo=="" || idTurno=="" || salarioDiario=="" || diasVacaciones=="" || diasPermiso=="")
+	{
+		band=false;
+		console.log("falta nombre");
+	} else{
+		band=true;
+		console.log("cambio");
+	}
+}
+function datoSesion()
+{
+	
+	var email=document.getElementById("email").value;
+	var email=document.getElementById("password").value;
+
+	if(email=="" || email==""  )
+	{
+		band=false;
+		console.log("falta nombre");
+	} else{
+		band=true;
+		console.log("cambio");
+	}
+}
 
 
 $(document).ready(function(){
@@ -77,10 +180,12 @@ $(document).ready(function(){
 	setProgressBar(current);
 	
 	$(".next").click(function(){
-		//
-		if(nombre=="" || foto=="")
 		
-		{
+		if(band){
+			
+		
+		
+		
 			//
 			current_fs = $(this).parent();
 			next_fs = $(this).parent().next();
@@ -105,7 +210,7 @@ $(document).ready(function(){
 				duration: 500
 			});
 			setProgressBar(++current);
-		//}
+		}
 	});
 	
 	$(".previous").click(function(){
