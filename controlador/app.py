@@ -67,8 +67,15 @@ def empleados(page=1):
     e = Empleados()
     d = Departamentos()
     p = Puestos()
+    c = Ciudades()
+    s = Sucursales()
+    sucursales = s.consultaGeneral()
+    t = Turnos()
+    turnos = t.consultaGeneral()
+    
     try:
         puestos= p.consultaGeneral()
+        ciudadess = c.consultaGeneral()
         departamentos = d.consultaGeneral()
         paginacion=e.consultarPagina(page)
         empleados=paginacion.items
@@ -78,7 +85,7 @@ def empleados(page=1):
     except OperationalError:
         flash("No hay estados registrados")
         empleados=None
-    return render_template('empleados/empleadosListado.html',empleados = empleados,paginas=paginas,pagina=page, puestos=puestos,departamentos=departamentos)
+    return render_template('empleados/empleadosListado.html',empleados = empleados,paginas=paginas,pagina=page, puestos=puestos,departamentos=departamentos,ciudadess=ciudadess,sucursales=sucursales,turnos=turnos)
 
 
 @app.route('/empleados/imagen/<int:id>')

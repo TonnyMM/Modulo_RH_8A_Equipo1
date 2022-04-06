@@ -101,6 +101,10 @@ td {
   margin: auto;
 }
 
+#ex1{
+  margin-inline: 5%;
+}
+
 #nuevo1, #nuevo11{
   margin-left: 5%;
   color: black;

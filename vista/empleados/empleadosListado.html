@@ -1,7 +1,7 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-<h1>LISTADO DE DEPARTAMENTOS</h1>
+<h1>LISTADO DE EMPLEADOS</h1>
 {% if get_flashed_messages() %}
 {% for m in get_flashed_messages()%}
 <div class="alert alert-success alert-dismissible">
@@ -10,92 +10,288 @@
 </div>
 {% endfor %}
 {% endif %}
-</div>
-<a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-<div class="Buscador">
-    <input id="myInput" type="text" placeholder="Buscar">
-</div>
-<br /><br/>
-<table class="table table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>FOTOGRAFIA</th>
-            <th>NOMBRE</th>
-            <th>APELLIDO PATERNO</th>
-            <th>APELLIDO MATERNO</th>
-            <th>TIPO</th>
-            <th>PUESTO</th>
-            <th>DEPARTAMENTO</th>
-            <th>ESTATUS</th>
-            <th>EDITAR</th>
-        </tr>
-    </thead>
-    <tbody id="myTable">
-        {% for e in empleados %}
-        <tr>
-            {% if e.estatus == 1 %}
-                <td>{{e.idEmpleado}}</td>
-                <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="80"></td>
-                <td>{{e.nombre}}</td>
-                <td>{{e.apellidoPaterno}}</td>
-                <td>{{e.apellidoMaterno}}</td>
-                {% if e.tipo=='A'%}
-                    <td>Administrador</td>
-                {% endif %}
-                {% if e.tipo=='E'%}
-                    <td>Empleado</td>
-                {% endif %}
-                {% if e.tipo=='S'%}
-                    <td>Staff</td>
-                {% endif %}
 
-                {% for p in puestos %}
-                    {%if e.idPuesto == p.idPuesto%}
-                        <td>{{p.nombre}}</td>
-                        {%endif%}
-                {%endfor%}
 
-                {% for d in departamentos %}
-                    {%if e.idDepartamento == d.idDepartamento%}
-                        <td>{{d.nombre}}</td>
-                        {%endif%}
-                {%endfor%}
 
-                {% if e.estatus==1%}
-                    <td>ACTIVO</td>
-                {%else%}
-                    <td>INACTIVO</td>
-                {% endif %}
-                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                </td>
-            {%else%}
-                {%if current_user.is_authenticated and current_user.is_administrador()%}
+<ul class="nav nav-tabs" id="ex1">
+    <li class="active"><a data-toggle="tab" href="#menu1">Datos Personales</a></li>
+    <li><a data-toggle="tab" href="#menu2">Datos Profesionales</a></li>
+    <li><a data-toggle="tab" href="#menu3">Datos de Contratacion</a></li>
+    <li><a data-toggle="tab" href="#menu4">Datos de Sesion</a></li>
+    <li><a data-toggle="tab" href="#menu5">Documentos</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="menu1" class="tab-pane fade in active">
+
+        <br />
+
+        <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        <div class="Buscador">
+            <input id="myInput" type="text" placeholder="Buscar">
+        </div>
+        <br /><br />
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>FOTOGRAFIA</th>
+                    <th>NOMBRE</th>
+                    <th>A. PATERNO</th>
+                    <th>A. MATERNO</th>
+                    <th>SEXO</th>
+                    <th>NACIMIENTO</th>
+                    <th>DIRECCION</th>
+                    <th>COLONIA</th>
+                    <th>CODIGO POSTAL</th>
+                    <th>EST CIVIL</th>
+                    <th>EDITAR</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                {% for e in empleados %}
+                <tr>
+                    {% if e.estatus == 1 %}
                     <td>{{e.idEmpleado}}</td>
+                    <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
                     <td>{{e.nombre}}</td>
-                    {% if e.estatus==1%}
-                    <td>ACTIVO</td>
-                    {%else%}
-                    <td>INACTIVO</td>
+                    <td>{{e.apellidoPaterno}}</td>
+                    <td>{{e.apellidoMaterno}}</td>
+                    {% if e.sexo=='F'%}
+                    <td>Mujer</td>
+                    {%else %}
+                    <td>Hombre</td>
                     {% endif %}
+                    <td>{{e.fechaNacimiento}}</td>
+                    <td>{{e.direccion}}</td>
+                    <td>{{e.colonia}}</td>
+                    <td>{{e.codigoPostal}}</td>
+                    <td>{{e.estadoCivil}}</td>
                     <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
                     </td>
-                {%endif%}
-            {%endif%}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+
+
+    <div id="menu2" class="tab-pane fade">
+        <!------------------------------------------------------------------------------------------------------------------------Profesional-->
+
+        <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        <div class="Buscador">
+            <input id="myInput" type="text" placeholder="Buscar">
+        </div>
+        <br /><br />
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>FOTOGRAFIA</th>
+                    <th>NOMBRE</th>
+                    <th>ESCOLARIDAD</th>
+                    <th>ESPECIALIDAD</th>
+                    <th>CURP</th>
+                    <th>NSS</th>
+                    <th>EDITAR</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                {% for e in empleados %}
+                <tr>
+                    {% if e.estatus == 1 %}
+                        <td>{{e.idEmpleado}}</td>
+                        <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
+                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                        <td>{{e.escolaridad}}</td>
+                        <td>{{e.especialidad}}</td>
+                        <td>{{e.curp}}</td>
+                        <td>{{e.nss}}</td>
+                        <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                        </td>
+
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+
+    <div id="menu3" class="tab-pane fade">
+        <!------------------------------------------------------------------------------------------------------------------------Profesional-->
+
+        <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
+            class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        <div class="Buscador">
+            <input id="myInput" type="text" placeholder="Buscar">
+        </div>
+        <br /><br />
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>FOTO</th>
+                    <th>NOMBRE</th>
+                    <th>CIUDAD</th>
+                    <th>SUCURSAL</th>
+                    <th>DEPA..</th>
+                    <th>PUESTO</th>
+                    <th>F.CONTRAT..</th>
+                    <th>TIPO</th>
+                    <th>TURNO</th>
+                    <th>SALARIO</th>
+                    <th>D.VACACION</th>
+                    <th>D.PERMISO</th>
+                    <th>EDITAR</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                {% for e in empleados %}
+                <tr>
+                    {% if e.estatus == 1 %}
+                        <td>{{e.idEmpleado}}</td>
+                        <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
+                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                        {% for c in ciudadess %}
+                            {%if c.idCiudad == e.idCiudad %}
+                                <td>{{c.nombre}}</td>
+                            {%endif%}
+                        {%endfor%}
+                        {% for s in sucursales %}
+                            {%if s.idSucursal == e.idSucursal %}
+                                <td>{{s.nombre}}</td>
+                            {%endif%}
+                        {%endfor%}
+                        {% for d in departamentos %}
+                            {%if d.idDepartamento == e.idDepartamento %}
+                                <td>{{d.nombre}}</td>
+                            {%endif%}
+                        {%endfor%}
+                        {% for p in puestos %}
+                            {%if p.idPuesto == e.idPuesto %}
+                                <td>{{p.nombre}}</td>
+                            {%endif%}
+                        {%endfor%}
+                        <td>{{e.fechaContratacion}}</td>
+                        <td>{{e.tipo}}</td>
+                        {% for t in turnos %}
+                            {%if t.idTurno == e.idTurno %}
+                                <td>{{t.nombre}}</td>
+                            {%endif%}
+                        {%endfor%}
+                        <td>{{e.salarioDiario}}</td>
+                        <td>{{e.diasVacaciones}}</td>
+                        <td>{{e.diasPermiso}}</td>
+                        <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                        </td>
+
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div id="menu4" class="tab-pane fade">
+        
+        <!------------------------------------------------------------------------------------------------------------------------Profesional-->
+
+            <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+            <div class="Buscador">
+                <input id="myInput" type="text" placeholder="Buscar">
+            </div>
+            <br /><br />
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>FOTO</th>
+                        <th>NOMBRE</th>
+                        <th>CORREO</th>
+                        <th>ESTATUS</th>
+                        <th>EDITAR</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    {% for e in empleados %}
+                    <tr>
+                        {% if e.estatus == 1 %}
+                            <td>{{e.idEmpleado}}</td>
+                            <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
+                            <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                            
+                            <td>{{e.email}}</td>
+                            {% if e.estatus==1%}
+                                <td>ACTIVO</td>
+                            {%else%}
+                                <td>INACTIVO</td>
+                            {% endif %}
+                            <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                            </td>
+
+                            {%else%}
+                            {%if current_user.is_authenticated and current_user.is_administrador()%}
+                                    <td>{{e.idEmpleado}}</td>
+                                    <td>{{e.nombre}}</td>
+                                {% if e.estatus==1%}
+                                    <td>ACTIVO</td>
+                                {%else%}
+                                    <td>INACTIVO</td>
+                                {% endif %}
+                                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                                </td>
+                            {%endif%}
+                        {%endif%}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br />
+        
+        
+    </div>
+
+
+    <div id="menu5" class="tab-pane fade">
+            
+
+        <!------Aqui va todo lo de DOCUMENTOS-------------------------------------------------------------------------------------------------->
+
+        
+    </div>
 </div>
-<br />
+
+    
+
+
+
+
+
+
+
+
+
+
 <div class="conteiner">
     <ul class="pagination" style="margin-left: 70px;">
-        
+
         {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
             {% else %}
             <li><a class="page-link" href="/empleados/{{pagina-1}}">Anterior</a></li>
             {% endif %}
-            <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+            <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de
+                    <b>{{paginas}}</b></a></li>
             {% if pagina >= paginas %}
             <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
             {% else %}
@@ -103,4 +299,10 @@
             {% endif %}
     </ul>
 </div>
+
+
+
+
+
+
 {%endblock content%}
