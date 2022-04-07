@@ -367,7 +367,35 @@ def ciudadesEliminar(id):
     flash('Se ha eliminado la ciudad con éxito!!')
     return redirect(url_for('ciudades',page=1))
 
-#######################################################################################################################
+#######################################################################################################################Ajaxxxxx
+@app.route('/empleados/curp/<string:curp>',methods=['get'])
+@login_required
+def consultarEmpleado(curp):
+    empleado=Empleados()
+    return json.dumps(empleado.consultarEmpleadosCurp(curp))
+
+@app.route('/empleados/nss/<string:nss>',methods=['get'])
+@login_required
+def consultarEoNss(nss):
+    empleado=Empleados()
+    return json.dumps(empleado.consultarEmpleadosNss(nss))
+
+@app.route('/documento/nombre/<string:nombre>,<int:idEmpleado>',methods=['get'])
+@login_required
+def consultarDocumento(nombre,idEmpleado):
+    docu=DocumentacionEmpleado()
+    
+    return json.dumps(docu.consultarDocu(nombre,idEmpleado))
+
+@app.route('/empledo/salario/<int:salario>,<int:idPuesto>',methods=['get'])
+@login_required
+def consultarsalarioEm(salario,idPuesto):
+    puesto=Puestos()
+    pue=puesto.consultaIndividual(idPuesto)
+    salrioMin=pue.salarioMinimo
+    SalarMax=pue.salarioMaximo
+    
+    return json.dumps(puesto.validacionSalario(salario,salrioMin,SalarMax))
 
 @app.route('/estado/nombre/<string:nombre>',methods=['get'])
 @login_required
@@ -430,6 +458,24 @@ def consultarPeriodo(nombre):
 def consultarFormaPago(nombre):
     formaPago=FormasPago()
     return json.dumps(formaPago.consultarFormasPago(nombre))
+
+@app.route('/sucursales/nombre/<string:nombre>',methods=['get'])
+@login_required
+def consultarSucursales(nombre):
+    sucu=Sucursales()
+    return json.dumps(sucu.consultarSucuNom(nombre))
+
+@app.route('/sucursales/telefono/<string:telefono>',methods=['get'])
+@login_required
+def consultarSucursalesTel(telefono):
+    sucu=Sucursales()
+    return json.dumps(sucu.consultarSucuTel(telefono))
+
+@app.route('/fechas/<string:inicio>,<string:fin>',methods=['get'])
+@login_required
+def consulFechasii(inicio,fin):
+    sucu=Puestos()
+    return json.dumps(sucu.validarFecha(inicio,fin))
 
 #######################################################################################################################
 @app.route('/departamentos/<int:page>' )
@@ -1207,8 +1253,7 @@ def documentacionEmpleado(id,page=1):
         paginacion=d.consultarPagina(page)
         documentacionEmpleado=paginacion.items
         paginas=paginacion.pages
-        if paginas < page:
-            abort(404)
+        
     except OperationalError:
         flash("No hay documentacion del empleado")
         documentacionEmpleado=None

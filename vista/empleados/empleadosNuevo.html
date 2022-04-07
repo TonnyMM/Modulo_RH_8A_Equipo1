@@ -71,7 +71,7 @@
 
         <div class="form-group">
             <div class="dropdown">
-                <label class="control-label col-sm-1" for="sexo">Sexo: </label>
+                <label class="control-label col-sm-1" for="sexo" >Sexo: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="sexo" name="sexo" required>
                         <option disabled selected value="">Seleccionar</option>
@@ -83,8 +83,9 @@
 
             <label class="control-label col-sm-1" for="fechaNacimiento">Fecha de Nacimiento: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="date" name="fechaNacimiento" id="fechaNacimiento"
+                <input class="form-control" type="date" name="fechaNacimiento" id="fechaNacimiento" max="2004-04-10"
                     placeholder="Fecha de nacimiento" required />
+                    <div id="notiNacim" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
         </div>
         <br /><br />
@@ -160,15 +161,17 @@
             <label class="control-label col-sm-1" for="curp">CURP: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="curp" id="curp"
-                    placeholder="curp" maxlength="50"  required
+                    placeholder="curp" maxlength="50"  required onblur="consultarEmpleadoCurp()"
                     pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    <div id="NotiCurp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
 
             <label class="control-label col-sm-1" for="nss">Numero Seguro Social: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="nss" id="nss"
-                    placeholder="nss" maxlength="50"  required
+                    placeholder="nss" maxlength="50"  required onblur="consultarEmpleadoNSS()"
                     pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    <div id="NotiNSS" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
         </div>
         <br /><br /><br />
@@ -223,7 +226,7 @@
 
             <label class="control-label col-sm-1" for="puesto">Puesto: </label>
             <div class="col-sm-5">
-                <select class="form-control" id="idPuesto" name="idPuesto" required>
+                <select class="form-control" id="idPuesto" name="idPuesto" required onblur="consultarSalarioPuest()">
                     <option value="" selected disabled>Selecciona</option>
                     {% for p in puestos%}
                         <option value="{{p.idPuesto}}">{{p.nombre}}</option>
@@ -267,8 +270,9 @@
 
             <label class="control-label col-sm-1" for="salarioDiario">Salario diario: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="number" name="salarioDiario" id="salarioDiario"
+                <input class="form-control" type="number" name="salarioDiario" id="salarioDiario" onblur="consultarSalarioPuest()"
                     placeholder="Salario" required />
+                    <div id="salarioNoti" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
         </div>
         <br /><br />

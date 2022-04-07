@@ -41,6 +41,29 @@ class Empleados(UserMixin,db.Model):
     Puesto = relationship('Puestos',backref='empleados', lazy="select")
     Ciudad = relationship('Ciudades',backref='empleados', lazy="select")
     Turno = relationship('Turnos',backref='empleados', lazy="select")
+    def consultarEmpleadosCurp(self,curp):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Empleados.curp==curp).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="La curp "+curp+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="La curp "+curp+" esta libre."
+        return salida
+    
+    def consultarEmpleadosNss(self,nss):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Empleados.nss==nss).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="Este numero  "+nss+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Este numero "+nss+" esta libre."
+        return salida
 
     #METODOS DEL CRUD
     def insertar(self):
@@ -275,6 +298,32 @@ class Puestos(db.Model):
         else:
             salida["estatus"]="Ok"
             salida["mensaje"]="El nombre "+nombre+" esta libre."
+        return salida
+    
+    def validacionSalario(self,salario, min,max):
+        salida={"estatus":"","mensaje":""}
+        puesto=None
+        if salario<min:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El salario es muy bajo."
+        elif salario>max:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El salario es muy alto."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="El nombre esta bien."
+        return salida
+    
+    def validarFecha(self,inicio,fin):
+        salida={"estatus":"","mensaje":""}
+        
+        
+        if inicio>fin:
+            salida["estatus"]="Error"
+            salida["mensaje"]="El periodo "+inicio+" "+fin+" no es valido"
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Este periodo "+inicio+" "+fin+" esta libre."
         return salida
     
     def consultarPagina(self, pagina):
@@ -527,6 +576,30 @@ class Sucursales(db.Model):
     def consultarPagina(self, pagina):
         paginacion=self.query.order_by(Sucursales.idSucursal.asc()).paginate(pagina,per_page=5,error_out=False)
         return paginacion
+    
+    def consultarSucuNom(self,nombre):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Sucursales.nombre==nombre).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="Este numero ya se ha registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Este numero "+nombre+" esta libre."
+        return salida
+    
+    def consultarSucuTel(self,telefono):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Sucursales.telefono==telefono).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="Este numero  "+telefono+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Este numero "+telefono+" esta libre."
+        return salida
 
 
 class DocumentacionEmpleado(db.Model):
@@ -537,6 +610,18 @@ class DocumentacionEmpleado(db.Model):
     documento = Column(BLOB)
     idEmpleado = Column(Integer, ForeignKey('Empleados.idEmpleado'))
     Empleado=relationship('Empleados',backref='documentos', lazy="select")
+    
+    def consultarDocu(self,nombreDocumento, idEmpleado):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter((DocumentacionEmpleado.nombreDocumento==nombreDocumento) , (DocumentacionEmpleado.idEmpleado==idEmpleado)).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="La curp "+nombreDocumento+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="La curp "+nombreDocumento+" esta libre."
+        return salida
 
     def insertar(self):
         db.session.add(self)

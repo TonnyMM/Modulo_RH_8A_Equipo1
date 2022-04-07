@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/reloj.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/reloj.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/validacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/validacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoNuevo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/puestos/puestosNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,6 +23,19 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controlador/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="474" selection-start-line="474" selection-end-line="474" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -70,8 +88,8 @@
         <option value="$PROJECT_DIR$/vista/departamentos/departamentosEditar.html" />
         <option value="$PROJECT_DIR$/vista/comunes/base.html" />
         <option value="$PROJECT_DIR$/modelo/DAO.py" />
-        <option value="$PROJECT_DIR$/controlador/app.py" />
         <option value="$PROJECT_DIR$/vista/empleados/empleadosListado.html" />
+        <option value="$PROJECT_DIR$/controlador/app.py" />
       </list>
     </option>
   </component>
@@ -208,7 +226,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -224,6 +242,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13152677" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -517,17 +536,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controlador/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vista/empleados/empleadosListado.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="604">
           <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controlador/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="474" selection-start-line="474" selection-end-line="474" />
         </state>
       </provider>
     </entry>

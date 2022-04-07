@@ -61,6 +61,7 @@ $(function() {
 	  var labelText = 'File : ' + t.substr(12, t.length);
 	  $(this).prev('label').text(labelText);
 	})
+	
 })
 //jQuery time
 		var nombre=document.getElementById("nombre").value;

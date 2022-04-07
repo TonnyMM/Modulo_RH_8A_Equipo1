@@ -10,7 +10,8 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
-            <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50" class="form-control" />
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50" class="form-control" onblur="consultarSucuNom()"/>
+            <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
     <br /><br />
@@ -18,8 +19,9 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="telefono">Teléfono: </label>
         <div class="col-sm-3">
-            <input class="form-control" type="tel" name="telefono" id="telefono" placeholder="Teléfono" maxlength="12"
+            <input class="form-control" type="tel" name="telefono" id="telefono" placeholder="Teléfono" maxlength="12" onblur="consultarSucuTel()"
                    required />
+                   
         </div>
     <!--</div>
     <br /><br />
@@ -29,10 +31,12 @@
         <div class="col-sm-5">
             <input class="form-control" type="text" name="direccion" id="direccion" placeholder="Dirección" maxlength="80"
                    required />
+                   <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
-    <br /><br />
-
+    
+    <br />
+    <div id="notificacionesTel" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div><br />
     <div class="form-group">
         <label class="control-label col-sm-2" for="colonia">Colonia: </label>
         <div class="col-sm-10">
