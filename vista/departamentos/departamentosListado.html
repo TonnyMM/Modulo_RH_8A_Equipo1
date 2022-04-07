@@ -11,7 +11,9 @@
 {% endfor %}
 {% endif %}
 </div>
+{%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
 <a href="/departamentosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+{%endif%}
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
@@ -22,7 +24,9 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>ESTATUS</th>
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
             <th>EDITAR</th>
+            {%endif%}
         </tr>
     </thead>
     <tbody id="myTable">
@@ -36,7 +40,10 @@
                 {%else%}
                 <td>INACTIVO</td>
                 {% endif %}
+                {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                 <td><a href="/departamentosEditar/{{d.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a>
+                 {%endif%}
+
                 </td>
             {%else%}
                 {%if current_user.is_authenticated and current_user.is_administrador()%}
@@ -47,7 +54,9 @@
                     {%else%}
                     <td>INACTIVO</td>
                     {% endif %}
+                    {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                     <td><a href="/departamentosEditar/{{d.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    {%endif%}
                     </td>
                 {%endif%}
             {%endif%}

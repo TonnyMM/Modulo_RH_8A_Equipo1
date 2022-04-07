@@ -35,7 +35,9 @@
     <br/>
     <a class="btn btn-dark" href="/estados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button type="submit" id="guardar" style="background-color: #389242;"  class="btn btn-info"><span class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
+    {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger" ><span class="glyphicon glyphicon-trash"></span></a>
+    {%endif%}
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">

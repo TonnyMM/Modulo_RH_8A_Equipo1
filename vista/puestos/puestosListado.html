@@ -11,7 +11,9 @@
 {% endfor %}
 {% endif %}
 </div>
+{%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
 <a href="/puestosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+{%endif%}
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
@@ -24,7 +26,9 @@
             <th>SALARIO MINIMO</th>
             <th>SALARIO MÁXIMO</th>
             <th>ESTATUS</th>
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
             <th>EDITAR</th>
+            {%endif%}
         </tr>
     </thead>
     <tbody id="myTable">
@@ -40,7 +44,9 @@
             {%else%}
                 <td>INACTIVO</td>
             {% endif %}
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
             <td><a href="/puestosEditar/{{p.idPuesto}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%endif%}
         {%else%}
             {%if current_user.is_authenticated and current_user.is_administrador()%}
                 <td>{{p.idPuesto}}</td>

@@ -217,7 +217,7 @@ def empleadosEliminar(id):
 def estados(page=1):
     e = Estados()
     try:
-        
+
         paginacion=e.consultarPagina(page)
         estados=paginacion.items
         paginas=paginacion.pages
@@ -226,13 +226,15 @@ def estados(page=1):
     except OperationalError:
         flash("No hay estados registrados")
         estados=None
-    
+
     return render_template('estados/estadosListado.html',estados = estados,paginas=paginas,pagina=page)
 
 @app.route('/estadosNuevo')
 @login_required
 def estadosNuevo():
-    return render_template('estados/estadosNuevo.html')
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        return render_template('estados/estadosNuevo.html')
+    abort(404)
 
 @app.route('/registrarEstado',methods=['post'])
 @login_required
@@ -247,8 +249,11 @@ def registrarEstado():
 @app.route('/estadosEditar/<int:id>')
 @login_required
 def estadosEditar(id):
-    e = Estados()
-    return render_template('estados/estadosEditar.html', estado = e.consultaIndividual(id))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        e = Estados()
+        return render_template('estados/estadosEditar.html', estado = e.consultaIndividual(id))
+    else:
+        abort(404)
 
 @app.route('/guardarEstado',methods=['post'])
 @login_required
@@ -269,23 +274,25 @@ def guardarEstado():
 @app.route('/estadosEliminar/<int:id>')
 @login_required
 def estadosEliminar(id):
-    if current_user.is_authenticated and current_user.is_administrador():
-        e = Estados()
-        e.eliminar(id)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        if current_user.is_authenticated and current_user.is_administrador():
+            e = Estados()
+            e.eliminar(id)
+        else:
+            e = Estados()
+            e.idEstado = id
+            for est in e.consultaGeneral():
+                if est.idEstado == id:
+                    nombre = est.nombre
+                    siglas = est.siglas
+            e.nombre = nombre
+            e.siglas = siglas
+            e.estatus=False
+            e.actualizar()
+        flash('Se ha eliminado el estado con éxito!!')
+        return redirect(url_for('estados',page=1))
     else:
-        e = Estados()
-        e.idEstado = id
-        for est in e.consultaGeneral():
-            if est.idEstado == id:
-                nombre = est.nombre
-                siglas = est.siglas
-        e.nombre = nombre
-        e.siglas = siglas
-        e.estatus=False
-        e.actualizar()
-    flash('Se ha eliminado el estado con éxito!!')
-    return redirect(url_for('estados',page=1))
-
+        abort(404)
 #######################################################################################################################
 
 @app.route('/ciudades/<int:page>' )
@@ -310,9 +317,12 @@ def ciudades(page=1):
 @app.route('/ciudadesNuevo')
 @login_required
 def ciudadesNuevo():
-    e = Estados()
-    estados = e.consultaGeneral()
-    return render_template('ciudades/ciudadesNuevo.html',estados=estados)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        e = Estados()
+        estados = e.consultaGeneral()
+        return render_template('ciudades/ciudadesNuevo.html',estados=estados)
+    else:
+        abort(404)
 
 @app.route('/registrarCiudad',methods=['post'])
 @login_required
@@ -327,10 +337,12 @@ def registrarCiudad():
 @app.route('/ciudadesEditar/<int:id>')
 @login_required
 def ciudadesEditar(id):
-    c = Ciudades()
-    e = Estados()
-    return render_template('ciudades/ciudadesEditar.html', ciudad = c.consultaIndividual(id),estados = e.consultaGeneral())
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        c = Ciudades()
+        e = Estados()
+        return render_template('ciudades/ciudadesEditar.html', ciudad = c.consultaIndividual(id),estados = e.consultaGeneral())
+    else:
+        abort(404)
 @app.route('/guardarCiudad',methods=['post'])
 @login_required
 def guardarCiudad():
@@ -351,23 +363,24 @@ def guardarCiudad():
 @app.route('/ciudadesEliminar/<int:id>')
 @login_required
 def ciudadesEliminar(id):
-    if current_user.is_authenticated and current_user.is_administrador():
-        c = Ciudades()
-        c.eliminar(id)
-    else:
-        c = Ciudades()
-        c.idCiudad = id
-        for ciudad in c.consultaGeneral():
-            if ciudad.idEstado == id:
-                nombre = ciudad.nombre
-                idEstado = ciudad.idEstado
-        c.nombre = nombre
-        c.idEstado = idEstado
-        c.estatus=False
-        c.actualizar()
-    flash('Se ha eliminado la ciudad con éxito!!')
-    return redirect(url_for('ciudades',page=1))
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        if current_user.is_authenticated and current_user.is_administrador():
+            c = Ciudades()
+            c.eliminar(id)
+        else:
+            c = Ciudades()
+            c.idCiudad = id
+            for ciudad in c.consultaGeneral():
+                if ciudad.idEstado == id:
+                    nombre = ciudad.nombre
+                    idEstado = ciudad.idEstado
+            c.nombre = nombre
+            c.idEstado = idEstado
+            c.estatus=False
+            c.actualizar()
+        flash('Se ha eliminado la ciudad con éxito!!')
+        return redirect(url_for('ciudades',page=1))
+    abort(404)
 #######################################################################################################################Ajaxxxxx
 @app.route('/empleados/curp/<string:curp>',methods=['get'])
 @login_required
@@ -501,9 +514,11 @@ def departamentos(page=1):
 @app.route('/departamentosNuevo')
 @login_required
 def departamentosNuevo():
-    activado = 1
-    return render_template('departamentos/departamentosNuevo.html',activado=activado)
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        return render_template('departamentos/departamentosNuevo.html',activado=activado)
+    else:
+        abort(404)
 @app.route('/registrarDepartamento',methods=['post'])
 @login_required
 def registrarDepartamento():
@@ -522,8 +537,11 @@ def registrarDepartamento():
 @app.route('/departamentosEditar/<int:id>')
 @login_required
 def departamentosEditar(id):
-    d = Departamentos()
-    return render_template('departamentos/departamentosEditar.html', departamento = d.consultaIndividual(id))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        d = Departamentos()
+        return render_template('departamentos/departamentosEditar.html', departamento = d.consultaIndividual(id))
+    else:
+        abort(404)
 
 @app.route('/guardarDepartamento',methods=['post'])
 @login_required
@@ -543,21 +561,23 @@ def guardarDepartamento():
 @app.route('/departamentosEliminar/<int:id>')
 @login_required
 def departamentosEliminar(id):
-    if current_user.is_authenticated and current_user.is_administrador():
-        d = Departamentos()
-        d.eliminar(id)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        if current_user.is_authenticated and current_user.is_administrador():
+            d = Departamentos()
+            d.eliminar(id)
+        else:
+            d = Departamentos()
+            for dep in d.consultaGeneral():
+                if dep.idDepartamento == id:
+                    nombre = dep.nombre
+            d.idDepartamento=id
+            d.nombre=nombre
+            d.estatus=False
+            d.actualizar()
+        flash('Se ha eliminado el departamento con éxito!!')
+        return redirect(url_for('departamentos',page=1))
     else:
-        d = Departamentos()
-        for dep in d.consultaGeneral():
-            if dep.idDepartamento == id:
-                nombre = dep.nombre
-        d.idDepartamento=id
-        d.nombre=nombre
-        d.estatus=False
-        d.actualizar()
-    flash('Se ha eliminado el departamento con éxito!!')
-    return redirect(url_for('departamentos',page=1))
-
+        abort(404)
 #######################################################################################################################
 
 @app.route('/puestos/<int:page>' )
@@ -580,9 +600,12 @@ def puestos(page=1):
 @app.route('/puestosNuevo')
 @login_required
 def puestosNuevo():
-    activado = 1
-    correcto= 1
-    return render_template('puestos/puestosNuevo.html',activado=activado, correcto =correcto)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        correcto= 1
+        return render_template('puestos/puestosNuevo.html',activado=activado, correcto =correcto)
+    else:
+        abort(404)
 
 @app.route('/registrarPuesto',methods=['post'])
 @login_required
@@ -609,8 +632,11 @@ def registrarPuesto():
 @app.route('/puestosEditar/<int:id>')
 @login_required
 def puestosEditar(id):
-    p = Puestos()
-    return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(id),correcto = 1)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        p = Puestos()
+        return render_template('puestos/puestosEditar.html', puesto = p.consultaIndividual(id),correcto = 1)
+    else:
+        abort(404)
 
 @app.route('/guardarPuesto',methods=['post'])
 @login_required
@@ -636,25 +662,27 @@ def guardarPuesto():
 @app.route('/puestosEliminar/<int:id>')
 @login_required
 def puestosEliminar(id):
-    if current_user.is_authenticated and current_user.is_administrador():
-        p = Puestos()
-        p.eliminar(id)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        if current_user.is_authenticated and current_user.is_administrador():
+            p = Puestos()
+            p.eliminar(id)
+        else:
+            p = Puestos()
+            for pst in p.consultaGeneral():
+                if pst.idPuesto == id:
+                    nombre = pst.nombre
+                    salarioMinimo = pst.salarioMinimo
+                    salarioMaximo = pst.salarioMaximo
+            p.idPuesto = id
+            p.nombre = nombre
+            p.salarioMinimo =salarioMinimo
+            p.salarioMaximo = salarioMaximo
+            p.estatus = False
+            p.actualizar()
+        flash('Se ha eliminado el puesto con éxito!!')
+        return redirect(url_for('puestos',page=1))
     else:
-        p = Puestos()
-        for pst in p.consultaGeneral():
-            if pst.idPuesto == id:
-                nombre = pst.nombre
-                salarioMinimo = pst.salarioMinimo
-                salarioMaximo = pst.salarioMaximo
-        p.idPuesto = id
-        p.nombre = nombre
-        p.salarioMinimo =salarioMinimo
-        p.salarioMaximo = salarioMaximo
-        p.estatus = False
-        p.actualizar()
-    flash('Se ha eliminado el puesto con éxito!!')
-    return redirect(url_for('puestos',page=1))
-
+        abort(404)
 #######################################################################################################################
 
 
@@ -971,9 +999,11 @@ def periodos(page=1):
 @app.route('/periodosNuevo')
 @login_required
 def periodosNuevo():
-    activado = 1
-    return render_template('periodos/periodosNuevo.html', activado = activado, correcto = 1)
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        return render_template('periodos/periodosNuevo.html', activado = activado, correcto = 1)
+    else:
+        abort(404)
 @app.route('/registrarPeriodo',methods=['post'])
 @login_required
 def registrarPeriodo():
@@ -999,9 +1029,11 @@ def registrarPeriodo():
 @app.route('/periodosEditar/<int:id>')
 @login_required
 def periodosEditar(id):
-    p = Periodos()
-    return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(id),correcto = 1)
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        p = Periodos()
+        return render_template('periodos/periodosEditar.html', periodo = p.consultaIndividual(id),correcto = 1)
+    else:
+        abort(404)
 @app.route('/guardarPeriodo',methods=['post'])
 @login_required
 def guardarPeriodo():
@@ -1026,31 +1058,33 @@ def guardarPeriodo():
 @app.route('/periodosEliminar/<int:id>')
 @login_required
 def periodosEliminar(id):
-    p = Periodos()
     if current_user.is_authenticated and current_user.is_administrador():
-        p.eliminar(id)
+        p = Periodos()
+        if current_user.is_authenticated and current_user.is_administrador():
+            p.eliminar(id)
+        else:
+            for per in p.consultaGeneral():
+                if per.idPeriodo == id:
+                    nombre = per.nombre
+                    fechaInicio = per.fechaInicio
+                    fechaFin = per.fechaFin
+            p.idPeriodo = id
+            p.nombre = nombre
+            p.fechaInicio = fechaInicio
+            p.fechaFin = fechaFin
+            p.estatus = False
+            p.actualizar()
+        flash('Se ha eliminado el periodo con éxito!!')
+        return redirect(url_for('periodos',page=1))
     else:
-        for per in p.consultaGeneral():
-            if per.idPeriodo == id:
-                nombre = per.nombre
-                fechaInicio = per.fechaInicio
-                fechaFin = per.fechaFin
-        p.idPeriodo = id
-        p.nombre = nombre
-        p.fechaInicio = fechaInicio
-        p.fechaFin = fechaFin
-        p.estatus = False
-        p.actualizar()
-    flash('Se ha eliminado el periodo con éxito!!')
-    return redirect(url_for('periodos',page=1))
-
+        abort(404)
 #######################################################################################################################
 
         
 @app.route('/formasPago/<int:page>' )
 @login_required
 def formasPago(page=1):
-    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff):
+    if current_user.is_authenticated and (current_user.is_administrador or current_user.is_staff):
         f = FormasPago()
         try:
             paginacion=f.consultarPagina(page)
@@ -1064,12 +1098,14 @@ def formasPago(page=1):
         return render_template('formasPago/formasPagoListado.html',formasPago = formasPago,paginas=paginas,pagina=page)
     else:
         abort(404)
-
 @app.route('/formasPagoNuevo')
 @login_required
 def formasPagoNuevo():
-    activado = 1
-    return render_template('formasPago/formasPagoNuevo.html', activado = activado)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        return render_template('formasPago/formasPagoNuevo.html', activado = activado)
+    else:
+        abort(404)
 
 @app.route('/registrarformaPago',methods=['post'])
 @login_required
@@ -1089,8 +1125,11 @@ def registrarformaPago():
 @app.route('/formasPagoEditar/<int:id>')
 @login_required
 def formasPagoEditar(id):
-    f = FormasPago()
-    return render_template('formasPago/formasPagoEditar.html', formaPago = f.consultaIndividual(id))
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        f = FormasPago()
+        return render_template('formasPago/formasPagoEditar.html', formaPago = f.consultaIndividual(id))
+    else:
+        abort(404)
 
 @app.route('/guardarformaPago',methods=['post'])
 @login_required
@@ -1110,20 +1149,22 @@ def guardarformaPago():
 @app.route('/formasPagoEliminar/<int:id>')
 @login_required
 def formasPagoEliminar(id):
-    f = FormasPago()
-    if current_user.is_authenticated and current_user.is_administrador():
-        f.eliminar(id)
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        f = FormasPago()
+        if current_user.is_authenticated and current_user.is_administrador():
+            f.eliminar(id)
+        else:
+            for form in f.consultaGeneral():
+                if form.idFormaPago == id:
+                    nombre = form.nombre
+            f.idFormaPago = id
+            f.nombre = nombre
+            f.estatus = False
+            f.actualizar()
+        flash('Se ha eliminado la forma de pago con éxito!!')
+        return redirect(url_for('formasPago',page=1))
     else:
-        for form in f.consultaGeneral():
-            if form.idFormaPago == id:
-                nombre = form.nombre
-        f.idFormaPago = id
-        f.nombre = nombre
-        f.estatus = False
-        f.actualizar()
-    flash('Se ha eliminado la forma de pago con éxito!!')
-    return redirect(url_for('formasPago',page=1))
-
+        abort(404)
 #######################################################################################################################
 @app.route('/sucursales/<int:page>')
 @login_required

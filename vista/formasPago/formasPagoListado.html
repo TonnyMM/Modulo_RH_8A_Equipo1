@@ -44,7 +44,7 @@
                 <td><a href="/formasPagoEditar/{{f.idFormaPago}}"><span class="glyphicon glyphicon-edit"></span></a></td>
             {%endif%}
         {%else%}
-            {%if current_user.is_authenticated and current_user.is_administrador()%}
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                 <td>{{f.idFormaPago}}</td>
                 <td>{{f.nombre}}</td>
                 {% if f.estatus==1%}
