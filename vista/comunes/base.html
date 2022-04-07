@@ -78,6 +78,7 @@ $(document).ready(function(){
                 <li class="nav-item">
                     <a class="nav-link" style="color:#001b0d;" href="/formasPago/1">Formas de pago</a>
                 </li>
+                {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Empleados</a>
                     <ul class="dropdown-menu">
@@ -86,12 +87,13 @@ $(document).ready(function(){
                         
                     </ul>
                 </li>
+                {%endif%}
             </ul>
             <ul class="nav navbar-nav navbar-right" id="usuar">
                 <li class="dropdown">
                     <a class="dropdown-toggle" style="color:#001b0d;" data-toggle="dropdown"><img src="/empleados/imagen/{{current_user.idEmpleado}}" width="30px"> {{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}}</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/administrativosEditar"> <span class="glyphicon glyphicon-edit"></span> Editar
+                        <li><a href="/empleadosEditar/{{current_user.idEmpleado}}"> <span class="glyphicon glyphicon-edit"></span> Editar
                                 Perfil</a></li>
                         <li><a href="/cerrarSesion"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
                         </li>

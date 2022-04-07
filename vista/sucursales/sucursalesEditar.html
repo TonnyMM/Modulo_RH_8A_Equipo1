@@ -95,9 +95,10 @@
     <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-saved">
             Guardar</span></button>
+    {%if current_user.is_authenticated and current_user.is_administrador()%}
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>
-
+    {%endif%}
     {% if get_flashed_messages() %}
     {% for m in get_flashed_messages()%}
     <div class="alert alert-success alert-dismissible">

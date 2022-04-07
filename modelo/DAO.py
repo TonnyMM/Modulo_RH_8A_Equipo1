@@ -583,10 +583,10 @@ class Sucursales(db.Model):
         estado=self.query.filter(Sucursales.nombre==nombre).first()
         if estado!=None:
             salida["estatus"]="Error"
-            salida["mensaje"]="Este numero ya se ha registrado."
+            salida["mensaje"]="Este nombre de sucursal ya se ha registrado."
         else:
             salida["estatus"]="Ok"
-            salida["mensaje"]="Este numero "+nombre+" esta libre."
+            salida["mensaje"]="Este nombre "+nombre+" esta libre."
         return salida
     
     def consultarSucuTel(self,telefono):
@@ -595,10 +595,10 @@ class Sucursales(db.Model):
         estado=self.query.filter(Sucursales.telefono==telefono).first()
         if estado!=None:
             salida["estatus"]="Error"
-            salida["mensaje"]="Este numero  "+telefono+" ya se encuentra registrado."
+            salida["mensaje"]="Este telefono  "+telefono+" ya se encuentra registrado."
         else:
             salida["estatus"]="Ok"
-            salida["mensaje"]="Este numero "+telefono+" esta libre."
+            salida["mensaje"]="Este telefono "+telefono+" esta libre."
         return salida
 
 

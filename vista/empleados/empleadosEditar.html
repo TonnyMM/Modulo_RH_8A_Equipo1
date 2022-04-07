@@ -46,7 +46,7 @@
             <label class="control-label col-sm-1" for="nombre">Nombre: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="nombre" id="nombre" placeholder="nombre" maxlength="50"
-                    required  value="{{empleado.nombre}}" readonly
+                    required  value="{{empleado.nombre}}"
                     title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
             </div>
             
@@ -59,16 +59,19 @@
             <label class="control-label col-sm-1" for="apellidoPaterno">Apellido Paterno: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="apellidoPaterno" id="apellidoPaterno"
-                    placeholder="Apellido Paterno" maxlength="50"  required value="{{empleado.apellidoPaterno}}" readonly
+                    placeholder="Apellido Paterno" maxlength="50"  required value="{{empleado.apellidoPaterno}}"
                     pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
             </div>
+
+
 
             <label class="control-label col-sm-1" for="apellidoMaterno">Apellido Materno: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="apellidoMaterno" id="apellidoMaterno"
-                    placeholder="Apellido Materno" maxlength="50"  required value="{{empleado.apellidoPaterno}}"
+                    placeholder="Apellido Materno" maxlength="50"  required value="{{empleado.apellidoMaterno}}"
                     pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
             </div>
+
         </div>
         <br /><br /><br />
 

@@ -480,3 +480,15 @@ function validarSalario(){
         document.getElementById("registrar").removeAttribute("disabled");
     }
 }
+
+function passwordRobusto(pwd){
+    var banNumero=false,banMin=false,banMay=false,banCarEs=false;
+    banNumero=tieneNumero(pwd);
+    banMin=tieneLetraMinuscula(pwd);
+    banMay=tieneLetraMayuscula(pwd);
+    banCarEs=tieneCaracterEspecial(pwd);
+    if(banNumero && banMin && banMay && banCarEs)
+        return '';
+    else
+        return 'El password debe tener al menos un digito,<br> una mayuscula, una minuscula y al menos un caracter especial.<br>'
+}

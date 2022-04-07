@@ -64,6 +64,7 @@ def index():
 
 @app.route('/empleados/<int:page>')
 def empleados(page=1):
+
     e = Empleados()
     d = Departamentos()
     p = Puestos()
@@ -1142,10 +1143,12 @@ def sucursales(page=1):
 @app.route('/sucursalesNuevo')
 @login_required
 def sucursalesNuevo():
-    activado = 1
-    c = Ciudades()
-    return render_template('sucursales/sucursalesNuevo.html', activado = activado, ciudades = c.consultaGeneral())
-
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        c = Ciudades()
+        return render_template('sucursales/sucursalesNuevo.html', activado = activado, ciudades = c.consultaGeneral())
+    else:
+        abort(404)
 @app.route('/registrarSucursal',methods=['post'])
 @login_required
 def registrarsucursal():
@@ -1171,10 +1174,13 @@ def registrarsucursal():
 @app.route('/sucursalesEditar/<int:id>')
 @login_required
 def sucursalesEditar(id):
-    s = Sucursales()
-    c = Ciudades()
-    return render_template('sucursales/sucursalesEditar.html', sucursal = s.consultaIndividual(id),
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        s = Sucursales()
+        c = Ciudades()
+        return render_template('sucursales/sucursalesEditar.html', sucursal = s.consultaIndividual(id),
                            ciudades = c.consultaGeneral())
+    else:
+        abort(404)
 
 @app.route('/guardarSucursal',methods=['post'])
 @login_required
@@ -1201,32 +1207,34 @@ def guardarSucursal():
 @app.route('/sucursalesEliminar/<int:id>')
 @login_required
 def sucursalesEliminar(id):
-    s = Sucursales()
     if current_user.is_authenticated and current_user.is_administrador():
-        s.eliminar(id)
+        s = Sucursales()
+        if current_user.is_authenticated and current_user.is_administrador():
+            s.eliminar(id)
+        else:
+            for suc in s.consultaGeneral():
+                if suc.idSucursal == id:
+                    nombre = suc.nombre
+                    telefono = suc.telefono
+                    direccion = suc.direccion
+                    colonia = suc.colonia
+                    codigoPostal = suc.codigoPostal
+                    presupuesto = suc.presupuesto
+                    idCiudad = suc.idCiudad
+            s.idSucursal = id
+            s.nombre = nombre
+            s.telefono =telefono
+            s.direccion = direccion
+            s.colonia = colonia
+            s.codigoPostal = codigoPostal
+            s.presupuesto = presupuesto
+            s.idCiudad = idCiudad
+            s.estatus = False
+            s.actualizar()
+        flash('Se ha eliminado la sucursal con éxito!!')
+        return redirect(url_for('sucursales',page=1))
     else:
-        for suc in s.consultaGeneral():
-            if suc.idSucursal == id:
-                nombre = suc.nombre
-                telefono = suc.telefono
-                direccion = suc.direccion
-                colonia = suc.colonia
-                codigoPostal = suc.codigoPostal
-                presupuesto = suc.presupuesto
-                idCiudad = suc.idCiudad
-        s.idSucursal = id
-        s.nombre = nombre
-        s.telefono =telefono
-        s.direccion = direccion
-        s.colonia = colonia
-        s.codigoPostal = codigoPostal
-        s.presupuesto = presupuesto
-        s.idCiudad = idCiudad
-        s.estatus = False
-        s.actualizar()
-    flash('Se ha eliminado la sucursal con éxito!!')
-    return redirect(url_for('sucursales',page=1))
-
+        abort(404)
 #######################################################################################################################
 @app.route('/EmpleadosDocumentacion/<int:page>')
 @login_required
@@ -1297,7 +1305,9 @@ def guardardocumentacionEmpleado():
     d.idDocumento = request.form['idDocumento']
     d.nombreDocumento = request.form['nombreDocumento']
     d.fechaEntrega =request.form['fechaEntrega']
-    d.documento = request.files['documento'].read()
+    documento = request.files['documento'].read()
+    if documento:
+        d.documento = documento
     d.idEmpleado =request.form['idEmpleado']
     d.actualizar()
     flash('Se han guardado los cambios con éxito!!')
@@ -1308,9 +1318,8 @@ def guardardocumentacionEmpleado():
 def documentoEliminar(id):
     d = DocumentacionEmpleado()
     d.eliminar(id)
-    idE = request.form['idEmpleado']
     flash('Se ha eliminado el documento de forma permanente!!')
-    return redirect(url_for('documentacionEmpleado',idE,page=1))
+    return redirect(url_for('EmpleadosDocumentacion',page=1))
 
 @app.route('/empleadoDocumento/<int:id>')
 @login_required

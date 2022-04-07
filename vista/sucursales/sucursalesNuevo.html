@@ -50,7 +50,7 @@
         <label class="control-label col-sm-2" for="codigoPostal">Código Postal: </label>
         <div class="col-sm-3">
             <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" placeholder="C.P." maxlength="5"
-                   required />
+                   minlength="5" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
         </div>
     <!--</div>
     <br /><br />
