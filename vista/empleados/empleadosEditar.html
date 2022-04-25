@@ -80,9 +80,13 @@
                 <label class="control-label col-sm-1" for="sexo">Sexo: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="sexo" name="sexo" required>
-                        <option  selected value="{{empleado.sexo}}" >{{empleado.sexo}}</option>
-                        <option value="F">Mujer</option>
-                        <option value="M">Hombre</option>
+                        {%if empleado.sexo == 'F'%}
+                            <option value="F" selected>Mujer</option>
+                            <option value="M">Hombre</option>
+                        {%else%}
+                            <option value="F" >Mujer</option>
+                            <option value="M" selected>Hombre</option>
+                        {%endif%}
                     </select>
                 </div>
             </div>
@@ -181,8 +185,9 @@
             <label class="control-label col-sm-1" for="nss">Numero Seguro Social: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="nss" id="nss"
-                    placeholder="nss" maxlength="50"  required value="{{empleado.nss}}"
-                    pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    placeholder="nss" minlength="10" maxlength="10"  required value="{{empleado.nss}}"
+                       pattern="[0-9]{10}" title="Incluir solo letras. Tamaño mínimo: 10. Tamaño máximo: 10"
+                       onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"/>
             </div>
         </div>
         <br /><br /><br />
@@ -212,7 +217,7 @@
                 </select>
             </div>
         
-            <label class="control-label col-sm-1" for="sucursal">Sucursal: </label>
+            <label class="control-label col-sm-1" for="idSucursal">Sucursal: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idSucursal" required name="idSucursal">
                     <option value="{{empleado.idSucursal}}" selected readonly>Selecciona</option>
@@ -245,7 +250,7 @@
                 </select>
             </div>
 
-            <label class="control-label col-sm-1" for="puesto">Puesto: </label>
+            <label class="control-label col-sm-1" for="idPuesto">Puesto: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idPuesto" name="idPuesto" required>
                     
@@ -291,7 +296,7 @@
         <br /><br /><br />
 
         <div class="form-group">
-                <label class="control-label col-sm-1" for="turno">Turno: </label>
+                <label class="control-label col-sm-1" for="idTurno">Turno: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="idTurno" name="idTurno" required>
                         <option value="{{empleado.idTurno}}"selected  readonly>Selecciona</option>
@@ -387,7 +392,7 @@
             <br/><br/><br/>
 
         <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
-                    class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+                    class="glyphicon glyphicon-floppy-disk"> Guardar</span></button>
             
         
                   

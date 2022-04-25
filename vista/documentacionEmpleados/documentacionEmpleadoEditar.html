@@ -19,7 +19,7 @@
         <label class="control-label col-sm-2" for="nombreEmpleado">Empleado: </label>
         <div class="col-sm-10">
             <input type="hidden" name="idDocumento" value="{{documento.idDocumento}}">
-            <input type="hidden" name="idEmpleado" value="{{documento.idEmpleado}}">
+            <input type="hidden" name="idEmpleado" id="idEmpleado" value="{{documento.idEmpleado}}">
             <input type="text" name="nombre" id="nombreEmpleado" value="{{documento.Empleado.nombre}} {{documento.Empleado.apellidoPaterno}} {{documento.Empleado.apellidoMaterno}}" class="form-control" readonly/>
         </div>
     </div>
@@ -29,7 +29,8 @@
         <label class="control-label col-sm-2" for="nombreDocumento">Nombre: </label>
         <div class="col-sm-10">
             <input type="text" name="nombreDocumento" id="nombreDocumento" value="{{documento.nombreDocumento}}" maxlength="80"
-                   required class="form-control" />
+                   required class="form-control" onblur="consultarDocumento()" />
+            <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
     <br /><br />
@@ -37,8 +38,14 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="fechaEntrega">Fecha de entrega: </label>
         <div class="col-sm-10">
+            {%if current_user.is_administrador()%}
             <input class="form-control" type="date" name="fechaEntrega" id="fechaEntrega" value="{{documento.fechaEntrega}}"
                    required />
+            {%else%}
+            <input class="form-control" type="date" name="fechaEntrega" value="{{documento.fechaEntrega}}"
+                   readonly />
+            {%endif%}
+
         </div>
     </div>
     <br/><br><br/>

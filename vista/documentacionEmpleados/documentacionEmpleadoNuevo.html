@@ -19,7 +19,8 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="nombreDocumento">Nombre: </label>
         <div class="col-sm-10">
-            <input type="text" name="nombreDocumento" id="nombreDocumento" placeholder="Nombre del documento" maxlength="80" class="form-control" onblur="consultarDocumento()" required/>
+            <input type="text" name="nombreDocumento" id="nombreDocumento" placeholder="Nombre del documento" maxlength="80" class="form-control"
+                   onblur="consultarDocumento()" required/>
             <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
     </div>
@@ -28,8 +29,8 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="fechaEntrega">Fecha de entrega: </label>
         <div class="col-sm-10">
-            <input class="form-control" type="date" name="fechaEntrega" id="fechaEntrega" placeholder="Fecha de entrega"
-                   required />
+            <input class="form-control" type="text" name="fechaEntrega" id="fechaEntrega" value="{{fecha}}"
+                   readonly />
         </div>
     </div>
     <br /><br />

@@ -111,7 +111,7 @@
         <div class="form-group">
             <label class="control-label col-sm-1" for="codigoPostal">Codigo Postal: </label>
             <div class="col-sm-5">
-                <input class="form-control" type="number" name="codigoPostal" id="codigoPostal" placeholder="codigoPostal"
+                <input class="form-control" type="text" name="codigoPostal" id="codigoPostal" placeholder="codigoPostal"
                     maxlength="5" minlength="5" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
             </div>
 
@@ -160,16 +160,17 @@
             <label class="control-label col-sm-1" for="curp">CURP: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="curp" id="curp"
-                    placeholder="curp" maxlength="50"  required onblur="consultarEmpleadoCurp()"
-                    pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    placeholder="curp" minlength="18" maxlength="18"  required onblur="consultarEmpleadoCurp()"
+                    pattern="[A-Z0-9]{18}" title="Incluir solo letras. Tamaño mínimo: 18. Tamaño máximo: 18" />
                     <div id="NotiCurp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
 
             <label class="control-label col-sm-1" for="nss">Numero Seguro Social: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="text" name="nss" id="nss"
-                    placeholder="nss" maxlength="50"  required onblur="consultarEmpleadoNSS()"
-                    pattern="[A-Za-zéóáíú% %{2,50}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    placeholder="nss" minlength="10" maxlength="10"  required onblur="consultarEmpleadoNSS()"
+                    pattern="[0-9]{10}" title="Incluir solo letras. Tamaño mínimo: 10. Tamaño máximo: 10"
+                       onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" />
                     <div id="NotiNSS" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
         </div>
@@ -196,7 +197,7 @@
                 </select>
             </div>
         
-            <label class="control-label col-sm-1" for="sucursal">Sucursal: </label>
+            <label class="control-label col-sm-1" for="idSucursal">Sucursal: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idSucursal" required name="idSucursal">
                     <option value="" selected disabled>Selecciona</option>
@@ -223,7 +224,7 @@
                 </select>
             </div>
 
-            <label class="control-label col-sm-1" for="puesto">Puesto: </label>
+            <label class="control-label col-sm-1" for="idPuesto">Puesto: </label>
             <div class="col-sm-5">
                 <select class="form-control" id="idPuesto" name="idPuesto" required onblur="consultarSalarioPuest()">
                     <option value="" selected disabled>Selecciona</option>
@@ -257,7 +258,7 @@
         <br /><br /><br />
 
         <div class="form-group">
-                <label class="control-label col-sm-1" for="turno">Turno: </label>
+                <label class="control-label col-sm-1" for="idTurno">Turno: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="idTurno" name="idTurno" required>
                         <option value="" selected disabled>Selecciona</option>
@@ -268,11 +269,15 @@
                 </div>
 
             <label class="control-label col-sm-1" for="salarioDiario">Salario diario: </label>
-            <div class="col-sm-5">
-                <input class="form-control" type="number" name="salarioDiario" id="salarioDiario" onblur="consultarSalarioPuest()"
-                    placeholder="Salario" required />
+
+            <div class="d">
+                <div class="col-sm-5">
+                    <input class="form-control" type="number" name="salarioDiario" id="salarioDiario" onblur="consultarSalarioPuest()"
+                           placeholder="Salario" required />
                     <div id="salarioNoti" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+                </div>
             </div>
+
         </div>
         <br /><br />
 
@@ -309,13 +314,14 @@
                 <input class="form-control" type="email" name="email" id="email" placeholder="email" maxlength="50"
                     required pattern="[A-Za-zéóáíú% %{2,50}" 
                     title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                <div id="NotiEmail" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
             </div>
 
             <label class="control-label col-sm-1" for="password">Contraseña: </label>
             <div class="col-sm-5">
                 <input class="form-control" type="password" name="password" id="password" placeholder="password" maxlength="50"
-                    required pattern="[A-Za-zéóáíú% %{2,50}" 
-                    title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" />
+                    required pattern="{8,50}"
+                    title="Incluir solo letras. Tamaño mínimo: 8. Tamaño máximo: 50" />
             </div>
         </div>
         <br /><br /><br /><br />

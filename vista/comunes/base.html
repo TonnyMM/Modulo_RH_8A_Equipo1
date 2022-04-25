@@ -93,8 +93,8 @@ $(document).ready(function(){
                 <li class="dropdown">
                     <a class="dropdown-toggle" style="color:#001b0d;" data-toggle="dropdown"><img src="/empleados/imagen/{{current_user.idEmpleado}}" width="30px"> {{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}}</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/empleadosEditar/{{current_user.idEmpleado}}"> <span class="glyphicon glyphicon-edit"></span> Editar
-                                Perfil</a></li>
+                        <li><a href="/documentacionEmpleado/1,{{current_user.idEmpleado}}"> <span class="glyphicon glyphicon-file"></span> Mis documentos</a></li>
+                        <li><a href="/empleadosEditar/{{current_user.idEmpleado}}"> <span class="glyphicon glyphicon-edit"></span> Editar Perfil</a></li>
                         <li><a href="/cerrarSesion"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
                         </li>
                     </ul>

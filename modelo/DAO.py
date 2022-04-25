@@ -64,6 +64,17 @@ class Empleados(UserMixin,db.Model):
             salida["estatus"]="Ok"
             salida["mensaje"]="Este numero "+nss+" esta libre."
         return salida
+    def consultarEmpleadoscorre(self,email):
+        salida={"estatus":"","mensaje":""}
+        estado=None
+        estado=self.query.filter(Empleados.email==email).first()
+        if estado!=None:
+            salida["estatus"]="Error"
+            salida["mensaje"]="Este E-mail  "+email+" ya se encuentra registrado."
+        else:
+            salida["estatus"]="Ok"
+            salida["mensaje"]="Este E-mail "+email+" esta libre."
+        return salida
 
     #METODOS DEL CRUD
     def insertar(self):

@@ -11,7 +11,7 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-10">
             <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="50" class="form-control" onblur="consultarSucuNom()"/>
-            <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+            <div id="notificacionesNom" style="background-color:rgba(179, 11, 11, 0.452);color:white" ></div>
         </div>
     </div>
     <br /><br />
@@ -19,8 +19,8 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="telefono">Teléfono: </label>
         <div class="col-sm-3">
-            <input class="form-control" type="tel" name="telefono" id="telefono" placeholder="Teléfono" maxlength="12" onblur="consultarSucuTel()"
-                   required />
+            <input class="form-control" type="tel" name="telefono" pattern="[0-9]{3}[-][0-9]{3}[-][0-9]{4}" id="telefono" placeholder="Teléfono" maxlength="12" onblur="consultarSucuTel()"
+                   title="El formato debe ser: ###-###-####" required />
                    
         </div>
     <!--</div>

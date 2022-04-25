@@ -1,6 +1,7 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
+<script src="..\static\js\validacion.js"></script>
 <br /><br />
 <form action="/guardarTurno" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE DATOS DE UN TURNO</h1>
@@ -17,7 +18,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="horaInicio">Hora de entrada: </label>
         <div class="col-sm-8">
-            <input class="form-control" type="time" name="horaInicio" id="horaInicio" value="{{turno.horaInicio}}"
+            <input class="form-control" type="time" name="horaInicio" id="horaInicio" onblur="horaTuno()" value="{{turno.horaInicio}}"
                 required />
         </div>
     </div>
@@ -25,7 +26,8 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="horaFin">Hora de salida: </label>
         <div class="col-sm-8">
-            <input class="form-control" type="time" name="horaFin" id="horaFin" value="{{turno.horaFin}}" required />
+            <input class="form-control" type="time" name="horaFin" id="horaFin" value="{{turno.horaFin}}" onblur="horaTuno()" required />
+            <div id="notifcTurn" style="background-color:rgba(179, 11, 11, 0.452);color:white; display:none; " ></div>
         </div>
     </div>
     <br /><br /><br />
@@ -71,9 +73,9 @@
     </ul>
     <br />
     <a class="btn btn-dark" href="/turnos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <button style="background-color: #389242;" type="submit" id="guardar" class="btn btn-info"><span
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
             class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
-    {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()%}
+    {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
     <a data-toggle="modal" data-target="#elim" id="elimin" class="btn btn-danger"><span
             class="glyphicon glyphicon-trash"></span></a>
     {%endif%}

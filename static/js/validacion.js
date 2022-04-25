@@ -20,6 +20,31 @@ function consultarEstado(){
     ajax.send();
 }
 
+
+function consultarEmail(){
+    var ajax=new XMLHttpRequest();
+    var email=document.getElementById("email").value;
+    var url="/empleados/correo/"+email;
+    var div=document.getElementById("NotiEmail");
+    ajax.open("get",url,true);
+    ajax.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            var respuesta=JSON.parse(this.responseText);
+            if(respuesta.estatus=='Error'){
+                div.innerHTML=respuesta.mensaje;
+                document.getElementById("registrar").setAttribute("disabled","true");
+            }
+            else{
+                div.innerHTML="";
+                document.getElementById("registrar").removeAttribute("disabled");
+            }
+        }
+    };
+    ajax.send();
+}
+
+
+
 function consultarEmpleadoCurp(){
     var ajax=new XMLHttpRequest();
     var curp=document.getElementById("curp").value;
@@ -170,7 +195,34 @@ function conValidSal(){
     }
 }
 
+function datoSesion()
+{
 
+	var email=document.getElementById("email").value;
+	var pass=document.getElementById("password").value;
+	var banderaNum=false;
+	var banderaMy=false;
+	var banderaE=false;
+
+	for(i=0; i<pass.length;i++)
+	{
+		var codigo = pass.charCodeAt(i);
+		if(codigo>=48 && codigo<=57)
+		{
+			banderaNum= true;
+		}
+		if(codigo>=65 && codigo<=90)
+		{
+			banderaMy= true;
+		}
+		if((codigo>=32 && codigo<=47) || (codigo>=58 && codigo<=64) || (codigo>=91 && codigo<=96)|| (codigo>=123 && codigo<=126))
+		{
+			banderaE= true;
+		}
+	}
+
+
+}
 
 function horaTuno(){
     var ajax=new XMLHttpRequest();
