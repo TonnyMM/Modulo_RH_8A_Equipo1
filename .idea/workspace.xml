@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Modulo_RH_8A_Equipo1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Modulo_RH_8A_Equipo1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/validacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/validacion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/periodos/periodosEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/sucursales/sucursalesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/sucursales/sucursalesEditar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/sucursales/sucursalesNuevo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/turnos/turnosEditar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

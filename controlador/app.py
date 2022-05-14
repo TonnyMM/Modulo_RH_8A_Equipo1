@@ -206,10 +206,66 @@ def guardarEmpleado():
 
 @app.route('/empleadosEliminar/<int:id>')
 def empleadosEliminar(id):
-    e = Empleados()
-    e.eliminar(id)
+    emp = Empleados()
+    e = emp.consultaIndividual(id)
+    for empleado in  emp.consultaGeneral():
+        if empleado.idEmpleado == id:
+            nombre = empleado.nombre
+            apellidoPaterno = empleado.apellidoPaterno
+            apellidoMaterno = empleado.apellidoMaterno
+            sexo = empleado.sexo
+            fechaNacimiento = empleado.fechaNacimiento
+            curp = empleado.curp
+            estadoCivil = empleado.estadoCivil
+            fechaContratacion = empleado.fechaContratacion
+            tipo = empleado.tipo
+            salarioDiaro = empleado.salarioDiaro
+            nss = empleado.nss
+            diasVaciones = empleado.diasVaciones
+            diasPermiso = empleado.diasPermiso
+            direccion = empleado.direccion
+            colonia = empleado.colonia
+            codigoPostal = empleado.codigoPostal
+            escolaridad = empleado.escolaridad
+            especialidad = empleado.especialidad
+            email = empleado.email
+            clave = empleado.clave
+            idDepartamento = empleado.idDepartamento
+            idPuesto = empleado.idPuesto
+            idCiudad = empleado.idCiudad
+            idSucursal = empleado.idSucursal
+            idTurno = empleado.idTurno
+            e.idEmpleado = id
+            e.nombre = nombre
+            e.fotografia = e.fotografia
+            e.apellidoPaterno = apellidoPaterno
+            e.apellidoMaterno = apellidoMaterno
+            e.sexo = sexo
+            e.fechaNacimiento = fechaNacimiento
+            e.curp = curp
+            e.estadoCivil = estadoCivil
+            e.fechaContratacion = fechaContratacion
+            e.tipo = tipo
+            e.salarioDiaro = salarioDiaro
+            e.nss = nss
+            e.diasVaciones = diasVaciones
+            e.diasPermiso = diasPermiso
+            e.direccion = direccion
+            e.colonia = colonia
+            e.codigoPostal = codigoPostal
+            e.escolaridad = escolaridad
+            e.especialidad = especialidad
+            e.email = email
+            e.clave = clave
+            e.idDepartamento= idDepartamento
+            e.idPuesto= idPuesto
+            e.idCiudad= idCiudad
+            e.idSucursal = idSucursal
+            e.idTurno = idTurno
+            e.estatus = False
+            e.actualizar()
     flash('Se ha eliminado el empleado con éxito!!')
-    return redirect(url_for('empleados'))
+    return redirect(url_for('empleados',page=1))
 
 
 #######################################################################################################################

@@ -36,6 +36,7 @@
           });
         });
       });
+
 </script>
 
 <ul class="nav nav-tabs" id="ex1">
@@ -48,61 +49,76 @@
 <div class="tab-content">
     <div id="menu1" class="tab-pane fade in active">
 
-        <br />
+        <br/>
 
         <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
                 class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
         <div class="Buscador">
             <input id="myInput" type="text" placeholder="Buscar">
         </div>
-        <br /><br />
+        <br/><br/>
         <table class="table table-hover">
             <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>FOTOGRAFIA</th>
-                    <th>NOMBRE</th>
-                    <th>A. PATERNO</th>
-                    <th>A. MATERNO</th>
-                    <th>SEXO</th>
-                    <th>NACIMIENTO</th>
-                    <th>DIRECCION</th>
-                    <th>COLONIA</th>
-                    <th>CODIGO POSTAL</th>
-                    <th>EST CIVIL</th>
-                    <th>EDITAR</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>FOTOGRAFIA</th>
+                <th>NOMBRE</th>
+                <th>SEXO</th>
+                <th>NACIMIENTO</th>
+                <th>CURP</th>
+                <th>COLONIA Y C.P.</th>
+                <th>DIRECCION</th>
+                <th>EST CIVIL</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </tr>
             </thead>
             <tbody id="myTable">
-                {% for e in empleados %}
-                <tr>
-                    {% if e.estatus == 1 %}
-                    <td>{{e.idEmpleado}}</td>
-                    <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
-                    <td>{{e.nombre}}</td>
-                    <td>{{e.apellidoPaterno}}</td>
-                    <td>{{e.apellidoMaterno}}</td>
-                    {% if e.sexo=='F'%}
-                    <td>Mujer</td>
-                    {%else %}
-                    <td>Hombre</td>
-                    {% endif %}
-                    <td>{{e.fechaNacimiento}}</td>
-                    <td>{{e.direccion}}</td>
-                    <td>{{e.colonia}}</td>
-                    <td>{{e.codigoPostal}}</td>
-                    <td>{{e.estadoCivil}}</td>
-                    <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                    </td>
-
-                    {%endif%}
-                </tr>
-                {% endfor %}
+            {% for e in empleados %}
+            <tr>
+                {% if e.estatus == 1 %}
+                <td>{{e.idEmpleado}}</td>
+                <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
+                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                {% if e.sexo=='F'%}
+                <td>Mujer</td>
+                {%else %}
+                <td>Hombre</td>
+                {% endif %}
+                <td>{{e.fechaNacimiento}}</td>
+                <td>{{e.curp}}</td>
+                <td>{{e.colonia}} C.P.: {{e.codigoPostal}}</td>
+                <td>{{e.direccion}}</td>
+                <td>{{e.estadoCivil}}</td>
+                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                </td>
+                <td><a data-toggle="modal" data-target="#el{{e.idEmpleado}}" id="el"><span
+                        class="glyphicon glyphicon-trash"></span></a></td>
+                <div id="el{{e.idEmpleado}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Eliminación del empleado: {{e.nombre}} {{e.apellidoPaterno}}
+                                    {{e.apellidoMaterno}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿ Esta seguro de que quiere eliminar este empleado ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/empleadosEliminar/{{e.idEmpleado}}" class="btn btn-info">Si</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
-    <br />
-
+    <br/>
 
 
     <div id="menu2" class="tab-pane fade">
@@ -113,216 +129,235 @@
         <div class="Buscador">
             <input id="myInput2" type="text" placeholder="Buscar">
         </div>
-        <br /><br />
+        <br/><br/>
         <table class="table table-hover">
             <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>FOTOGRAFIA</th>
-                    <th>NOMBRE</th>
-                    <th>ESCOLARIDAD</th>
-                    <th>ESPECIALIDAD</th>
-                    <th>CURP</th>
-                    <th>NSS</th>
-                    <th>EDITAR</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>FOTOGRAFIA</th>
+                <th>NOMBRE</th>
+                <th>ESCOLARIDAD</th>
+                <th>ESPECIALIDAD</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </tr>
             </thead>
             <tbody id="myTable2">
-                {% for e in empleados %}
-                <tr>
-                    {% if e.estatus == 1 %}
-                        <td>{{e.idEmpleado}}</td>
-                        <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
-                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                        <td>{{e.escolaridad}}</td>
-                        <td>{{e.especialidad}}</td>
-                        <td>{{e.curp}}</td>
-                        <td>{{e.nss}}</td>
-                        <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                        </td>
-
-                    {%endif%}
-                </tr>
-                {% endfor %}
+            {% for e in empleados %}
+            <tr>
+                {% if e.estatus == 1 %}
+                <td>{{e.idEmpleado}}</td>
+                <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="70"></td>
+                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                <td>{{e.escolaridad}}</td>
+                <td>{{e.especialidad}}</td>
+                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                </td>
+                <td><a data-toggle="modal" data-target="#elim2{{e.idEmpleado}}" id="elimin2"><span
+                        class="glyphicon glyphicon-trash"></span></a></td>
+                <div id="elim2{{e.idEmpleado}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Eliminación del empleado: {{e.nombre}} {{e.apellidoPaterno}}
+                                    {{e.apellidoMaterno}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿ Esta seguro de que quiere eliminar este empleado ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/empleadosEliminar/{{e.idEmpleado}}" class="btn btn-info">Si</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
-    <br />
+    <br/>
 
 
     <div id="menu3" class="tab-pane fade">
         <!------------------------------------------------------------------------------------------------------------------------Profesional-->
 
         <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
-            class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
         <div class="Buscador">
             <input id="myInput3" type="text" placeholder="Buscar">
         </div>
-        <br /><br />
+        <br/><br/>
         <table class="table table-hover">
             <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>FOTO</th>
-                    <th>NOMBRE</th>
-                    <th>CIUDAD</th>
-                    <th>SUCURSAL</th>
-                    <th>DEPA..</th>
-                    <th>PUESTO</th>
-                    <th>F.CONTRAT..</th>
-                    <th>TIPO</th>
-                    <th>TURNO</th>
-                    <th>SALARIO</th>
-                    <th>D.VACACION</th>
-                    <th>D.PERMISO</th>
-                    <th>EDITAR</th>
-                </tr>
+            <tr>
+                <th>FOTO</th>
+                <th>NOMBRE</th>
+                <th>SUCURSAL</th>
+                <th>DEPA..</th>
+                <th>PUESTO</th>
+                <th>F.CONTRAT..</th>
+                <th>TIPO</th>
+                <th>NSS</th>
+                <th>TURNO</th>
+                <th>SALARIO</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </tr>
             </thead>
             <tbody id="myTable3">
-                {% for e in empleados %}
-                <tr>
-                    {% if e.estatus == 1 %}
-                        <td>{{e.idEmpleado}}</td>
-                        <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
-                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                        {% for c in ciudadess %}
-                            {%if c.idCiudad == e.idCiudad %}
-                                <td>{{c.nombre}}</td>
-                            {%endif%}
-                        {%endfor%}
-                        {% for s in sucursales %}
-                            {%if s.idSucursal == e.idSucursal %}
-                                <td>{{s.nombre}}</td>
-                            {%endif%}
-                        {%endfor%}
-                        {% for d in departamentos %}
-                            {%if d.idDepartamento == e.idDepartamento %}
-                                <td>{{d.nombre}}</td>
-                            {%endif%}
-                        {%endfor%}
-                        {% for p in puestos %}
-                            {%if p.idPuesto == e.idPuesto %}
-                                <td>{{p.nombre}}</td>
-                            {%endif%}
-                        {%endfor%}
-                        <td>{{e.fechaContratacion}}</td>
-                        <td>{{e.tipo}}</td>
-                        {% for t in turnos %}
-                            {%if t.idTurno == e.idTurno %}
-                                <td>{{t.nombre}}</td>
-                            {%endif%}
-                        {%endfor%}
-                        <td>{{e.salarioDiaro}}</td>
-                        <td>{{e.diasVaciones}}</td>
-                        <td>{{e.diasPermiso}}</td>
-                        <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                        </td>
+            {% for e in empleados %}
+            <tr>
+                {% if e.estatus == 1 %}
+                <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
+                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                {% for s in sucursales %}
+                {%if s.idSucursal == e.idSucursal %}
+                <td>{{s.nombre}}</td>
+                {%endif%}
+                {%endfor%}
+                {% for d in departamentos %}
+                {%if d.idDepartamento == e.idDepartamento %}
+                <td>{{d.nombre}}</td>
+                {%endif%}
+                {%endfor%}
+                {% for p in puestos %}
+                {%if p.idPuesto == e.idPuesto %}
+                <td>{{p.nombre}}</td>
+                {%endif%}
+                {%endfor%}
+                <td>{{e.fechaContratacion}}</td>
+                <td>{{e.tipo}}</td>
+                <td>{{e.nss}}</td>
+                {% for t in turnos %}
+                {%if t.idTurno == e.idTurno %}
+                <td>{{t.nombre}}</td>
+                {%endif%}
+                {%endfor%}
+                <td>{{e.salarioDiaro}}</td>
+                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td><a data-toggle="modal" data-target="#elim{{e.idEmpleado}}" id="elimin"><span
+                        class="glyphicon glyphicon-trash"></span></a></td>
+                <div id="elim{{e.idEmpleado}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Eliminación del empleado: {{e.nombre}} {{e.apellidoPaterno}}
+                                    {{e.apellidoMaterno}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿ Esta seguro de que quiere eliminar este empleado ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/empleadosEliminar/{{e.idEmpleado}}" class="btn btn-info">Si</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    {%endif%}
-                </tr>
-                {% endfor %}
+                {%endif%}
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
-    <br />
+    <br/>
     <div id="menu4" class="tab-pane fade">
-        
+
         <!------------------------------------------------------------------------------------------------------------------------Profesional-->
 
-            <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
+        <a href="/empleadosNuevo" class="btn btn-success" id="nuevo1"> <span
                 class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-            <div class="Buscador">
-                <input id="myInput4" type="text" placeholder="Buscar">
-            </div>
-            <br /><br />
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>FOTO</th>
-                        <th>NOMBRE</th>
-                        <th>CORREO</th>
-                        <th>ESTATUS</th>
-                        <th>EDITAR</th>
-                    </tr>
-                </thead>
-                <tbody id="myTable4">
-                    {% for e in empleados %}
-                    <tr>
-                        {% if e.estatus == 1 %}
-                            <td>{{e.idEmpleado}}</td>
-                            <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
-                            <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                            
-                            <td>{{e.email}}</td>
-                            {% if e.estatus==1%}
-                                <td>ACTIVO</td>
-                            {%else%}
-                                <td>INACTIVO</td>
-                            {% endif %}
-                            <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                            </td>
-
-                            {%else%}
-                            {%if current_user.is_authenticated and current_user.is_administrador()%}
-                                    <td>{{e.idEmpleado}}</td>
-                                    <td>{{e.nombre}}</td>
-                                {% if e.estatus==1%}
-                                    <td>ACTIVO</td>
-                                {%else%}
-                                    <td>INACTIVO</td>
-                                {% endif %}
-                                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
-                                </td>
-                            {%endif%}
-                        {%endif%}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="Buscador">
+            <input id="myInput4" type="text" placeholder="Buscar">
         </div>
-        <br />
-        
-        
+        <br/><br/>
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>FOTO</th>
+                <th>NOMBRE</th>
+                <th>CORREO</th>
+                <th>ESTATUS</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </tr>
+            </thead>
+            <tbody id="myTable4">
+            {% for e in empleados %}
+            <tr>
+                {%if current_user.is_authenticated and current_user.is_administrador() and current_user.is_staff() and e.estatus ==1%}
+                <td>{{e.idEmpleado}}</td>
+                <td><img src="/empleados/imagen/{{e.idEmpleado}}" width="50"></td>
+                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                <td>{{e.email}}</td>
+                {% if e.estatus==1%}
+                <td>ACTIVO</td>
+                {%else%}
+                <td>INACTIVO</td>
+                {% endif %}
+                <td><a href="/empleadosEditar/{{e.idEmpleado}}"><span class="glyphicon glyphicon-edit"></span></a>
+                </td>
+                <td><a data-toggle="modal" data-target="#elim4{{e.idEmpleado}}" id="elimin4"><span
+                        class="glyphicon glyphicon-trash"></span></a></td>
+                <div id="elim4{{e.idEmpleado}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Eliminación del empleado: {{e.nombre}} {{e.apellidoPaterno}}
+                                    {{e.apellidoMaterno}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿ Esta seguro de que quiere eliminar este empleado ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/empleadosEliminar/{{e.idEmpleado}}" class="btn btn-info">Si</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
+    <br/>
 
-        <!------Aqui va todo lo de DOCUMENTOS-------------------------------------------------------------------------------------------------->
-
-        
 
 </div>
 
-    
+<!------Aqui va todo lo de DOCUMENTOS-------------------------------------------------------------------------------------------------->
 
 
-
-
-
-
-
-
+</div>
 
 
 <div class="conteiner">
     <ul class="pagination" style="margin-left: 70px;">
 
-        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-            {% else %}
-            <li><a class="page-link" href="/empleados/{{pagina-1}}">Anterior</a></li>
-            {% endif %}
-            <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de
-                    <b>{{paginas}}</b></a></li>
-            {% if pagina >= paginas %}
-            <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
-            {% else %}
-            <li><a class="page-link" href="/empleados/{{pagina+1}}">Siguiente</a></li>
-            {% endif %}
+        {% if pagina <=1 %}
+        <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% else %}
+        <li><a class="page-link" href="/empleados/{{pagina-1}}">Anterior</a></li>
+        {% endif %}
+        <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de
+            <b>{{paginas}}</b></a></li>
+        {% if pagina >= paginas %}
+        <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+        {% else %}
+        <li><a class="page-link" href="/empleados/{{pagina+1}}">Siguiente</a></li>
+        {% endif %}
     </ul>
 </div>
-
-
-
-
 
 
 {%endblock content%}
