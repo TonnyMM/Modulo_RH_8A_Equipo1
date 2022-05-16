@@ -1,0 +1,103 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<h1>HISTORIAL DE PUESTOS</h1>
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+
+<div class="Buscador">
+    <input id="myInput" type="text" placeholder="Buscar">
+</div>
+<br /><br />
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>EMPLEADO</th>
+            <th>PUESTO</th>
+            <th>DEPARTAMENTO</th>
+            <th>FECHA INICIO</th>
+            <th>FECHA FIN</th>
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+            <th>EDITAR</th>
+            <th>ELIMINAR</th>
+            {%endif%}
+        </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for hp in hpuestos %}
+    <tr>
+        {%if hp.estatus==true %}
+            {% for e in empleados %}
+                {%if hp.idEmpleado == e.idEmpleado %}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                {%endif%}
+            {%endfor%}
+            {% for p in puestos %}
+                {%if hp.idPuesto == p.idPuesto %}
+                    <td>{{p.nombre}}</td>
+                {%endif%}
+            {%endfor%}
+            {% for d in departamentos %}
+                {%if d.idDepartamento == hp.idDepartamento %}
+                    <td>{{d.nombre}}</td>
+                {%endif%}
+            {%endfor%}
+            <td>{{hp.fechaInicio}}</td>
+            {%if hp.fechaFin == none %}
+            <td>Actualmente</td>
+            {%else%}
+            <td>{{hp.fechaFin}}</td>
+            {%endif%}
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+                <td><a href="/historialPuestosEditar/{{hp.idEmpleado}},{{hp.idPuesto}},{{hp.idDepartamento}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td><a data-toggle="modal" data-target="#el{{hp.idEmpleado}}" id="el"><span
+                    class="glyphicon glyphicon-trash"></span></a></td>
+                <div id="el{{hp.idEmpleado}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Eliminación del Historial
+                                    {{hp.idEmpleado}},{{hp.idPuesto}},{{hp.idDepartamento}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿ Esta seguro de que quiere eliminar este historial ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/historialPuestosEliminal/{{hp.idEmpleado}},{{hp.idPuesto}},{{hp.idDepartamento}}" class="btn btn-info">Si</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endif%}
+        {%endif%}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<br />
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
+        
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+            {% else %}
+            <li><a class="page-link" href="/historialPuestos/{{pagina-1}}">Anterior</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link">Pagina <b>{{pagina}}</b> de <b>{{paginas}}</b></a></li>
+            {% if pagina >= paginas %}
+            <li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+            {% else %}
+            <li><a class="page-link" href="/historialPuestos/{{pagina+1}}">Siguiente</a></li>
+            {% endif %}
+    </ul>
+</div>
+{%endblock content%}

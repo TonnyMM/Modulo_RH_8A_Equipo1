@@ -8,7 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 
 
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -1520,7 +1520,7 @@ def registrarEntrada():
 @app.route('/registrarSalida')
 @login_required
 def ventanaregistrarSalida():
-    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+   
         activado = 1
         fecha = datetime.today().strftime('%Y-%m-%d')
         diaSemana = datetime.today().weekday()
@@ -1544,8 +1544,7 @@ def ventanaregistrarSalida():
 
 
         return render_template('asistencias/registraSalida.html', activado = activado, fecha=fecha,diaSemana=diaSemana,horaActual=horaActual)
-    else:
-        abort(404)
+   
 
 
 @app.route('/registrarSalida',methods=['post'])
@@ -1787,6 +1786,150 @@ def ausenciasEliminar(id):
 def empleadoEvidencia(id):
     a = AusenciasJustificadas()
     return a.consultaIndividual(id).evidencia
+##########################################################################################################################################
+@app.route('/historialPuestos/<int:page>' )
+@login_required
+def historialPuestos(page=1):
+    h = HistorialPuestos()
+    e = Empleados()
+    p = Puestos()
+    d = Departamentos()
+    empleados = e.consultaGeneral()
+    puestos = p.consultaGeneral()
+    departamentos = d.consultaGeneral()
+    try:
+        
+        paginacion=h.consultarPagina(page)
+        hpuestos=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay Puestos registrados")
+        hpuestos=None
+    
+    return render_template('historialPuestos/historialPuestosListado.html',hpuestos = hpuestos,paginas=paginas,pagina=page,empleados=empleados,puestos=puestos,departamentos=departamentos)
+
+@app.route('/historialPuestosEmp/<int:id>,<int:page>' )
+@login_required
+def historialPuestosEmp(id,page=1):
+    h = HistorialPuestos()
+    e = Empleados()
+    p = Puestos()
+    d = Departamentos()
+    empleado = e.consultaIndividual(id)
+    puestos = p.consultaGeneral()
+    departamentos = d.consultaGeneral()
+    try:
+        
+        paginacion=h.consultarPaginaI(page)
+        hpuestos=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay Puestos registrados")
+        hpuestos=None
+    
+    return render_template('historialPuestos/historialPuestoEmpListado.html',hpuestos = hpuestos,paginas=paginas,pagina=page,empleado=empleado,puestos=puestos,departamentos=departamentos)
+
+@app.route('/historialPuestosEditar/<int:idE>,<int:idP>,<int:idD>')
+@login_required
+def historialPuestosEditar(idE,idP,idD):
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        hp= HistorialPuestos()
+        empl= Empleados()
+        puestos=Puestos()
+        departamentos=Departamentos()
+        historialP=hp.consultaIndividual(idE,idP,idD)
+        return render_template('historialPuestos/HistorialEditar.html', historialP = historialP,correcto = 1,empleados=empl.consultaGeneral(),puestos=puestos.consultaGeneral(),departamentos=departamentos.consultaGeneral())
+    else:
+        abort(404)
+
+@app.route('/historialPuestosEditarIn/<int:idE>,<int:idP>,<int:idD>')
+@login_required
+def historialPuestosEditarIn(idE,idP,idD):
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        hp= HistorialPuestos()
+        empl= Empleados()
+        puestos=Puestos()
+        departamentos=Departamentos()
+        historialP=hp.consultaIndividual(idE,idP,idD)
+        return render_template('historialPuestos/HistorialIndiEditar.html', historialP = historialP,correcto = 1,empleados=empl.consultaGeneral(),puestos=puestos.consultaGeneral(),departamentos=departamentos.consultaGeneral())
+    else:
+        abort(404)
+@app.route('/guardarHistorial',methods=['post'])
+@login_required
+def guardarHistorial():
+    h = HistorialPuestos()
+    empl= Empleados()
+    puestos=Puestos()
+    departamentos=Departamentos()
+    historialP = h.consultaIndividual(request.form['idEmpleado'],request.form['idPuesto'],request.form['idDepartamento'])
+    h.idEmpleado = request.form['idEmpleado']
+    h.idPuesto = request.form['idPuesto']
+    h.idDepartamento = request.form['idDepartamento']
+    h.fechaInicio = request.form['fechaInicio']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        h.estatus=True
+    else:
+        h.estatus=False
+    if request.form['fechaFin'] != '':
+        h.fechaFin = request.form['fechaFin']
+    h.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('historialPuestos/HistorialEditar.html', historialP = historialP, correcto = 1,empleados=empl.consultaGeneral(),puestos=puestos.consultaGeneral(),departamentos=departamentos.consultaGeneral())
+
+@app.route('/guardarHistorialIn',methods=['post'])
+@login_required
+def guardarHistorialIn():
+    h = HistorialPuestos()
+    empl= Empleados()
+    puestos=Puestos()
+    departamentos=Departamentos()
+    historialP = h.consultaIndividual(request.form['idEmpleado'],request.form['idPuesto'],request.form['idDepartamento'])
+    h.idEmpleado = request.form['idEmpleado']
+    h.idPuesto = request.form['idPuesto']
+    h.idDepartamento = request.form['idDepartamento']
+    h.fechaInicio = request.form['fechaInicio']
+    estatus = request.values.get('estatus',False)
+    if estatus=="True":
+        h.estatus=True
+    else:
+        h.estatus=False
+    if request.form['fechaFin'] != '':
+        h.fechaFin = request.form['fechaFin']
+    h.actualizar()
+    flash('Se han guardado los cambios con éxito!!')
+    return render_template('historialPuestos/historialIndiEditar.html', historialP = historialP, correcto = 1,empleados=empl.consultaGeneral(),puestos=puestos.consultaGeneral(),departamentos=departamentos.consultaGeneral())
+
+
+
+@app.route('/historialPuestosEliminal/<int:idE>,<int:idP>,<int:idD>')
+@login_required
+def historialPuestosEliminal(idE,idP,idD):
+    
+    hp= HistorialPuestos()
+    h=hp.consultaIndividual(idE,idP,idD)
+    for hh in hp.consultaGeneral():
+        if hh.idEmpleado == idE and hh.idPuesto == idP and hh.idDepartamento==idD:
+            fechaI=hh.fechaInicio
+            fechaf=hh.fechaFin
+            h.idEmpleado=idE
+            h.idPuesto=idP
+            h.idDepartamento=idD
+            h.fechaInicio=fechaI
+            h.fechaf=fechaf
+            h.estatus=False
+            h.actualizar()
+    
+    
+    flash('Se ha eliminado el empleado con éxito!!')
+    return redirect(url_for('historialPuestos',page=1))
+
+
+
 
 @app.errorhandler(404)
 def error404(e):

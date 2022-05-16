@@ -727,3 +727,49 @@ class AusenciasJustificadas(db.Model):
     def consultarPagina(self, pagina):
         paginacion=self.query.order_by(AusenciasJustificadas.idAusencia.asc()).paginate(pagina,per_page=5,error_out=False)
         return paginacion
+
+
+
+class HistorialPuestos(db.Model):
+    __tablename__ = 'HistorialPuestos'
+    idEmpleado = Column(Integer, ForeignKey('Empleados.idEmpleado'),primary_key=True)
+    idPuesto = Column(Integer, ForeignKey('Puestos.idPuesto'),primary_key=True)
+    idDepartamento = Column(Integer, ForeignKey('Departamentos.idDepartamento'),primary_key=True)
+    fechaInicio = Column(String(50), unique=True)
+    fechaFin = Column(String(50), unique=True)
+    estatus = Column(Boolean, default=True)
+    empleado=relationship('Empleados',backref='empleados', lazy="select")
+    puesto=relationship('Puestos',backref='puestos', lazy="select")
+    departamento=relationship('Departamentos',backref='departamentos', lazy="select")
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self,idE,idP,idD):
+        objeto=self.consultaGeneral()
+        ##for hp in objeto:
+            ##if hp.idEmpleado == idE and hp.idPuesto==idP and hp.idDepartamento==idD:
+                
+        return self.query.get((idE,idP,idD))
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(HistorialPuestos.idPuesto.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
+    
+    def consultarPaginaI(self, pagina):
+        paginacion=self.query.order_by(HistorialPuestos.idPuesto.asc()).paginate(pagina,per_page=10,error_out=False)
+        return paginacion
+    

@@ -224,7 +224,7 @@
                         {%endfor%}
                         {% for p in puestos %}
                             {%if p.idPuesto == e.idPuesto %}
-                                <td>{{p.nombre}}</td>
+                                <td>{{p.nombre}}<br> <a href="/historialPuestosEmp/{{e.idEmpleado}},1"> Ver historial </a></td>
                             {%endif%}
                         {%endfor%}
                         <td>{{e.fechaContratacion}}</td>

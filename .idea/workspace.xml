@@ -8,18 +8,31 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modelo/DAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelo/DAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ciudades/ciudadesListado.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacionEmpleados/documentacionEmpleadoListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/RES.HTML" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/RES.HTML" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/empleados/empleadosNuevo.html" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/venv/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controlador/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="684" column="17" selection-start-line="684" selection-start-column="17" selection-end-line="684" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -98,10 +111,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1939" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectId" id="25a4ZEqSgQJ516Gmvaq2nDlM0Gp" />
   <component name="ProjectView">
@@ -116,6 +129,11 @@
             <path>
               <item name="Modulo_RH_8A_Equipo1" type="b2602c69:ProjectViewProjectNode" />
               <item name="Modulo_RH_8A_Equipo1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Modulo_RH_8A_Equipo1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Modulo_RH_8A_Equipo1" type="462c0819:PsiDirectoryNode" />
+              <item name="controlador" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Modulo_RH_8A_Equipo1" type="b2602c69:ProjectViewProjectNode" />
@@ -142,7 +160,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Proyecto---califSecVillaRosa" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -152,6 +170,18 @@
       <recent name="D:\Tec\Modulo_RH_8A_Equipo1\static\img" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Modulo_RH_8A_Equipo1" />
@@ -160,7 +190,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Python37\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\AntonioMM\AppData\Local\Programs\Python\Python37-32\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controlador" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -180,7 +210,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -198,12 +228,12 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17118308" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17118308" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.19971672" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.19971672" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -562,16 +592,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controlador/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3366">
-          <caret line="684" column="17" selection-start-line="684" selection-start-column="17" selection-end-line="684" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vista/periodos/periodosListado.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -590,6 +610,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="327">
           <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controlador/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="684" column="17" selection-start-line="684" selection-start-column="17" selection-end-line="684" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

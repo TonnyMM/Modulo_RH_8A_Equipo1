@@ -1,0 +1,111 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
+<br /><br />
+<form action="/guardarHistorial" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>EDICIÓN DE HISTORIAL DE PUESTOS</h1>
+    <input type="hidden" name="idEmpleado" id="idEmpleado" value="{{historialP.idEmpleado}}" readonly/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Empleado: </label>
+        <div class="col-sm-8">
+            {%for e in empleados %}
+                {%if e.idEmpleado == historialP.idEmpleado%}
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}" maxlength="50"
+                size="50" required pattern="[A-Za-zéóáíú ÚÁÉÍÓ% % 0-9]{2,50}"
+                title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" / disabled>
+                {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+    <br /><br />
+    <input type="hidden" name="idPuesto" id="idPuesto" value="{{historialP.idPuesto}}" readonly/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Puesto: </label>
+        <div class="col-sm-8">
+            {%for p in puestos %}
+                {%if p.idPuesto == historialP.idPuesto%}
+                    <input class="form-control" type="text" name="Puesto" id="Puesto" value="{{p.nombre}}" maxlength="50"
+                size="50" required pattern="[A-Za-zéóáíú ÚÁÉÍÓ% % 0-9]{2,50}"
+                title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" / disabled>
+                {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+    <br /><br />
+    <input type="hidden" name="idDepartamento" id="idDepartamento" value="{{historialP.idDepartamento}}" readonly/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">Departamento: </label>
+        <div class="col-sm-8">
+            {%for d in departamentos %}
+                {%if d.idDepartamento == historialP.idDepartamento%}
+                    <input class="form-control" type="text" name="idDepartamentos" id="idDepartamentos" value="{{d.nombre}}" maxlength="50"
+                size="50" required pattern="[A-Za-zéóáíú ÚÁÉÍÓ% % 0-9]{2,50}"
+                title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 50" / disabled>
+                {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" value="{{historialP.fechaInicio}}"
+                onblur="consultarPfechas()" />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
+        <div class="col-sm-8">
+            <input class="form-control" type="date" name="fechaFin" id="fechaFin" value="{{historialP.fechaFin}}"
+                onblur="consultarPfechas()"  />
+            <div id="notificacionesFechaMM" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+        </div>
+    </div>
+    <br /><br />
+    <div>
+        {% if historialP.estatus==True%}
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" checked value="True" readonly>
+            </div>
+        </div>
+        {% else %}
+        <div class="form-group">
+            <label class="control-label col-sm-2">Estatus:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" name="estatus" value="True" readonly>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <br /><br />
+    <a class="btn btn-dark" href="/historialPuestos/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-saved"> Guardar</span></button>
+    
+    {%if correcto == 1%}
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {%else%}
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {%endif%}
+</form>
+<br /><br />
+
+{%endblock content%}
