@@ -41,6 +41,7 @@ class Empleados(UserMixin,db.Model):
     Puesto = relationship('Puestos',backref='empleados', lazy="select")
     Ciudad = relationship('Ciudades',backref='empleados', lazy="select")
     Turno = relationship('Turnos',backref='empleados', lazy="select")
+
     def consultarEmpleadosCurp(self,curp):
         salida={"estatus":"","mensaje":""}
         estado=None
@@ -657,5 +658,72 @@ class DocumentacionEmpleado(db.Model):
         paginacion=self.query.order_by(DocumentacionEmpleado.idDocumento.asc()).paginate(pagina,per_page=5,error_out=False)
         return paginacion
 
+class Asistencias(db.Model):
+    __tablename__ = 'Asistencias'
+    idAsistencia = Column(Integer, primary_key=True)
+    fecha = Column(Date)
+    horaEntrada = Column(Date)
+    horaSalida = Column(Date)
+    dia = Column(String(12))
+    estatus = Column(Boolean, default=True)
+    idEmpleado = Column(Integer, ForeignKey('Empleados.idEmpleado'))
+    Empleado=relationship('Empleados',backref='asistencias', lazy="select")
 
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
 
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Asistencias.idAsistencia.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
+
+class AusenciasJustificadas(db.Model):
+    __tablename__ = 'AusenciasJustificadas'
+    idAusencia = Column(Integer, primary_key=True)
+    fechaSolicitud = Column(Date)
+    fechaInicio = Column(Date)
+    fechaFin = Column(Date)
+    tipo = Column(String(15))
+    idEmpleadoSolicita = Column(Integer)
+    idEmpleadoAutoriza = Column(Integer)
+    evidencia = Column(BLOB)
+    estatus = Column(String(15))
+    motivo = Column(String(100))
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(AusenciasJustificadas.idAusencia.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion

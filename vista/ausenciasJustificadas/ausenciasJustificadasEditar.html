@@ -1,0 +1,147 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
+<br /><br />
+<form action="/guardarAusenciasJustificadas" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>MODIFICACIÓN DE UNA SOLICITUD DE AUSENCIA</h1>
+    <div class="form-group">
+        <div class="doc">
+            <label for="evidencia">Evidencia: </label>
+            <input type="file" name="evidencia" id="evidencia" accept=".pdf">
+        </div>
+        <a data-toggle="modal" data-target="#pdf" id="imgn"><span class="glyphicon glyphicon-eye-open"><b> Visualizar</b></span></a>
+    </div>
+    <br/>
+    <input class="form-control" type="hidden" name="idAusencia" value="{{ausencia.idAusencia}}"/>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaSolicitud">Fecha de solicitud: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="date" value="{{ausencia.fechaSolicitud}}" readonly/>
+            <input class="form-control" type="hidden" name="fechaSolicitud" id="fechaSolicitud" value="{{ausencia.fechaSolicitud}}" readonly/>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" value="{{ausencia.fechaInicio}}" required />
+        </div>
+        <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="fechaFin" id="fechaFin" value="{{ausencia.fechaFin}}"  required />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="tipo" >Tipo de justificación: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="tipo" name="tipo" required>
+                    {%if ausencia.tipo == 'Permiso'%}
+                        <option value="Permiso" selected>Permiso</option>
+                        <option value="Incapacidad">Incapacidad</option>
+                        <option value="Periodo Vacacional">Periodo Vacacional</option>
+                    {%else%}
+                        {%if ausencia.tipo == 'Incapacidad'%}
+                            <option value="Permiso" >Permiso</option>
+                            <option value="Incapacidad" selected>Incapacidad</option>
+                            <option value="Periodo Vacacional">Periodo Vacacional</option>
+                        {%else%}
+                            <option value="Permiso" >Permiso</option>
+                            <option value="Incapacidad">Incapacidad</option>
+                            <option value="Periodo Vacacional" selected>Periodo Vacacional</option>
+                        {%endif%}
+                    {%endif%}
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="idEmpleadoSolicita">Solicitante: </label>
+        <div class="col-sm-10">
+            {%for e in empleados%}
+                {%if e.idEmpleado == ausencia.idEmpleadoSolicita%}
+                    <input class="form-control" type="hidden" name="idEmpleadoSolicita" id="idEmpleadoSolicita" value="{{ausencia.idEmpleadoSolicita}}" />
+                    <input class="form-control" type="text"  value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}} " readonly/>
+                {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="idEmpleadoAutoriza" >Autorizador: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="idEmpleadoAutoriza" name="idEmpleadoAutoriza" required>
+                    {%for e in empleados%}
+                        {%if e.idEmpleado == ausencia.idEmpleadoAutoriza%}
+                            <option value="{{e.idEmpleado}}" selected>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
+                        {%endif%}
+                    {%endfor%}
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="estatus" >Estatus: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="estatus" name="estatus" required>
+                    <option value="{{ausencia.estatus}}" selected>{{ausencia.estatus}}</option>
+                    {%if ausencia.estatus == 'EnCaptura' and current_user.is_empleado()%}
+                        <option value="Solicitando" >Solicitando</option>
+                    {%endif%}
+                    {%if ausencia.estatus == 'Solicitando' and current_user.is_staff()%}
+                        <option value="Aceptada" >Aceptada</option>
+                        <option value="Rechazada" >Rechazada</option>
+                    {%endif%}
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="motivo">Motivo: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="motivo" id="motivo" value="{{ausencia.motivo}}" required/>
+        </div>
+    </div>
+    <br /><br />
+    <a class="btn btn-dark" href="/ausenciasJustificadasListadoGeneral/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Guardar</span></button>
+
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</form>
+<br />
+<!--MODAL PARA MOSTRAR LA PDF-->
+<div id="pdf" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h4 class="modal-title">{{ausencia.idAusencia}}</h4>
+            </div>
+            <div class="modal-body">
+                <embed src="/empleadoEvidencia/{{ausencia.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}

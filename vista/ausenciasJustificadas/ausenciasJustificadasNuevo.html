@@ -1,0 +1,137 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
+<br /><br />
+<form action="/registrarAusenciasJustificadas" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>SOLICITUD DE AUSENCIA</h1>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaSolicitud">Fecha de solicitud: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="date" value="{{fechaSolicitud}}" readonly/>
+            <input class="form-control" type="hidden" name="fechaSolicitud" id="fechaSolicitud" value="{{fechaSolicitud}}" readonly/>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" required />
+        </div>
+        <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="fechaFin" id="fechaFin" required />
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="tipo" >Tipo de justificación: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="tipo" name="tipo" required>
+                    <option disabled selected value="">Seleccionar</option>
+                    <option value="Permiso">Permiso</option>
+                    <option value="Incapacidad">Incapacidad</option>
+                    <option value="Periodo Vacacional">Periodo Vacacional</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    {%if current_user.is_authenticated and (current_user.is_staff() or current_user.is_empleado()) %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="idEmpleadoSolicita">Solicitante: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="hidden" name="idEmpleadoSolicita" id="idEmpleadoSolicita" value="{{current_user.idEmpleado}}" readonly/>
+                <input class="form-control" type="text"  value="{{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}} " readonly/>
+            </div>
+        </div>
+    {%else%}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="idEmpleadoSolicita">ID del Solicitante: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="number" name="idEmpleadoSolicita" placeholder="Ingresa el ID del empleado" required/>
+            </div>
+        </div>
+    {%endif%}
+    <br /><br />
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="idEmpleadoAutoriza" >Autorizador: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="idEmpleadoAutoriza" name="idEmpleadoAutoriza" required>
+                    <option disabled selected value="">Seleccionar</option>
+                    {%if current_user.is_authenticated and current_user.is_empleado() %}
+                        {%for e in empleado%}
+                            {%if e.idDepartamento == current_user.idDepartamento %}
+                                {%if e.tipo == 'S' %}
+                                    <option value="{{e.idEmpleado}}">{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
+                                {%endif%}
+                            {%endif%}
+                        {%endfor%}
+                    {%else%}
+                        {%if current_user.is_authenticated and current_user.is_staff() %}
+                            {%for e in empleado%}
+                                {%if e.tipo == 'A' %}
+                                <option value="{{e.idEmpleado}}">{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
+                                {%endif%}
+                            {%endfor%}
+                        {%else%}
+                            {%for e in empleado%}
+                                {%if e.tipo == 'A' or e.tipo == 'S' %}
+                                <option value="{{e.idEmpleado}}">{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
+                                {%endif%}
+                            {%endfor%}
+                        {%endif%}
+                    {%endif%}
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <div class="dropdown">
+            <label class="control-label col-sm-2" for="estatus" >Estatus: </label>
+            <div class="col-sm-5">
+                <select class="form-control" id="estatus" name="estatus" required>
+                    <option disabled selected value="">Seleccionar</option>
+                    <option value="Solicitando">Solicitando</option>
+                    <option value="EnCaptura">EnCaptura</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="motivo">Motivo: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="motivo" id="motivo" placeholder="Ingresa el motivo" required/>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group" >
+        <div class="col-sm-10">
+            <label for="evidencia">Evidencia: </label>
+            <span class="control-fileupload" id="u">
+            <input type="file" name="evidencia" id="evidencia" value="Selecciona la evidencia" accept=".pdf" required>
+            </span>
+        </div>
+    </div>
+    <br /><br /><br />
+
+    <a class="btn btn-dark" href="/ausenciasJustificadasListadoGeneral/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span
+            class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</form>
+<br /><br />
+{%endblock content%}

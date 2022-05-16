@@ -101,15 +101,18 @@ td {
   margin: auto;
 }
 
-#ex1{
+#ex1,#ex2{
   margin-inline: 5%;
   color: #1b7242;
 }
 
-#nuevo1, #nuevo11{
+#nuevo1, #nuevo11,#nuevo2,#nuevo3,#nuevo4,#nuevo5{
   margin-left: 5%;
   color: black;
   size: 20 px;
+}
+#u, #evidencia {
+color: black;
 }
 #nuevo_esp{
   color: black;

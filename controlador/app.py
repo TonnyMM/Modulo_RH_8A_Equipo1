@@ -2,10 +2,13 @@ import re
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
+import datetime
+from datetime import date
 from datetime import datetime
+from datetime import timedelta
 
 
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -75,7 +78,7 @@ def empleados(page=1):
     sucursales = s.consultaGeneral()
     t = Turnos()
     turnos = t.consultaGeneral()
-    
+
     try:
         puestos= p.consultaGeneral()
         ciudadess = c.consultaGeneral()
@@ -110,7 +113,7 @@ def empleadosNuevo():
     sucursales = s.consultaGeneral()
     t = Turnos()
     turnos = t.consultaGeneral()
-    
+
     return render_template('empleados/empleadosNuevo.html',departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos)
 
 @app.route('/registrarEmpleados',methods=['post'])
@@ -122,8 +125,8 @@ def registrarEmpleados():
     e.apellidoMaterno = request.form["apellidoMaterno"]
     e.sexo = request.form["sexo"]
     e.fechaNacimiento = request.form['fechaNacimiento']
-    e.curp = request.form["curp"]    
-    e.estadoCivil = request.form["estadoCivil"]    
+    e.curp = request.form["curp"]
+    e.estadoCivil = request.form["estadoCivil"]
     e.fechaContratacion = request.form['fechaContratacion']
     e.tipo = request.form['tipo']
     e.salarioDiaro = request.form["salarioDiario"]
@@ -174,8 +177,8 @@ def guardarEmpleado():
     e.apellidoMaterno = request.form["apellidoMaterno"]
     e.sexo = request.form["sexo"]
     e.fechaNacimiento = request.form['fechaNacimiento']
-    e.curp = request.form["curp"]    
-    e.estadoCivil = request.form["estadoCivil"]    
+    e.curp = request.form["curp"]
+    e.estadoCivil = request.form["estadoCivil"]
     e.fechaContratacion = request.form['fechaContratacion']
     e.tipo = request.form['tipo']
     e.salarioDiaro = request.form["salarioDiario"]
@@ -360,7 +363,7 @@ def ciudades(page=1):
     e = Estados ()
     estados = e.consultaGeneral()
     try:
-        
+
         paginacion=c.consultarPagina(page)
         ciudades=paginacion.items
         paginas=paginacion.pages
@@ -369,7 +372,7 @@ def ciudades(page=1):
     except OperationalError:
         flash("No hay ciudades registrados")
         ciudades=None
-    
+
     return render_template('ciudades/ciudadesListado.html',ciudades = ciudades,paginas=paginas,pagina=page,estados=estados)
 
 @app.route('/ciudadesNuevo')
@@ -462,7 +465,7 @@ def consultarEmails(email):
 @login_required
 def consultarDocumento(nombre,idEmpleado):
     docu=DocumentacionEmpleado()
-    
+
     return json.dumps(docu.consultarDocu(nombre,idEmpleado))
 
 @app.route('/empledo/salario/<int:salario>,<int:idPuesto>',methods=['get'])
@@ -472,7 +475,7 @@ def consultarsalarioEm(salario,idPuesto):
     pue=puesto.consultaIndividual(idPuesto)
     salrioMin=pue.salarioMinimo
     SalarMax=pue.salarioMaximo
-    
+
     return json.dumps(puesto.validacionSalario(salario,salrioMin,SalarMax))
 
 @app.route('/estado/nombre/<string:nombre>',methods=['get'])
@@ -561,7 +564,7 @@ def consulFechasii(inicio,fin):
 def departamentos(page=1):
     d = Departamentos()
     try:
-        
+
         paginacion=d.consultarPagina(page)
         departamento=paginacion.items
         paginas=paginacion.pages
@@ -570,7 +573,7 @@ def departamentos(page=1):
     except OperationalError:
         flash("No hay Departamentos registrados")
         departamento=None
-    
+
     return render_template('departamentos/departamentosListado.html',departamentos = departamento,paginas=paginas,pagina=page)
 
 
@@ -649,7 +652,7 @@ def departamentosEliminar(id):
 def puestos(page=1):
     p = Puestos()
     try:
-        
+
         paginacion=p.consultarPagina(page)
         puestos=paginacion.items
         paginas=paginacion.pages
@@ -658,7 +661,7 @@ def puestos(page=1):
     except OperationalError:
         flash("No hay Puestos registrados")
         puestos=None
-    
+
     return render_template('puestos/puestosListado.html',puestos = puestos,paginas=paginas,pagina=page)
 
 @app.route('/puestosNuevo')
@@ -927,7 +930,7 @@ def turnosEliminar(id):
 def percepciones(page=1):
     p = Percepciones()
     try:
-        
+
         paginacion=p.consultarPagina(page)
         percepciones=paginacion.items
         paginas=paginacion.pages
@@ -936,7 +939,7 @@ def percepciones(page=1):
     except OperationalError:
         flash("No hay percepciones registrados")
         percepciones=None
-    
+
     return render_template('percepciones/percepcionesListado.html',percepciones = percepciones,paginas=paginas,pagina=page)
 
 @app.route('/percepcionesNuevo')
@@ -988,7 +991,7 @@ def percepcionesEliminar(id):
 def deducciones(page=1):
     p = Deducciones()
     try:
-        
+
         paginacion=p.consultarPagina(page)
         deducciones=paginacion.items
         paginas=paginacion.pages
@@ -1048,7 +1051,7 @@ def deduccionesEliminar(id):
 def periodos(page=1):
     p = Periodos()
     try:
-        
+
         paginacion=p.consultarPagina(page)
         periodos=paginacion.items
         paginas=paginacion.pages
@@ -1057,7 +1060,7 @@ def periodos(page=1):
     except OperationalError:
         flash("No hay periodos registrados")
         periodos=None
-    
+
     return render_template('periodos/periodosListado.html',periodos = periodos,paginas=paginas,pagina=page)
 
 @app.route('/periodosNuevo')
@@ -1144,7 +1147,7 @@ def periodosEliminar(id):
         abort(404)
 #######################################################################################################################
 
-        
+
 @app.route('/formasPago/<int:page>' )
 @login_required
 def formasPago(page=1):
@@ -1375,7 +1378,7 @@ def documentacionEmpleado(id,page=1):
 def documentacionEmpleadoNuevo(id):
     if current_user.is_authenticated and ((current_user.idEmpleado == id) or (current_user.is_administrador() or current_user.is_staff())):
         e = Empleados()
-        fecha = datetime.today().strftime('%Y-%m-%d')
+        fecha = date.today().strftime('%Y-%m-%d')
         return render_template('documentacionEmpleados/documentacionEmpleadoNuevo.html', empleado=e.consultaIndividual(id), fecha = fecha)
     else:
         abort(404)
@@ -1447,6 +1450,343 @@ def documentoEliminar(id):
 def empleadoDocumento(id):
     d = DocumentacionEmpleado()
     return d.consultaIndividual(id).documento
+
+#######################################################################################################################
+
+@app.route('/registrarEntrada')
+@login_required
+def ventanaregistrarEntrada():
+    activado = 1
+    fecha = datetime.today().strftime('%Y-%m-%d')
+    diaSemana = datetime.today().weekday()
+    horaActual = datetime.today().strftime("%H:%M:%S")
+    if(diaSemana == 0):
+        diaSemana = "Lunes"
+    elif(diaSemana == 1):
+        diaSemana = "Martes"
+    elif (diaSemana == 2):
+        diaSemana = "Miercoles"
+    elif (diaSemana == 3):
+        diaSemana = "Jueves"
+    elif (diaSemana == 4):
+        diaSemana = "Viernes"
+    elif (diaSemana == 5):
+        diaSemana = "Sabado"
+    elif (diaSemana == 6):
+        diaSemana = "Domingo"
+    return render_template('asistencias/registraEntrada.html', activado = activado, fecha=fecha,diaSemana=diaSemana,horaActual=horaActual, num = 1)
+
+
+
+
+@app.route('/registrarEntrada',methods=['post'])
+def registrarEntrada():
+    asistencia = Asistencias()
+    asistencia.idEmpleado = request.form['idEmpleado']
+    asistencia.fecha = request.form['fecha']
+    asistencia.horaEntrada = request.form['horaEntrada']
+    asistencia.horaSalida = ""
+    asistencia.dia = request.form['diaSemana']
+
+
+    emp = Empleados()
+    datosEmp = emp.consultaIndividual(asistencia.idEmpleado)
+
+    turnos = Turnos()
+    datosTurnos = turnos.consultaGeneral()
+    listaDias = ""
+    turnoactual = ""
+    for turno in datosTurnos:
+        if(turno.idTurno == datosEmp.idTurno):
+            listaDias = turno.dias.split(" ")
+            turnoactual = turnos.consultaIndividual(turno.idTurno)
+
+    res = any(ele in asistencia.dia for ele in listaDias) #Devuelve True si el dia actual esta en la lista de dias en el turno del empleado
+    if(res):
+        horaActual = datetime.strptime(asistencia.horaEntrada,"%H:%M:%S")
+        horaturno = datetime.strptime(str(turnoactual.horaInicio),"%H:%M:%S")
+        horalimite = horaturno + timedelta(minutes=15)
+        if(horaActual >= horaturno and horaActual <= horalimite):
+            asistencia.insertar()
+            flash('Se ha registrado la asistencia con éxito!!')
+        else:
+            flash('Horario no valido!!')
+    else:
+        flash('Día no valido!!')
+
+    return redirect(url_for("ventanaregistrarEntrada"))
+
+
+@app.route('/registrarSalida')
+@login_required
+def ventanaregistrarSalida():
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        fecha = datetime.today().strftime('%Y-%m-%d')
+        diaSemana = datetime.today().weekday()
+        horaActual = datetime.today().strftime("%H:%M:%S")
+
+        if(diaSemana == 0):
+            diaSemana = "Lunes"
+        elif(diaSemana == 1):
+            diaSemana = "Martes"
+        elif (diaSemana == 2):
+            diaSemana = "Miercoles"
+        elif (diaSemana == 3):
+            diaSemana = "Jueves"
+        elif (diaSemana == 4):
+            diaSemana = "Viernes"
+        elif (diaSemana == 5):
+            diaSemana = "Sabado"
+        elif (diaSemana == 6):
+            diaSemana = "Domingo"
+
+
+
+        return render_template('asistencias/registraSalida.html', activado = activado, fecha=fecha,diaSemana=diaSemana,horaActual=horaActual)
+    else:
+        abort(404)
+
+
+@app.route('/registrarSalida',methods=['post'])
+def registrarSalida():
+    asistencia = Asistencias()
+    asistencia.idEmpleado = request.form['idEmpleado']
+    asistencia.horaSalida = request.form['horaSalida']
+    asistencia.dia = request.form['diaSemana']
+    asistencia.fecha = request.form['fecha']
+
+    datos= asistencia.consultaGeneral()
+
+    emp = Empleados()
+    datosEmp = emp.consultaIndividual(asistencia.idEmpleado)
+
+    turnos = Turnos()
+    datosTurnos = turnos.consultaGeneral()
+    listaDias = ""
+    turnoActual = ""
+
+    for elem in datosTurnos:
+        if(elem.idTurno == datosEmp.idTurno):
+            turnoActual = turnos.consultaIndividual(elem.idTurno)
+            listaDias = turnoActual.dias.split(" ")
+
+    idAsistenciaActual = ""
+    for x in datos:
+        if(str(x.fecha) == str(asistencia.fecha) and str(x.dia) == str(asistencia.dia) and str(asistencia.idEmpleado) == str(current_user.idEmpleado) ):
+            idAsistenciaActual = x.idAsistencia
+        else:
+            flash('Día invalido para registrar salida!!')
+            return redirect(url_for("ventanaregistrarSalida"))
+
+
+    res = any(ele in asistencia.dia for ele in listaDias) #Devuelve True si el dia actual esta en la lista de dias en el turno del empleado
+
+    if(res):
+        horaturnoFin = datetime.strptime(str(turnoActual.horaFin),"%H:%M:%S")
+        #horaturnoInicio = datetime.strptime(str(turnoActual.horaInicio),"%H:%M:%S")
+        horaActual = datetime.strptime(str(asistencia.horaSalida),"%H:%M:%S")
+        if(horaActual >= horaturnoFin):
+            asistencia.idAsistencia = idAsistenciaActual
+            asistencia.horaSalida = request.form['horaSalida']
+            asistencia.actualizar()
+            flash('Se ha actualizado la asistencia con éxito!!')
+        else:
+            flash('Horario no valido!!')
+
+    return redirect(url_for("ventanaregistrarSalida"))
+
+@app.route('/asistencias/<int:page>' )
+@login_required
+def ventanalistadoAsistencias(page=1):
+    e = Asistencias()
+    for x in e.consultaGeneral():
+        print(x.estatus)
+    try:
+        paginacion=e.consultarPagina(page)
+        asistencia=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay estados registrados")
+        asistencia=None
+
+    return render_template('asistencias/asistenciasListado.html',asistencia = asistencia,paginas=paginas,pagina=page)
+
+
+
+@app.route('/editarAsistencia/<int:id>')
+@login_required
+def ventanaModificarAsistencia(id):
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        activado = 1
+        asistencia = Asistencias()
+        datos = asistencia.consultaIndividual(id)
+        return render_template('asistencias/modificarAsistencia.html', activado = activado, asistencia=datos)
+    else:
+        abort(404)
+
+@app.route('/modificarAsistencia',methods=['post'])
+def modificarAsistencia():
+    asistencia = Asistencias()
+    asistencia.idAsistencia = request.form['idAsistencia']
+    asistencia.idEmpleado = request.form['idEmpleado']
+    asistencia.dia = request.form['diaSemana']
+    asistencia.fecha = request.form['fecha']
+    asistencia.horaEntrada = request.form['horaInicio']
+    asistencia.horaSalida = request.form['horaFin']
+
+
+    emp = Empleados()
+    datosEmp = emp.consultaIndividual(asistencia.idEmpleado)
+
+    turnos = Turnos()
+    datosTurnos = turnos.consultaGeneral()
+    listaDias = ""
+
+    for elem in datosTurnos:
+        if(elem.idTurno == datosEmp.idTurno):
+            turnoActual = turnos.consultaIndividual(elem.idTurno)
+            listaDias = turnoActual.dias.split(" ")
+
+    res = any(ele in asistencia.dia for ele in listaDias) #Devuelve True si el dia actual esta en la lista de dias en el turno del empleado
+
+    if(res):
+       asistencia.actualizar()
+       flash('Se ha actualizado la asistencia asistencia con éxito!!')
+    return redirect(url_for('ventanalistadoAsistencias',page=1))
+
+
+@app.route('/asistenciasEliminar/<int:id>')
+@login_required
+def asistenciasEliminar(id):
+    if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
+        f = Asistencias()
+        if current_user.is_authenticated and current_user.is_administrador():
+            f.eliminar(id)
+        else:
+            f.idAsistencia = id
+            f.consultaIndividual(id)
+            f.estatus = 0
+            f.actualizar()
+        flash('Se ha eliminado la asistencia con éxito!!')
+        return redirect(url_for('ventanalistadoAsistencias',page=1))
+    else:
+        abort(404)
+
+########################################################################################################################
+@app.route('/ausenciasJustificadasListadoGeneral/<int:page>')
+@login_required
+def AusenciasJust(page=1):
+    a = AusenciasJustificadas()
+    e = Empleados()
+    try:
+        paginacion=a.consultarPagina(page)
+        ausencias = paginacion.items
+        paginas = paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay ausencias justificadas")
+        ausencias=None
+    asis = a.consultaGeneral()
+    return render_template('ausenciasJustificadas/ausenciasJustificadasListado.html',ausenciasJ = ausencias,
+                           paginas=paginas,pagina=page, empleados = e.consultaGeneral(), ausencias = asis)
+
+
+@app.route('/ausenciasJustificadasNuevo')
+@login_required
+def ausenciasJustificadasNuevo():
+    e = Empleados()
+    fechaSolicitud = date.today().strftime('%Y-%m-%d')
+    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado=e.consultaGeneral(), fechaSolicitud = fechaSolicitud)
+
+@app.route('/registrarAusenciasJustificadas',methods=['post'])
+@login_required
+def registrarAusenciasJustificadas():
+    a = AusenciasJustificadas()
+    e = Empleados()
+    empleado = e.consultaGeneral()
+    a.fechaSolicitud = request.form['fechaSolicitud']
+    a.fechaInicio = request.form['fechaInicio']
+    a.fechaFin = request.form['fechaFin']
+    a.tipo = request.form['tipo']
+    a.idEmpleadoSolicita = request.form['idEmpleadoSolicita']
+    a.idEmpleadoAutoriza = request.form['idEmpleadoAutoriza']
+    a.evidencia =request.files['evidencia'].read()
+    a.motivo = request.form['motivo']
+    a.estatus = request.form['estatus']
+    a.insertar()
+    flash('Se ha guardado el documento con éxito!!')
+
+    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado = empleado, fechaSolicitud = request.form['fechaSolicitud'])
+
+
+@app.route('/ausenciasEditar/<int:id>')
+@login_required
+def ausenciasEditar(id):
+   a = AusenciasJustificadas()
+   e = Empleados()
+   return render_template('ausenciasJustificadas/ausenciasJustificadasEditar.html', ausencia = a.consultaIndividual(id),
+                               empleados = e.consultaGeneral())
+
+@app.route('/guardarAusenciasJustificadas',methods=['post'])
+@login_required
+def guardarAusenciasJustificadas():
+    a = AusenciasJustificadas()
+    e = Empleados()
+    a.idAusencia = request.form['idAusencia']
+    a.fechaSolicitud = request.form['fechaSolicitud']
+    a.fechaInicio = request.form['fechaInicio']
+    a.fechaFin = request.form['fechaFin']
+    a.tipo = request.form['tipo']
+    a.idEmpleadoSolicita = request.form['idEmpleadoSolicita']
+    a.idEmpleadoAutoriza = request.form['idEmpleadoAutoriza']
+    a.evidencia = request.files['evidencia'].read()
+    a.estatus = request.form['estatus']
+    a.motivo = request.form['motivo']
+    a.actualizar()
+    return render_template('ausenciasJustificadas/ausenciasJustificadasEditar.html', ausencia = a.consultaIndividual(request.form['idAusencia']),
+                           empleados = e.consultaGeneral())
+
+@app.route('/ausenciasEliminar/<int:id>')
+@login_required
+def ausenciasEliminar(id):
+    if current_user.is_authenticated and current_user.is_administrador():
+        a = AusenciasJustificadas()
+        aus = a.consultaIndividual(id)
+        for au in a.consultaGeneral():
+            if au.idAusencia == aus.idAusencia:
+                fechaSolicitud = au.fechaSolicitud
+                fechaInicio = au.fechaInicio
+                fechaFin = au.fechaFin
+                tipo = au.tipo
+                idEmpleadoSolicita = au.idEmpleadoSolicita
+                idEmpleadoAutoriza = au.idEmpleadoAutoriza
+                evidencia = au.evidencia
+                motivo = au.motivo
+        aus.idAusencia = id
+        aus.fechaSolicitud = fechaSolicitud
+        aus.fechaInicio = fechaInicio
+        aus.fechaFin = fechaFin
+        aus.tipo = tipo
+        aus.idEmpleadoSolicita = idEmpleadoSolicita
+        aus.idEmpleadoAutoriza = idEmpleadoAutoriza
+        aus.estatus = 'Eliminado'
+        aus.evidencia = evidencia
+        aus.motivo =motivo
+        aus.actualizar()
+        flash('Se ha eliminado el documento de forma correcta!!')
+        return redirect(url_for('AusenciasJust',page=1))
+    else:
+        abort(404)
+
+@app.route('/empleadoEvidencia/<int:id>')
+@login_required
+def empleadoEvidencia(id):
+    a = AusenciasJustificadas()
+    return a.consultaIndividual(id).evidencia
 
 @app.errorhandler(404)
 def error404(e):

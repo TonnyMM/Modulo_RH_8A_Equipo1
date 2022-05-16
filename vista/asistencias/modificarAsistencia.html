@@ -1,0 +1,151 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
+<br/><br/>
+<form action="/modificarAsistencia" method="post" class="formularios" enctype="multipart/form-data">
+    <h1>MODIFICAR ASISTENCIA</h1>
+    <input type="hidden"  name="idEmpleado" id="idEmpleado" value="{{current_user.idEmpleado}}"/>
+    <input type="hidden" name="idAsistencia" id="idAsistencia" value="{{asistencia.idAsistencia}}"/>
+
+    <div class="form-group">
+        <label class="control-label col-sm-1">Nombre: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="input" name="nombreEmpleado" id="nombreEmpleado"
+                   value="{{current_user.nombre}} {{current_user.apellidoPaterno}} {{current_user.apellidoMaterno}}"
+                   readonly/>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-1" >Dia: </label>
+                <div class="col-sm-5">
+                    <select class="form-control" id="sexo" name="diaSemana" >
+                        {%if asistencia.dia == 'Lunes'%}
+                            <option value="Lunes" selected>Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miercoles">Miercoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                            <option value="Sabado">Sabado</option>
+                            <option value="Domingo">Domingo</option>
+                        {%else%}
+                            {%if asistencia.dia == 'Martes'%}
+                                <option value="Lunes" >Lunes</option>
+                                <option value="Martes"selected>Martes</option>
+                                <option value="Miercoles">Miercoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                                <option value="Sabado">Sabado</option>
+                                <option value="Domingo">Domingo</option>
+                            {%else%}
+                                {%if asistencia.dia == 'Miercoles'%}
+                                    <option value="Lunes" >Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miercoles"selected>Miercoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sabado">Sabado</option>
+                                    <option value="Domingo">Domingo</option>
+                                {%else%}
+                                    {%if asistencia.dia == 'Jueves'%}
+                                        <option value="Lunes" >Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles">Miercoles</option>
+                                        <option value="Jueves"selected>Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sabado</option>
+                                        <option value="Domingo">Domingo</option>
+                                    {%else%}
+                                        {%if asistencia.dia == 'Viernes'%}
+                                            <option value="Lunes" >Lunes</option>
+                                            <option value="Martes">Martes</option>
+                                            <option value="Miercoles">Miercoles</option>
+                                            <option value="Jueves">Jueves</option>
+                                            <option value="Viernes" selected>Viernes</option>
+                                            <option value="Sabado">Sabado</option>
+                                            <option value="Domingo">Domingo</option>
+                                        {%else%}
+                                            {%if asistencia.dia == 'Sabado'%}
+                                            <option value="Lunes" >Lunes</option>
+                                            <option value="Martes">Martes</option>
+                                            <option value="Miercoles">Miercoles</option>
+                                            <option value="Jueves">Jueves</option>
+                                            <option value="Viernes" >Viernes</option>
+                                            <option value="Sabado"selected>Sabado</option>
+                                            <option value="Domingo">Domingo</option>
+                                            {%else%}
+                                                {%if asistencia.dia == 'Domingo'%}
+                                                    <option value="Lunes" >Lunes</option>
+                                                    <option value="Martes">Martes</option>
+                                                    <option value="Miercoles">Miercoles</option>
+                                                    <option value="Jueves">Jueves</option>
+                                                    <option value="Viernes" >Viernes</option>
+                                                    <option value="Sabado">Sabado</option>
+                                                    <option value="Domingo" selected>Domingo</option>
+                                                {%endif%}
+                                            {%endif%}
+                                        {%endif%}
+                                    {%endif%}
+                                {%endif%}
+                            {%endif%}
+                        {%endif%}
+                    </select>
+                </div>
+            </div>
+    </div>
+
+    <br>
+    <br>
+
+        <div class="form-group">
+        <label class="control-label col-sm-1">Fecha: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="date" name="fecha" id="fecha"
+                   value="{{asistencia.fecha}}"
+                   />
+
+        </div>
+    </div>
+
+    <br><br>
+    <div class="form-group">
+        <label class="control-label col-sm-1">Hora Entrada: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="time" name="horaInicio" id="horaInicio" onblur="horaTuno()"
+                   value="{{asistencia.horaEntrada}}" required/>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+        <label class="control-label col-sm-1">Hora Salida: </label>
+        <div class="col-sm-5">
+            <input class="form-control" type="time" name="horaFin" id="horaFin" onblur="horaTuno()" value="{{asistencia.horaSalida}}" required/>
+            <div id="notifcTurn" style="background-color:rgba(179, 11, 11, 0.452);color:white; display:none; " ></div>
+        </div>
+    </div>
+    <br><br>
+    <a class="btn btn-dark" href="/asistencias/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <div class="form-group">
+        <button style="background-color: #389242;" type="submit"  class="btn btn-info"><span
+                    class="glyphicon glyphicon-floppy-disk"> Modificar asistencia</span></button>
+    </div>
+
+
+    {% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+</form>
+<br/><br/>
+{%endblock content%}
