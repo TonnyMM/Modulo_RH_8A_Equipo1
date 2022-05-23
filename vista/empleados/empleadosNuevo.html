@@ -187,9 +187,19 @@
         <h1>DATOS DE CONTRATACIÓN</h1>
 
         <div class="form-group">
+            <label class="control-label col-sm-1">Estado: </label>
+            <div class="col-sm-3">
+                <select class="form-control" id="idEstado" name="idEstado" onblur="llenarCiudades()" required>
+                    <option value="" selected disabled >Selecciona</option>
+                    {% for e in estados%}
+                    <option value="{{e.idEstado}}">{{e.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             <label class="control-label col-sm-1">Ciudad: </label>
-            <div class="col-sm-5">
-                <select class="form-control" id="idCiudad" name="idCiudad" required>
+            <div class="col-sm-3">
+                <select class="form-control" id="idCiudad" name="idCiudad" onblur="llenarSucursales()" onclick="llenarCiudades()" required>
                     <option value="" selected disabled >Selecciona</option>
                     {% for c in ciudades%}
                     <option value="{{c.idCiudad}}">{{c.nombre}}</option>
@@ -198,8 +208,8 @@
             </div>
 
             <label class="control-label col-sm-1" for="idSucursal">Sucursal: </label>
-            <div class="col-sm-5">
-                <select class="form-control" id="idSucursal" required name="idSucursal">
+            <div class="col-sm-3">
+                <select class="form-control" id="idSucursal" required name="idSucursal" onblur="llenarSucursales()">
                     <option value="" selected disabled>Selecciona</option>
                     {% for c in ciudades%}
                     {% for s in sucursales%}
@@ -283,13 +293,13 @@
 
         <div class="form-group">
             <label class="control-label col-sm-1" for="diasVacaciones">Dias Vacacionales: </label>
-            <div class="col-sm-5">
+            <div class="col-sm-2">
                 <input class="form-control" type="number" name="diasVacaciones" id="diasVacaciones"
                     placeholder="selecciona dias" required />
             </div>
 
-            <label class="control-label col-sm-1" for="diasPermiso">Dias con permiso: </label>
-            <div class="col-sm-5">
+            <label class="control-label col-sm-1" for="diasPermiso">Dias de permiso: </label>
+            <div class="col-sm-2">
                 <input class="form-control" type="number" name="diasPermiso" id="diasPermiso"
                     placeholder="Dias" required />
             </div>

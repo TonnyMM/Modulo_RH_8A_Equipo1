@@ -14,8 +14,7 @@
 
 <a href="/registrarEntrada  " class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Registrar
             Entrada</b></span></a>
-<a href="/registrarSalida" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Registrar
-            Salida</b></span></a>
+
 
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
@@ -29,9 +28,11 @@
             <th>FECHA</th>
             <th>HORA DE ENTRADA</th>
             <th>HORA DE SALIDA</th>
+            <th></th>
             {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
             <th>EDITAR</th>
             <th>ELIMINAR</th>
+
             {%endif%}
         </tr>
     </thead>
@@ -44,7 +45,15 @@
                 <td>{{c.Empleado.nombre}} {{c.Empleado.apellidoPaterno}} {{c.Empleado.apellidoMaterno}}</td>
                 <td>{{c.dia}}, {{c.fecha}}</td>
                 <td>{{c.horaEntrada}}</td>
+
                 <td>{{c.horaSalida}}</td>
+
+            <td>
+                <a href="/checarSalidaAsistencia/{{c.idAsistencia}}"  class="btn btn-success" role="button">
+                    Registrar Salida
+                </a>
+            </td>
+
                 {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                 <td><a href="/editarAsistencia/{{c.idAsistencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a data-toggle="modal" data-target="#el{{c.idAsistencia}}" id="el"><span
@@ -76,7 +85,13 @@
                         <td>{{c.Empleado.nombre}} {{c.Empleado.apellidoPaterno}} {{c.Empleado.apellidoMaterno}}</td>
                         <td>{{c.dia}}, {{c.fecha}}</td>
                         <td>{{c.horaEntrada}}</td>
-                        <td>{{c.horaSalida}}</td>
+            <td>{{c.horaSalida}}</td>
+
+            <td>
+                <a href="/checarSalidaAsistencia/{{c.idAsistencia}}"  class="btn btn-success" role="button">
+                    Registrar Salida
+                </a>
+            </td>
                         {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                         <td><a href="/editarAsistencia/{{c.idAsistencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                         <td><a data-toggle="modal" data-target="#el{{c.idAsistencia}}" id="el"><span

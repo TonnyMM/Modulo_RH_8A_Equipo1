@@ -182,7 +182,7 @@ $(document).ready(function(){
 	
 	$(".next").click(function(){
 		
-		if(band){
+		//if(band){
 			
 		
 		
@@ -211,7 +211,7 @@ $(document).ready(function(){
 				duration: 500
 			});
 			setProgressBar(++current);
-		}
+		//}
 	});
 	
 	$(".previous").click(function(){

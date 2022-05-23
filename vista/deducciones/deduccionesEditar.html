@@ -9,7 +9,7 @@
         <label class="control-label col-sm-2" for="nombre">Nombre: </label>
         <div class="col-sm-8">
             <input class="form-control" type="text" name="nombre" id="nombre" value="{{deduccion.nombre}}"
-                maxlength="30" required  pattern="[A-Za-zéóáíú% %]{2,30}" title="Incluir solo letras. Tamaño mínimo: 2. Tamaño máximo: 30"/>
+                maxlength="60" required  />
         </div>
     </div>
     <br /><br />
@@ -17,7 +17,7 @@
         <label class="control-label col-sm-2" for="descripcion">Descripción: </label>
         <div class="col-sm-8">
             <input class="form-control" rows="5" type="text" name="descripcion" id="descripcion"
-                value="{{deduccion.descripcion}}" maxlength="80" size="80" required pattern="[A-Za-z0-9]{2,80}" title="Incluir solo letras y numeros. Tamaño mínimo: 2. Tamaño máximo: 80" />
+                value="{{deduccion.descripcion}}" maxlength="80" size="80" required />
         </div>
     </div>
     <br /><br />

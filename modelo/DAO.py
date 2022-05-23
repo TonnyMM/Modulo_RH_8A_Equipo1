@@ -232,6 +232,22 @@ class Ciudades(db.Model):
         paginacion=self.query.order_by(Ciudades.idCiudad.asc()).paginate(pagina,per_page=5,error_out=False)
         return paginacion
 
+    def consultarCiudadEstados(self,id):
+        salida=[]
+
+        item=None
+        item=self.query.filter(Ciudades.idEstado ==id)
+        if item!=None:
+            for i in item:
+                obj = {"id":"","nombre":""}
+                obj["id"]=i.idCiudad
+                obj["nombre"]=i.nombre
+                salida.append(obj)
+        else:
+            salida = []
+        return salida
+
+
 class Departamentos(db.Model):
     __tablename__ = 'Departamentos'
     idDepartamento=Column(Integer, primary_key=True)
@@ -613,6 +629,20 @@ class Sucursales(db.Model):
             salida["mensaje"]="Este telefono "+telefono+" esta libre."
         return salida
 
+    def consultarSucursalesCiudad(self,id):
+        salida=[]
+
+        item=None
+        item=self.query.filter(Sucursales.idCiudad ==id)
+        if item!=None:
+            for i in item:
+                obj = {"id":"","nombre":""}
+                obj["id"]=i.idSucursal
+                obj["nombre"]=i.nombre
+                salida.append(obj)
+        else:
+            salida = []
+        return salida
 
 class DocumentacionEmpleado(db.Model):
     __tablename__ = 'DocumentacionEmpleado'

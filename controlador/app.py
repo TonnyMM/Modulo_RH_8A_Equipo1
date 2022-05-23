@@ -113,8 +113,9 @@ def empleadosNuevo():
     sucursales = s.consultaGeneral()
     t = Turnos()
     turnos = t.consultaGeneral()
-
-    return render_template('empleados/empleadosNuevo.html',departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos)
+    e = Estados()
+    estados = e.consultaGeneral()
+    return render_template('empleados/empleadosNuevo.html',departamentos=departamentos,puestos=puestos,ciudades=ciudades, sucursales=sucursales,turnos=turnos,estados=estados)
 
 @app.route('/registrarEmpleados',methods=['post'])
 def registrarEmpleados():
@@ -1254,7 +1255,9 @@ def sucursalesNuevo():
     if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff()):
         activado = 1
         c = Ciudades()
-        return render_template('sucursales/sucursalesNuevo.html', activado = activado, ciudades = c.consultaGeneral())
+        e = Estados()
+        estados = e.consultaGeneral()
+        return render_template('sucursales/sucursalesNuevo.html', activado = activado, ciudades = c.consultaGeneral(), estados= estados)
     else:
         abort(404)
 @app.route('/registrarSucursal',methods=['post'])
@@ -1484,6 +1487,7 @@ def registrarEntrada():
     asistencia = Asistencias()
     asistencia.idEmpleado = request.form['idEmpleado']
     asistencia.fecha = request.form['fecha']
+
     asistencia.horaEntrada = request.form['horaEntrada']
     asistencia.horaSalida = ""
     asistencia.dia = request.form['diaSemana']
@@ -1544,9 +1548,20 @@ def ventanaregistrarSalida():
 
 
         return render_template('asistencias/registraSalida.html', activado = activado, fecha=fecha,diaSemana=diaSemana,horaActual=horaActual)
-   
 
 
+@app.route('/checarSalidaAsistencia/<int:id>')
+@login_required
+def checarSalidaAsistencia(id):
+    if current_user.is_authenticated():
+        asistencia=Asistencias()
+        asistencia.horaSalida= datetime.today().strftime("%H:%M") + ":00"
+        asistencia.idAsistencia= id
+        asistencia.actualizar()
+        flash('Asitencia actualizada con exito')
+        return redirect(url_for('ventanalistadoAsistencias',page=1))
+    else:
+        abort(404)
 @app.route('/registrarSalida',methods=['post'])
 def registrarSalida():
     asistencia = Asistencias()
@@ -1752,7 +1767,6 @@ def guardarAusenciasJustificadas():
 @app.route('/ausenciasEliminar/<int:id>')
 @login_required
 def ausenciasEliminar(id):
-    if current_user.is_authenticated and current_user.is_administrador():
         a = AusenciasJustificadas()
         aus = a.consultaIndividual(id)
         for au in a.consultaGeneral():
@@ -1778,8 +1792,6 @@ def ausenciasEliminar(id):
         aus.actualizar()
         flash('Se ha eliminado el documento de forma correcta!!')
         return redirect(url_for('AusenciasJust',page=1))
-    else:
-        abort(404)
 
 @app.route('/empleadoEvidencia/<int:id>')
 @login_required
@@ -1928,8 +1940,15 @@ def historialPuestosEliminal(idE,idP,idD):
     flash('Se ha eliminado el empleado con éxito!!')
     return redirect(url_for('historialPuestos',page=1))
 
+@app.route('/sucursalesCiudad/<int:id>',methods=['get'])
+def sucursalesCiudad(id):
+    item= Sucursales()
+    return json.dumps(item.consultarSucursalesCiudad(id))
 
-
+@app.route('/ciudadesEstado/<int:id>',methods=['get'])
+def ciudadesEstado(id):
+    item= Ciudades()
+    return json.dumps(item.consultarCiudadEstados(id))
 
 @app.errorhandler(404)
 def error404(e):

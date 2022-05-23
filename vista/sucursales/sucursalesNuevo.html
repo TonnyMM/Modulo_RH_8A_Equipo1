@@ -21,7 +21,6 @@
         <div class="col-sm-3">
             <input class="form-control" type="tel" name="telefono" pattern="[0-9]{3}[-][0-9]{3}[-][0-9]{4}" id="telefono" placeholder="Teléfono" maxlength="12" onblur="consultarSucuTel()"
                    title="El formato debe ser: ###-###-####" required />
-                   
         </div>
     <!--</div>
     <br /><br />
@@ -66,12 +65,24 @@
 
     <div class="form-group">
         <div class="dropdown">
-            <label class="control-label col-sm-2" for="idCiudad">Ciudad: </label>
+            <label class="control-label col-sm-2" for="idEstado">Estado: </label>
+            <div class="col-sm-4">
+                <select class="form-control" id="idEstado" name="idEstado" onblur="llenarCiudades()">
+                    <option selected disabled>Selecciona</option>
+                    {% for e in estados%}
+                    <option value="{{e.idEstado}}">{{e.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <label class="control-label col-sm-1" for="idCiudad">Ciudad: </label>
             <div class="col-sm-5">
-                <select class="form-control" id="idCiudad" name="idCiudad">
-                    <option value="x" selected disabled>Selecciona</option>
+                <select class="form-control" id="idCiudad" name="idCiudad" onblur="llenarCiudades()">
+                    <option selected disabled>Selecciona</option>
                     {% for c in ciudades%}
-                    <option value="{{c.idCiudad}}">{{c.nombre}}</option>
+                        <option value="{{c.idCiudad}}">{{c.nombre}}</option>
                     {% endfor %}
                 </select>
             </div>

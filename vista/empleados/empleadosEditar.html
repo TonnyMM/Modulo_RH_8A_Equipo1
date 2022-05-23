@@ -205,7 +205,7 @@
         <div class="form-group">
             <label class="control-label col-sm-1">Ciudad: </label>
             <div class="col-sm-5">
-                <select class="form-control" id="idCiudad" name="idCiudad" required>
+                <select class="form-control" id="idCiudad" name="idCiudad" onblur="llenarSucursales()" required>
                     
                     {%for c in ciudades%}
                     {% if c.idCiudad == empleado.idCiudad %}
@@ -219,7 +219,7 @@
         
             <label class="control-label col-sm-1" for="idSucursal">Sucursal: </label>
             <div class="col-sm-5">
-                <select class="form-control" id="idSucursal" required name="idSucursal">
+                <select class="form-control" id="idSucursal" required name="idSucursal" onblur="llenarSucursales()" >
                     <option value="{{empleado.idSucursal}}" selected readonly>Selecciona</option>
                    
                     {%for s in sucursales%}
