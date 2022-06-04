@@ -814,7 +814,6 @@ class Nominas(db.Model):
     total = Column(Float)
     diasTrabajados = Column(Integer)
     estatus = Column(String(10))
-    estatus = Column(String(10))
     idEmpleado = Column(Integer,ForeignKey('Empleados.idEmpleado'))
     idPeriodo = Column(Integer,ForeignKey('Periodos.idPeriodo'))
     idFormaPago = Column(Integer,ForeignKey('FormasPago.idFormaPago'))

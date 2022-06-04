@@ -6,6 +6,10 @@ import datetime
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+import pandas as pd
+from pandas import ExcelWriter
+from tkinter import *
+from tkinter import filedialog
 
 
 from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas
@@ -1957,7 +1961,6 @@ def nominas(page=1):
     return render_template('nominas/nominasListado.html',nominas = nominas,paginas=paginas,pagina=page)
 
 
-
 @app.route('/sucursalesCiudad/<int:id>',methods=['get'])
 def sucursalesCiudad(id):
     item= Sucursales()
@@ -1967,6 +1970,54 @@ def sucursalesCiudad(id):
 def ciudadesEstado(id):
     item= Ciudades()
     return json.dumps(item.consultarCiudadEstados(id))
+
+########################################################################################################################
+@app.route('/generarExcel')
+def generarExcel():
+    n = Nominas()
+    nombre =[]
+    fechaElaboracion =[]
+    fechaPago = []
+    subtotal = []
+    retenciones =[]
+    total = []
+    diasTrabajados = []
+    estatus = []
+    formaPago = []
+    periodo = []
+    for nom in n.consultaGeneral():
+        nombre.append(nom.empleado.nombre)
+        fechaElaboracion.append(nom.fechaElaboracion)
+        fechaPago.append(nom.fechaPago)
+        subtotal.append(nom.subtotal)
+        retenciones.append(nom.retenciones)
+        total.append(nom.total)
+        diasTrabajados.append(nom.diasTrabajados)
+        estatus.append(nom.estatus)
+        formaPago.append(nom.formaPago.nombre)
+        periodo.append(nom.periodo.nombre)
+    df = pd.DataFrame({'Nombre': nombre,
+                       'Fecha de elaboración': fechaElaboracion,
+                       'Fecha de pago': fechaPago,
+                       'Subtotal': subtotal,
+                       'Retenciones': retenciones,
+                       'Total': total,
+                       'Dias trabajados': diasTrabajados,
+                       'Estatus': estatus,
+                       'Forma de pago': formaPago,
+                       'Periodo': periodo})
+    df = df[['Nombre', 'Fecha de elaboración', 'Subtotal','Retenciones', 'Total', 'Dias trabajados','Estatus', 'Forma de pago', 'Periodo']]
+    raiz= Tk()
+    rut = filedialog.askdirectory()
+    raiz.mainloop()
+    nomb="/nominas.xlsx"
+    ruta = rut+nomb
+    print(ruta)
+    writer = ExcelWriter(ruta)
+    df.to_excel(writer, 'Hoja de datos', index=False)
+    writer.save()
+
+    return redirect(url_for('nominas',page=1))
 
 @app.errorhandler(404)
 def error404(e):

@@ -2,7 +2,6 @@
 {% block content %}
 {{super()}}
 <h1>LISTADO DE NOMINAS</h1>
-<h1>LISTADO DE NOMINAS</h1>
 {% if get_flashed_messages() %}
 {% for m in get_flashed_messages()%}
 <div class="alert alert-success alert-dismissible">
@@ -11,7 +10,9 @@
 </div>
 {% endfor %}
 {% endif %}
-
+{%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
+<a href="/generarExcel" class="btn btn-success" id="nuevo1"> <b>GENERAR EXCEL</b></a>
+{%endif%}
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>

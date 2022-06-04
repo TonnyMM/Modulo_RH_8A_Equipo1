@@ -10,7 +10,6 @@
 </div>
 {% endfor %}
 {% endif %}
-</div>
 {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
 <a href="/estadosNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
 {%endif%}
