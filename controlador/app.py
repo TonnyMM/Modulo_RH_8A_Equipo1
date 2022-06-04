@@ -8,7 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 
 
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -1940,6 +1940,24 @@ def historialPuestosEliminal(idE,idP,idD):
     flash('Se ha eliminado el empleado con éxito!!')
     return redirect(url_for('historialPuestos',page=1))
 
+####################################################################################################################
+@app.route('/nominas/<int:page>')
+def nominas(page=1):
+    n = Nominas()
+    try:
+        paginacion=n.consultarPagina(page)
+        nominas=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay nominas registradss")
+        nominas=None
+
+    return render_template('nominas/nominasListado.html',nominas = nominas,paginas=paginas,pagina=page)
+
+
+
 @app.route('/sucursalesCiudad/<int:id>',methods=['get'])
 def sucursalesCiudad(id):
     item= Sucursales()
@@ -1953,6 +1971,8 @@ def ciudadesEstado(id):
 @app.errorhandler(404)
 def error404(e):
     return render_template('comunes/paginaError.html'),404
+
+
 
 if __name__ == '__main__':
     db.init_app(app)

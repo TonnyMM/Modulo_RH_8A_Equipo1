@@ -1,3 +1,4 @@
+from email.policy import default
 from pickle import FALSE
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
@@ -802,4 +803,48 @@ class HistorialPuestos(db.Model):
     def consultarPaginaI(self, pagina):
         paginacion=self.query.order_by(HistorialPuestos.idPuesto.asc()).paginate(pagina,per_page=10,error_out=False)
         return paginacion
-    
+
+class Nominas(db.Model):
+    __tablename__ = 'Nominas'
+    idNomina = Column(Integer, primary_key=True)
+    fechaElaboracion = Column(Date)
+    fechaPago = Column(Date)
+    subtotal = Column(Float)
+    retenciones = Column(Float)
+    total = Column(Float)
+    diasTrabajados = Column(Integer)
+    estatus = Column(String(10))
+    estatus = Column(String(10))
+    idEmpleado = Column(Integer,ForeignKey('Empleados.idEmpleado'))
+    idPeriodo = Column(Integer,ForeignKey('Periodos.idPeriodo'))
+    idFormaPago = Column(Integer,ForeignKey('FormasPago.idFormaPago'))
+    empleado = relationship('Empleados',backref='nominas', lazy="select")
+    periodo = relationship('Periodos',backref='nominas', lazy="select")
+    formaPago = relationship('FormasPago',backref='nominas', lazy="select")
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultarPagina(self, pagina):
+        paginacion=self.query.order_by(Nominas.idNomina.asc()).paginate(pagina,per_page=5,error_out=False)
+        return paginacion
+
+
+
+
