@@ -49,6 +49,7 @@
     <div id="menuu1" class="tab-pane fade in active">
         <br>
         <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        
         <div class="Buscador">
             <input id="myInput" type="text" placeholder="Buscar">
         </div>
@@ -64,6 +65,7 @@
                 <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
+                <th>PDF</th>
                 <th>EDITAR</th>
                 <th>ELIMINAR</th>
             </tr>
@@ -110,6 +112,11 @@
 
                 <td>{{a.estatus}}</td>
                 <td>{{a.motivo}}</td>
+                {%if  a.estatus == 'Aceptada'%}
+                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                                {%else%}
+                                <td> </td>
+                                {%endif%}
                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a data-toggle="modal" data-target="#elim{{a.idAusencia}}" id="elimin"><span class="glyphicon glyphicon-trash"></span></a></td>
                 <div id="elim{{a.idAusencia}}" class="modal fade" role="dialog">
@@ -152,6 +159,7 @@
                 <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
+                <th>PDF</th>
                 <th>EDITAR</th>
             </tr>
             </thead>
@@ -193,6 +201,11 @@
                         </div>
                         <td>{{a.estatus}}</td>
                         <td>{{a.motivo}}</td>
+                        {%if  a.estatus == 'Aceptada'%}
+                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                                {%else%}
+                                <td> </td>
+                                {%endif%}
                         <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                     </tr>
 
@@ -233,6 +246,7 @@
                     <th>EVIDENCIA</th>
                     <th>ESTATUS</th>
                     <th>MOTIVO</th>
+                    <th>PDF</th>
                     {%for a in ausenciasJ%}
                         {%if a.estatus == 'EnCaptura'%}
                         <th>EDITAR</th>
@@ -279,6 +293,11 @@
                             </div>
                             <td>{{a.estatus}}</td>
                             <td>{{a.motivo}}</td>
+                            {%if  a.estatus == 'Aceptada'%}
+                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                                {%else%}
+                                <td> </td>
+                                {%endif%}
                             {%if a.estatus == 'EnCaptura'%}
                                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                                 <td><a data-toggle="modal" data-target="#elim1{{a.idAusencia}}" id="elimin1"><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -326,6 +345,7 @@
                 <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
+                <th>PDF</th>
                 <th>EDITAR</th>
             </tr>
             </thead>
@@ -367,6 +387,11 @@
                 </div>
                 <td>{{a.estatus}}</td>
                 <td>{{a.motivo}}</td>
+                {%if  a.estatus == 'Aceptada'%}
+                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                                {%else%}
+                                <td> </td>
+                                {%endif%}
                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
             </tr>
 
@@ -381,6 +406,7 @@
        {%if current_user.is_authenticated and current_user.is_empleado()%}
             <br>
             <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo4"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+            <a href="/pdfPermisos/1" class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a>
             <div class="Buscador">
                 <input id="myInput5" type="text" placeholder="Buscar">
             </div>
@@ -395,6 +421,7 @@
                     <th>EVIDENCIA</th>
                     <th>ESTATUS</th>
                     <th>MOTIVO</th>
+                    <th>PDF</th>
                     <th>EDITAR</th>
                     <th>ELIMINAR</th>
                 </tr>
@@ -438,6 +465,11 @@
 
                                 <td>{{a.estatus}}</td>
                                 <td>{{a.motivo}}</td>
+                                {%if  a.estatus == 'Aceptada'%}
+                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                                {%else%}
+                                <td> </td>
+                                {%endif%}
                                 {%if a.estatus == 'EnCaptura'%}
                                     <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                                 {%else%}

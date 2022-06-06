@@ -1,5 +1,7 @@
+from cgitb import html
 import re
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
+import jinja2
 from flask_bootstrap import Bootstrap
 from mysqlx import OperationalError
 import datetime
@@ -10,7 +12,9 @@ import pandas as pd
 from pandas import ExcelWriter
 from tkinter import *
 from tkinter import filedialog
-
+from xhtml2pdf import pisa
+from jinja2 import Template #Nuevo!
+import os
 
 from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
@@ -2018,6 +2022,55 @@ def generarExcel():
     writer.save()
 
     return redirect(url_for('nominas',page=1))
+
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sourceHtml = open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read()
+
+@app.route('/pdfPermisos/<int:idE>,<int:idA>')
+def pdfPermisos(idE,idA):
+    e = Empleados()
+    a = AusenciasJustificadas()
+    empleados = e.consultaGeneral()
+    #print(base_dir)
+    #ruta_template = 'D:/Tec/Git/Modulo_RH_8A_Equipo1/vista/Formatos/solicitudPermisos.html'
+    empleado = e.consultaIndividual(idE)
+    ausencias = a.consultaIndividual(idA)
+    if ausencias.tipo == "Permiso":
+
+        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
+            
+        outputFilename = idA+"Solicitud_Permiso_"+empleado.nombre+empleado.apellidoPaterno+ausencias.fechaSolicitud+ausencias.tipo+".pdf"    
+        resultFile = open(outputFilename, "w+b")
+        template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read())
+        html  = template.render(data)
+        pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+        resultFile.close()
+    
+    if ausencias.tipo == "Incapacidad":
+    
+        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
+            
+        outputFilename = idA+"Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
+        resultFile = open(outputFilename, "w+b")
+        template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read())
+        html  = template.render(data)
+        pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+        resultFile.close()
+    
+    if ausencias.tipo == "Periodo Vacacional":
+    
+        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
+            
+        outputFilename = idA+"Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
+        resultFile = open(outputFilename, "w+b")
+        template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPeriodoVacacional.html')).read())
+        html  = template.render(data)
+        pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+        resultFile.close()
+    
+    return render_template('comunes/index.html',empleados = empleados)
+
+
 
 @app.errorhandler(404)
 def error404(e):
