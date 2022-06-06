@@ -1,10 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js"></script>
 
-</body>
-</html>
+
+{% if get_flashed_messages() %}
+    {% for m in get_flashed_messages()%}
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{m}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+<form id="msform" action="/registrarNomina" method="post" class="formularios" enctype="multipart/form-data">
+
+    <!-- progressbar -->
+    <ul id="progressbar" class="nav nav-tabs">
+        <li class="active" id="account" ><strong>Nomina</strong></li>
+        <li id="personal"><strong>Percepciones</strong></li>
+        <li id="payment"><strong>Deducciones</strong></li>
+    </ul>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
+            aria-valuemax="100"></div>
+    </div> <br>
+
+    <!-- fieldsets -->
+    <fieldset>
+
+        <h1>NOMINA DEL EMPLEADO</h1>
+
+        <div class="form-group">
+                        <label class="control-label col-sm-1" for="fechaE">Fecha Elaboracion: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type="date" name="fechaE" id="fechaE" placeholder="Nombre" value=""/>
+                    <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+            </div>
+        
+                        <label class="control-label col-sm-1" for="nombre">Fecha Pago: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type="date" name="fechaP" id="fechaP" placeholder="Nombre" value=""/>
+                    <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="form-group">
+            <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type="number" name="diasT" id="diasT" placeholder="Días trabajados"/>
+            </div>
+        </div>
+        
+        <br /><br /><br />
+        <div class="col-sm-1">
+        <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+        <input type="button" name="next" class="next action-button" id="next" onclick="datoP()" value="Siguiente" />
+
+    </fieldset>
+
+
+    <!---------------------------------------------------------------------------------------------------------------------------------------->
+    <fieldset>
+        <h1>PERCEPCIONES</h1>
+
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-1">Percepciones: </label>
+                <div class="col-sm-3">
+                <select class="form-control" id="percepciones" name="percepciones" onblur="llenarSucursales()" onclick="llenarCiudades()" required>
+                    <option value="" selected disabled >Selecciona</option>
+                    {% for p in percepciones%}
+                    <option value="{{p.idPercepcion}}">{{p.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </div>
+
+            <label class="control-label col-sm-1" for="importe">Importe: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="importe" id="importe" placeholder="Importe"
+                 required onKeypress="if (event.keyCode < 45 || event.keyCode > 57)" />
+            </div>
+        </div>
+        
+        <br /><br /><br />
+        
+        <div class="col-sm-1"><a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+        
+        <input type="button" name="next" class="next action-button" onclick="datoPro()" value="Siguiente" /> <input type="button" name="Previous"
+            class="previous action-button-previous" value="Atras" />
+    </fieldset>
+
+    <fieldset>
+        <h1>DEDUCCIONES</h1>
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-1">Deducciones: </label>
+                <div class="col-sm-3">
+                <select class="form-control" id="deducciones" name="deducciones" onblur="llenarSucursales()" onclick="llenarCiudades()" required>
+                    <option value="" selected disabled >Selecciona</option>
+                    {% for d in deducciones%}
+                    <option value="{{d.idDeduccion}}">{{d.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </div>
+
+            <label class="control-label col-sm-1" for="importe">Importe: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="importe" id="importe" placeholder="Importe"
+                 required onKeypress="if (event.keyCode < 45 || event.keyCode > 57)" />
+            </div>
+        </div>
+        <br /><br /><br /><br />
+
+        <div class="col-sm-1">
+        <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        </div><input type="button" name="previous" class="previous action-button-previous col-sm-10" value="Atras" />
+        
+        <br /><br /><br /><br />
+        <button style="background-color: #389242;" type="submit"  class="btn btn-info"><span
+                    class="glyphicon glyphicon-floppy-disk"> Registrar</span></button>
+            
+        
+                  
+
+    </fieldset>
+ 
+
+    
+</form>
+<br /><br />
+{%endblock content%}

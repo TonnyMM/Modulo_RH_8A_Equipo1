@@ -12,7 +12,7 @@ import pandas as pd
 from pandas import ExcelWriter
 from tkinter import *
 from tkinter import filedialog
-from xhtml2pdf import pisa
+#from xhtml2pdf import pisa
 from jinja2 import Template #Nuevo!
 import os
 
@@ -1964,6 +1964,33 @@ def nominas(page=1):
 
     return render_template('nominas/nominasListado.html',nominas = nominas,paginas=paginas,pagina=page)
 
+
+@app.route('/nominasEmpleados/<int:page>')
+def nominasEmpleados(page=1):
+    e = Empleados()
+    try:
+        paginacion=e.consultarPagina(page)
+        empleados=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay empleados registradss")
+        empleados=None
+
+    return render_template('nominas/nominasEmpleados.html',empleados = empleados,paginas=paginas,pagina=page)
+
+@app.route('/generarNomina')
+def generarNomina():
+    n = Nominas()
+    p = Percepciones()
+    percepciones = p.consultaGeneral
+    d = Deducciones()
+    deducciones = d.consultaGeneral
+
+    return render_template('nominas/nominasNuevo.html')#aqui tenia (percepciones=percepceiones deducciones=decciones) pero me daba error 
+
+#############################################################################################################
 
 @app.route('/sucursalesCiudad/<int:id>',methods=['get'])
 def sucursalesCiudad(id):
