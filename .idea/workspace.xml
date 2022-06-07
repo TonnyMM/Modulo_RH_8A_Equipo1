@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentos/solicitudPermisos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/solicitudPermisos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controlador/Solicitud_Periodo Vacacional_LuzRodríguez.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controlador/Solicitud_Permiso_LuzRodríguez.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controlador/test.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,7 +26,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17391">
+            <state relative-caret-position="431">
               <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
             </state>
           </provider>
@@ -31,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controlador/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+            <state relative-caret-position="136">
+              <caret line="2072" column="10" lean-forward="true" selection-start-line="2072" selection-start-column="10" selection-end-line="2072" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -40,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Documentos/solicitudPermisos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+            <state relative-caret-position="2108">
+              <caret line="124" column="97" selection-start-line="124" selection-start-column="97" selection-end-line="124" selection-end-column="97" />
               <folding>
                 <element signature="n#style#0;n#h2#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -270,7 +274,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Jorge Ortega\AppData\Local\Programs\Python\Python37-32\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\AntonioMM\AppData\Local\Programs\Python\Python37-32\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controlador" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -300,14 +304,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1552" height="840" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17118308" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17095709" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.2719547" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.27259886" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -680,13 +685,6 @@
     <entry file="file://$PROJECT_DIR$/vista/documentos/reciboNomina.html" />
     <entry file="file://$PROJECT_DIR$/vista/documentos/solicitudPermisos.html" />
     <entry file="file://$PROJECT_DIR$/vista/documentos/solicitudPeriodoVacacional.html" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17391">
-          <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -696,8 +694,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Documentos/solicitudPermisos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+        <state relative-caret-position="2108">
+          <caret line="124" column="97" selection-start-line="124" selection-start-column="97" selection-end-line="124" selection-end-column="97" />
           <folding>
             <element signature="n#style#0;n#h2#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -736,10 +734,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controlador/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        <state relative-caret-position="136">
+          <caret line="2072" column="10" lean-forward="true" selection-start-line="2072" selection-start-column="10" selection-end-line="2072" selection-end-column="10" />
         </state>
       </provider>
     </entry>

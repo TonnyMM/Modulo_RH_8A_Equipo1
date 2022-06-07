@@ -62,10 +62,9 @@
                 <th>TIPO</th>
                 <th>SOLICITADOR</th>
                 <th>AUTORIZADOR</th>
-                <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
-                <th>PDF</th>
+                <th>EVIDENCIA</th>
                 <th>EDITAR</th>
                 <th>ELIMINAR</th>
             </tr>
@@ -87,36 +86,44 @@
                 <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
                 {%endif%}
                 {%endfor%}
-                <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b></b></span></a></td>
-
-                <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form  method="post" action="/edit_profile">
-                                    <div class="form-group">
-                                        <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                
                 <td>{{a.estatus}}</td>
                 <td>{{a.motivo}}</td>
                 {%if  a.estatus == 'Aceptada'%}
-                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
+                    {%if  a.evidencia == None %}
+                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                    
+                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a>
+                            
+                            <a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"  class="glyphicon glyphicon-refresh btn btn-default btn-sm"></a></td>
+                            
+
+                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form  method="post" action="/edit_profile">
+                                            <div class="form-group">
+                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {%endif%}
+                {%else%}
+                    <td> </td>
+                {%endif%}
                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a data-toggle="modal" data-target="#elim{{a.idAusencia}}" id="elimin"><span class="glyphicon glyphicon-trash"></span></a></td>
                 <div id="elim{{a.idAusencia}}" class="modal fade" role="dialog">
@@ -156,10 +163,9 @@
                 <th>PERIODO</th>
                 <th>TIPO</th>
                 <th>SOLICITADOR</th>
-                <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
-                <th>PDF</th>
+                <th>EVIDENCIA</th>
                 <th>EDITAR</th>
             </tr>
             </thead>
@@ -177,9 +183,16 @@
                         <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
                         {%endif%}
                         {%endfor%}
-                        <td><a data-toggle="modal" data-target="#pdff4{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b></b></span></a></td>
+                        
+                        <td>{{a.estatus}}</td>
+                        <td>{{a.motivo}}</td>
+                        {%if  a.estatus == 'Aceptada'%}
+                    {%if  a.evidencia == None %}
+                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
 
-                        <div id="pdff4{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -189,7 +202,7 @@
                                     <div class="modal-body">
                                         <form  method="post" action="/edit_profile">
                                             <div class="form-group">
-                                                <embed id="pdf4" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
                                             </div>
                                         </form>
                                     </div>
@@ -199,13 +212,11 @@
                                 </div>
                             </div>
                         </div>
-                        <td>{{a.estatus}}</td>
-                        <td>{{a.motivo}}</td>
-                        {%if  a.estatus == 'Aceptada'%}
-                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
+
+                    {%endif%}
+                {%else%}
+                    <td> </td>
+                {%endif%}
                         <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                     </tr>
 
@@ -243,10 +254,9 @@
                     <th>PERIODO</th>
                     <th>TIPO</th>
                     <th>AUTORIZADOR</th>
-                    <th>EVIDENCIA</th>
                     <th>ESTATUS</th>
                     <th>MOTIVO</th>
-                    <th>PDF</th>
+                    <th>EVIDENCIA</th>
                     {%for a in ausenciasJ%}
                         {%if a.estatus == 'EnCaptura'%}
                         <th>EDITAR</th>
@@ -269,35 +279,40 @@
                                 <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
                                 {%endif%}
                             {%endfor%}
-                            <td><a data-toggle="modal" data-target="#pdff1{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b></b></span></a></td>
-
-                            <div id="pdff1{{a.idAusencia}}" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">X</button>
-                                            <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form  method="post" action="/edit_profile">
-                                                <div class="form-group">
-                                                    <embed id="pdf1" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <td>{{a.estatus}}</td>
                             <td>{{a.motivo}}</td>
                             {%if  a.estatus == 'Aceptada'%}
-                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
+                    {%if  a.evidencia == None %}
+                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+
+                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form  method="post" action="/edit_profile">
+                                            <div class="form-group">
+                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {%endif%}
+                {%else%}
+                    <td> </td>
+                {%endif%}
                             {%if a.estatus == 'EnCaptura'%}
                                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                                 <td><a data-toggle="modal" data-target="#elim1{{a.idAusencia}}" id="elimin1"><span class="glyphicon glyphicon-trash"></span></a></td>
@@ -342,10 +357,9 @@
                 <th>PERIODO</th>
                 <th>TIPO</th>
                 <th>SOLICITADOR</th>
-                <th>EVIDENCIA</th>
                 <th>ESTATUS</th>
                 <th>MOTIVO</th>
-                <th>PDF</th>
+                <th>EVIDENCIA</th>
                 <th>EDITAR</th>
             </tr>
             </thead>
@@ -363,35 +377,40 @@
                 <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
                 {%endif%}
                 {%endfor%}
-                <td><a data-toggle="modal" data-target="#pdff2{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b></b></span></a></td>
-
-                <div id="pdff2{{a.idAusencia}}" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form  method="post" action="/edit_profile">
-                                    <div class="form-group">
-                                        <embed id="pdf2" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <td>{{a.estatus}}</td>
                 <td>{{a.motivo}}</td>
                 {%if  a.estatus == 'Aceptada'%}
-                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
+                    {%if  a.evidencia == None %}
+                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+
+                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form  method="post" action="/edit_profile">
+                                            <div class="form-group">
+                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {%endif%}
+                {%else%}
+                    <td> </td>
+                {%endif%}
                 <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
             </tr>
 
@@ -406,7 +425,7 @@
        {%if current_user.is_authenticated and current_user.is_empleado()%}
             <br>
             <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo4"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-            <a href="/pdfPermisos/1" class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a>
+           
             <div class="Buscador">
                 <input id="myInput5" type="text" placeholder="Buscar">
             </div>
@@ -418,10 +437,9 @@
                     <th>PERIODO</th>
                     <th>TIPO</th>
                     <th>AUTORIZADOR</th>
-                    <th>EVIDENCIA</th>
                     <th>ESTATUS</th>
                     <th>MOTIVO</th>
-                    <th>PDF</th>
+                    <th>EVIDENCIA</th>
                     <th>EDITAR</th>
                     <th>ELIMINAR</th>
                 </tr>
@@ -440,36 +458,41 @@
                                         <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
                                     {%endif%}
                                 {%endfor%}
-                                <td><a data-toggle="modal" data-target="#pdff5{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open"><b></b></span></a></td>
-
-                                <div id="pdff5{{a.idAusencia}}" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                                <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form  method="post" action="/edit_profile">
-                                                    <div class="form-group">
-                                                        <embed id="pdf5" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                                 <td>{{a.estatus}}</td>
                                 <td>{{a.motivo}}</td>
                                 {%if  a.estatus == 'Aceptada'%}
-                                <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
+                    {%if  a.evidencia == None %}
+                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+
+                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form  method="post" action="/edit_profile">
+                                            <div class="form-group">
+                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {%endif%}
+                {%else%}
+                    <td> </td>
+                {%endif%}
                                 {%if a.estatus == 'EnCaptura'%}
                                     <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                                 {%else%}

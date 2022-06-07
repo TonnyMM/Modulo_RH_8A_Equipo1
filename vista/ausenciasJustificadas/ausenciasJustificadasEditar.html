@@ -96,7 +96,7 @@
                     {%if ausencia.estatus == 'EnCaptura' and current_user.is_empleado()%}
                         <option value="Solicitando" >Solicitando</option>
                     {%endif%}
-                    {%if ausencia.estatus == 'Solicitando' and current_user.is_staff()%}
+                    {%if ausencia.estatus == 'Solicitando' and current_user.is_staff() %}
                         <option value="Aceptada" >Aceptada</option>
                         <option value="Rechazada" >Rechazada</option>
                     {%endif%}

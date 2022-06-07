@@ -12,9 +12,11 @@ import pandas as pd
 from pandas import ExcelWriter
 from tkinter import *
 from tkinter import filedialog
-#from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 from jinja2 import Template #Nuevo!
 import os
+from cmath import pi
+from requests import delete
 
 from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
@@ -1765,7 +1767,7 @@ def guardarAusenciasJustificadas():
     a.tipo = request.form['tipo']
     a.idEmpleadoSolicita = request.form['idEmpleadoSolicita']
     a.idEmpleadoAutoriza = request.form['idEmpleadoAutoriza']
-    a.evidencia = request.files['evidencia'].read()
+    a.evidencia = None
     a.estatus = request.form['estatus']
     a.motivo = request.form['motivo']
     a.actualizar()
@@ -2053,50 +2055,94 @@ def generarExcel():
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sourceHtml = open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read()
 
-@app.route('/pdfPermisos/<int:idE>,<int:idA>')
-def pdfPermisos(idE,idA):
+@app.route('/pdfPermisos/<int:idE>,<int:idA>,<int:page>')
+def pdfPermisos(idE,idA,page):
     e = Empleados()
     a = AusenciasJustificadas()
+    p = Puestos()
+    d = Departamentos()
+    t = Turnos()
     empleados = e.consultaGeneral()
     #print(base_dir)
     #ruta_template = 'D:/Tec/Git/Modulo_RH_8A_Equipo1/vista/Formatos/solicitudPermisos.html'
     empleado = e.consultaIndividual(idE)
     ausencias = a.consultaIndividual(idA)
+    pt=p.consultaGeneral()
+    dp = d.consultaGeneral()
+    tt=t.consultaGeneral()
+    dpa=""
+    puesto=""
+    tn=""
+    for pp in pt:
+        if empleado.idPuesto == pp.idPuesto:
+            puesto=pp.nombre
+            
+    for d in dp:
+        if empleado.idDepartamento == d.idDepartamento:
+            dpa=d.nombre
+            
+    for ti in tt:
+        if empleado.idTurno == ti.idTurno:
+            tn=ti.nombre
+    
     if ausencias.tipo == "Permiso":
 
-        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
+        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno,
+                'fechaSolicitud': ausencias.fechaSolicitud,'nss':empleado.nss, 'turno':tn, 'curp':empleado.curp, 'puesto':puesto,
+                'fechaContratacion': empleado.fechaContratacion, 'departamento': dpa, 'nss':empleado.nss, 'fechaInicio': ausencias.fechaInicio,
+                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo}
             
-        outputFilename = idA+"Solicitud_Permiso_"+empleado.nombre+empleado.apellidoPaterno+ausencias.fechaSolicitud+ausencias.tipo+".pdf"    
+        outputFilename = "Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"  
         resultFile = open(outputFilename, "w+b")
         template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read())
         html  = template.render(data)
         pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+        print(resultFile)
+        a.idAusencia = idA
+        #a.evidencia = open(outputFilename, 'rb').read()
+            #open(os.path.join(base_dir, 'controlador/',outputFilename)).read()
+        
         resultFile.close()
-    
-    if ausencias.tipo == "Incapacidad":
-    
-        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
-            
-        outputFilename = idA+"Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
-        resultFile = open(outputFilename, "w+b")
-        template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read())
-        html  = template.render(data)
-        pisaStatus = pisa.CreatePDF(html,dest=resultFile)
-        resultFile.close()
+        a.evidencia = open(outputFilename,'rb').read()
+        a.actualizar()
+        os.remove(outputFilename)
     
     if ausencias.tipo == "Periodo Vacacional":
     
-        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno}
+        data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno,
+                'fechaSolicitud': ausencias.fechaSolicitud,'nss':empleado.nss, 'turno':tn, 'curp':empleado.curp, 'puesto':puesto,
+                'fechaContratacion': empleado.fechaContratacion, 'departamento': dpa, 'nss':empleado.nss, 'fechaInicio': ausencias.fechaInicio,
+                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo}
             
-        outputFilename = idA+"Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
+        outputFilename = "Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
         resultFile = open(outputFilename, "w+b")
         template = Template(open(os.path.join(base_dir, 'Documentos/solicitudPeriodoVacacional.html')).read())
         html  = template.render(data)
         pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+        print(resultFile)
+        a.idAusencia = idA
+        #a.evidencia = open(outputFilename, 'rb').read()
+            #open(os.path.join(base_dir, 'controlador/',outputFilename)).read()
+        
         resultFile.close()
+        a.evidencia = open(outputFilename,'rb').read()
+        a.actualizar()
+        os.remove(outputFilename)
+        
+    try:
+        paginacion=a.consultarPagina(page)
+        ausencias = paginacion.items
+        paginas = paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay ausencias justificadas")
+        ausencias=None
+    asis = a.consultaGeneral()
+    return render_template('ausenciasJustificadas/ausenciasJustificadasListado.html',ausenciasJ = ausencias,
+                           paginas=paginas,pagina=page, empleados = e.consultaGeneral(), ausencias = asis)
+        
     
-    return render_template('comunes/index.html',empleados = empleados)
-
 
 
 @app.errorhandler(404)
