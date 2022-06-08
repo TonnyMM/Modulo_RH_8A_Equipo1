@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentos/solicitudPeriodoVacacional.html" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/solicitudPeriodoVacacional.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentos/solicitudPermisos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Documentos/solicitudPermisos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/Solicitud_Periodo Vacacional_LuzRodríguez.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/Solicitud_Permiso_LuzRodríguez.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controlador/test.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasNuevo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/nominas/nominasNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/nominas/nominasNuevo.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,7 +23,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
+            <state relative-caret-position="17391">
               <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
             </state>
           </provider>
@@ -35,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controlador/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="2072" column="10" lean-forward="true" selection-start-line="2072" selection-start-column="10" selection-end-line="2072" selection-end-column="10" />
+            <state relative-caret-position="119">
+              <caret line="2071" column="26" lean-forward="true" selection-start-line="2071" selection-start-column="26" selection-end-line="2071" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -44,42 +41,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Documentos/solicitudPermisos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2108">
-              <caret line="124" column="97" selection-start-line="124" selection-start-column="97" selection-end-line="124" selection-end-column="97" />
+            <state relative-caret-position="2091">
+              <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
               <folding>
                 <element signature="n#style#0;n#h2#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#1;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#2;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#2;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#3;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#1;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#1;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#3301#3307#0" expanded="true" />
-                <element signature="e#3308#3314#0" expanded="true" />
-                <element signature="e#3315#3321#0" expanded="true" />
-                <element signature="e#3322#3328#0" expanded="true" />
-                <element signature="e#3329#3335#0" expanded="true" />
-                <element signature="e#3336#3342#0" expanded="true" />
-                <element signature="e#3576#3582#0" expanded="true" />
-                <element signature="e#3583#3589#0" expanded="true" />
-                <element signature="e#3590#3596#0" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#3721#3727#0" expanded="true" />
-                <element signature="e#3728#3734#0" expanded="true" />
-                <element signature="e#3756#3762#0" expanded="true" />
-                <element signature="e#3763#3769#0" expanded="true" />
-                <element signature="e#3770#3776#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,11 +143,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectId" id="25a4ZEqSgQJ516Gmvaq2nDlM0Gp" />
   <component name="ProjectView">
@@ -189,6 +154,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -233,7 +199,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -304,15 +269,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1552" height="840" extended-state="0" />
-    <editor active="true" />
+    <frame x="-7" y="0" width="1550" height="831" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17095709" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17118308" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.27259886" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49966952" visible="true" weight="0.2761087" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -685,6 +649,24 @@
     <entry file="file://$PROJECT_DIR$/vista/documentos/reciboNomina.html" />
     <entry file="file://$PROJECT_DIR$/vista/documentos/solicitudPermisos.html" />
     <entry file="file://$PROJECT_DIR$/vista/documentos/solicitudPeriodoVacacional.html" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17391">
+          <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Documentos/solicitudPermisos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="123" column="97" selection-start-line="123" selection-start-column="97" selection-end-line="123" selection-end-column="97" />
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasListado.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -692,59 +674,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Documentos/solicitudPermisos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="124" column="97" selection-start-line="124" selection-start-column="97" selection-end-line="124" selection-end-column="97" />
-          <folding>
-            <element signature="n#style#0;n#h2#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#1;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#2;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#2;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#3;n#table#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#1;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#1;n#table#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#3301#3307#0" expanded="true" />
-            <element signature="e#3308#3314#0" expanded="true" />
-            <element signature="e#3315#3321#0" expanded="true" />
-            <element signature="e#3322#3328#0" expanded="true" />
-            <element signature="e#3329#3335#0" expanded="true" />
-            <element signature="e#3336#3342#0" expanded="true" />
-            <element signature="e#3576#3582#0" expanded="true" />
-            <element signature="e#3583#3589#0" expanded="true" />
-            <element signature="e#3590#3596#0" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#3721#3727#0" expanded="true" />
-            <element signature="e#3728#3734#0" expanded="true" />
-            <element signature="e#3756#3762#0" expanded="true" />
-            <element signature="e#3763#3769#0" expanded="true" />
-            <element signature="e#3770#3776#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="1090" selection-start-line="1090" selection-end-line="1090" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controlador/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="2072" column="10" lean-forward="true" selection-start-line="2072" selection-start-column="10" selection-end-line="2072" selection-end-column="10" />
+        <state relative-caret-position="119">
+          <caret line="2071" column="26" lean-forward="true" selection-start-line="2071" selection-start-column="26" selection-end-line="2071" selection-end-column="26" />
         </state>
       </provider>
     </entry>

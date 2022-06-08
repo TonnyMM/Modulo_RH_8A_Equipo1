@@ -3,39 +3,39 @@
 {{super()}}
 <h1>AUSENCIAS JUSTIFICADAS</h1>
 {% if get_flashed_messages() %}
-    {% for m in get_flashed_messages()%}
-        <div class="alert alert-success alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>{{m}}</strong>
-        </div>
-    {% endfor %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
 {% endif %}
 
 <script>
-    $(document).ready(function(){
-        $("#myInput2").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable2 tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
+    $(document).ready(function () {
+        $("#myInput2").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable2 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
-      });
-      $(document).ready(function(){
-        $("#myInput3").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable3 tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
+    });
+    $(document).ready(function () {
+        $("#myInput3").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable3 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
-      });
-      $(document).ready(function(){
-        $("#myInput4").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable4 tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
+    });
+    $(document).ready(function () {
+        $("#myInput4").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable4 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
-      });
+    });
 </script>
 </script>
 
@@ -48,181 +48,195 @@
 <div class="tab-content">
     <div id="menuu1" class="tab-pane fade in active">
         <br>
-        <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo1"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-        
+        <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo1"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+
         <div class="Buscador">
             <input id="myInput" type="text" placeholder="Buscar">
         </div>
         <br /><br />
         <table class="table table-hover">
             <thead class="table-dark">
-            <tr>
-                <th>FECHA</th>
-                <th>PERIODO</th>
-                <th>TIPO</th>
-                <th>SOLICITADOR</th>
-                <th>AUTORIZADOR</th>
-                <th>ESTATUS</th>
-                <th>MOTIVO</th>
-                <th>EVIDENCIA</th>
-                <th>EDITAR</th>
-                <th>ELIMINAR</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th>PERIODO</th>
+                    <th>TIPO</th>
+                    <th>SOLICITADOR</th>
+                    <th>AUTORIZADOR</th>
+                    <th>ESTATUS</th>
+                    <th>MOTIVO</th>
+                    <th>EVIDENCIA</th>
+                    <th>EDITAR</th>
+                    <th>ELIMINAR</th>
+                </tr>
             </thead>
             <tbody id="myTable">
-            {%for a in ausenciasJ%}
-            {%if a.estatus != 'Eliminado'%}
-            <tr>
-                <td>{{a.fechaSolicitud}}</td>
-                <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
-                <td width="5px">{{a.tipo}}</td>
-                {%for e in empleados%}
-                {%if a.idEmpleadoSolicita == e.idEmpleado%}
-                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                {%endif%}
-                {%endfor%}
-                {%for e in empleados%}
-                {%if a.idEmpleadoAutoriza == e.idEmpleado%}
-                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                {%endif%}
-                {%endfor%}
-                
-                <td>{{a.estatus}}</td>
-                <td>{{a.motivo}}</td>
-                {%if  a.estatus == 'Aceptada'%}
-                    {%if  a.evidencia == None %}
-                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                    {%else%}
-                    
-                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a>
-                            
-                            <a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"  class="glyphicon glyphicon-refresh btn btn-default btn-sm"></a></td>
-                            
+                {%for a in ausenciasJ%}
+                {%if a.estatus != 'Eliminado'%}
+                <tr>
+                    <td>{{a.fechaSolicitud}}</td>
+                    <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
+                    <td width="5px">{{a.tipo}}</td>
+                    {%for e in empleados%}
+                    {%if a.idEmpleadoSolicita == e.idEmpleado%}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                    {%endif%}
+                    {%endfor%}
+                    {%for e in empleados%}
+                    {%if a.idEmpleadoAutoriza == e.idEmpleado%}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                    {%endif%}
+                    {%endfor%}
 
-                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">X</button>
-                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" action="/edit_profile">
-                                            <div class="form-group">
-                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    </div>
+                    <td>{{a.estatus}}</td>
+                    <td>{{a.motivo}}</td>
+                    {%if a.estatus == 'Aceptada'%}
+                    {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
+                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                            class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
+                    {%else%}
+
+                    <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
+                                class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a>
+
+                        <a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                            class="glyphicon glyphicon-refresh btn btn-default btn-sm"></a>
+                    </td>
+
+
+                    <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="/edit_profile">
+                                        <div class="form-group">
+                                            <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}"
+                                                type="application/pdf" width="100%" height="600px" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
-                        
+                    </div>
+
                     {%endif%}
-                {%else%}
+                    {%else%}
                     <td> </td>
-                {%endif%}
-                <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                <td><a data-toggle="modal" data-target="#elim{{a.idAusencia}}" id="elimin"><span class="glyphicon glyphicon-trash"></span></a></td>
-                <div id="elim{{a.idAusencia}}" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                <h4 class="modal-title">Eliminación del registro de ausencia justificada NO. {{a.idAusencia}}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿ Esta seguro de que quiere eliminar este registro?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    {%endif%}
+                    <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                    <td><a data-toggle="modal" data-target="#elim{{a.idAusencia}}" id="elimin"><span
+                                class="glyphicon glyphicon-trash"></span></a></td>
+                    <div id="elim{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Eliminación del registro de ausencia justificada NO.
+                                        {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿ Esta seguro de que quiere eliminar este registro?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </tr>
-            {%endif%}
-            {%endfor%}
+                </tr>
+                {%endif%}
+                {%endfor%}
             </tbody>
         </table>
     </div>
     <div id="menuu2" class="tab-pane fade">
         <br>
-        <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo3"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo3"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
         <div class="Buscador">
             <input id="myInput4" type="text" placeholder="Buscar">
         </div>
         <br /><br />
         <table class="table table-hover">
             <thead class="table-dark">
-            <tr>
-                <th>FECHA</th>
-                <th>PERIODO</th>
-                <th>TIPO</th>
-                <th>SOLICITADOR</th>
-                <th>ESTATUS</th>
-                <th>MOTIVO</th>
-                <th>EVIDENCIA</th>
-                <th>EDITAR</th>
-            </tr>
+                <tr>
+                    <th>FECHA</th>
+                    <th>PERIODO</th>
+                    <th>TIPO</th>
+                    <th>SOLICITADOR</th>
+                    <th>ESTATUS</th>
+                    <th>MOTIVO</th>
+                    <th>EVIDENCIA</th>
+                    <th>EDITAR</th>
+                </tr>
             </thead>
             <tbody id="myTable4">
-            {%for a in ausenciasJ%}
-            {%if a.estatus == 'Solicitando'%}
+                {%for a in ausenciasJ%}
+                {%if a.estatus == 'Solicitando'%}
                 {%if a.idEmpleadoAutoriza == current_user.idEmpleado%}
 
-                    <tr>
-                        <td>{{a.fechaSolicitud}}</td>
-                        <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
-                        <td width="5px">{{a.tipo}}</td>
-                        {%for e in empleados%}
-                        {%if a.idEmpleadoSolicita == e.idEmpleado%}
-                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                        {%endif%}
-                        {%endfor%}
-                        
-                        <td>{{a.estatus}}</td>
-                        <td>{{a.motivo}}</td>
-                        {%if  a.estatus == 'Aceptada'%}
-                    {%if  a.evidencia == None %}
-                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                    {%else%}
-                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+                <tr>
+                    <td>{{a.fechaSolicitud}}</td>
+                    <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
+                    <td width="5px">{{a.tipo}}</td>
+                    {%for e in empleados%}
+                    {%if a.idEmpleadoSolicita == e.idEmpleado%}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                    {%endif%}
+                    {%endfor%}
 
-                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">X</button>
-                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" action="/edit_profile">
-                                            <div class="form-group">
-                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    </div>
+                    <td>{{a.estatus}}</td>
+                    <td>{{a.motivo}}</td>
+                    {%if a.estatus == 'Aceptada'%}
+                    {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
+                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                            class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
+                    {%else%}
+                    <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
+                                class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+
+                    <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="/edit_profile">
+                                        <div class="form-group">
+                                            <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}"
+                                                type="application/pdf" width="100%" height="600px" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     {%endif%}
-                {%else%}
+                    {%else%}
                     <td> </td>
-                {%endif%}
-                        <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                    </tr>
+                    {%endif%}
+                    <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                </tr>
 
                 {%endif%}
-            {%endif%}
-            {%endfor%}
+                {%endif%}
+                {%endfor%}
             </tbody>
         </table>
     </div>
@@ -231,24 +245,25 @@
 
 
 {%else%}
-    {%if current_user.is_authenticated and current_user.is_staff()%}
+{%if current_user.is_authenticated and current_user.is_staff()%}
 
-    <ul class="nav nav-tabs" id="ex1">
-        <li class="active"><a data-toggle="tab" href="#menu1" style="color: darkgreen;">Solicitudes enviadas</a></li>
-        <li><a data-toggle="tab" href="#menu2" style="color: darkgreen;">Solicitudes recibidas</a></li>
-    </ul>
+<ul class="nav nav-tabs" id="ex1">
+    <li class="active"><a data-toggle="tab" href="#menu1" style="color: darkgreen;">Solicitudes enviadas</a></li>
+    <li><a data-toggle="tab" href="#menu2" style="color: darkgreen;">Solicitudes recibidas</a></li>
+</ul>
 
 <div class="tab-content">
-<!----------------------------------------------------------------------------------------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------------------------->
     <div id="menu1" class="tab-pane fade in active">
-            <br>
-            <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo2"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-            <div class="Buscador">
-                <input id="myInput2" type="text" placeholder="Buscar">
-            </div>
-            <br /><br />
-            <table class="table table-hover">
-                <thead class="table-dark">
+        <br>
+        <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo2"> <span
+                class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+        <div class="Buscador">
+            <input id="myInput2" type="text" placeholder="Buscar">
+        </div>
+        <br /><br />
+        <table class="table table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>FECHA</th>
                     <th>PERIODO</th>
@@ -258,92 +273,98 @@
                     <th>MOTIVO</th>
                     <th>EVIDENCIA</th>
                     {%for a in ausenciasJ%}
-                        {%if a.estatus == 'EnCaptura'%}
-                        <th>EDITAR</th>
-                        <th>ELIMINAR</th>
-                        {% endif %}
+                    {%if a.estatus == 'EnCaptura'%}
+                    <th>EDITAR</th>
+                    <th>ELIMINAR</th>
+                    {% endif %}
                     {%endfor%}
                 </tr>
-                </thead>
-                <tbody id="myTable2">
+            </thead>
+            <tbody id="myTable2">
                 {%for a in ausenciasJ%}
                 {%if a.estatus != 'Eliminado'%}
-                    {%if a.idEmpleadoSolicita == current_user.idEmpleado%}
+                {%if a.idEmpleadoSolicita == current_user.idEmpleado%}
 
-                        <tr>
-                            <td>{{a.fechaSolicitud}}</td>
-                            <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
-                            <td>{{a.tipo}}</td>
-                            {%for e in empleados%}
-                                {%if a.idEmpleadoAutoriza == e.idEmpleado%}
-                                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                                {%endif%}
-                            {%endfor%}
-                            
-                            <td>{{a.estatus}}</td>
-                            <td>{{a.motivo}}</td>
-                            {%if  a.estatus == 'Aceptada'%}
-                    {%if  a.evidencia == None %}
-                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                <tr>
+                    <td>{{a.fechaSolicitud}}</td>
+                    <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
+                    <td>{{a.tipo}}</td>
+                    {%for e in empleados%}
+                    {%if a.idEmpleadoAutoriza == e.idEmpleado%}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                    {%endif%}
+                    {%endfor%}
+
+                    <td>{{a.estatus}}</td>
+                    <td>{{a.motivo}}</td>
+                    {%if a.estatus == 'Aceptada'%}
+                    {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
+                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                            class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
-                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+                    <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
+                                class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
 
-                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">X</button>
-                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" action="/edit_profile">
-                                            <div class="form-group">
-                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    </div>
+                    <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="/edit_profile">
+                                        <div class="form-group">
+                                            <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}"
+                                                type="application/pdf" width="100%" height="600px" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     {%endif%}
-                {%else%}
+                    {%else%}
                     <td> </td>
-                {%endif%}
-                            {%if a.estatus == 'EnCaptura'%}
-                                <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                                <td><a data-toggle="modal" data-target="#elim1{{a.idAusencia}}" id="elimin1"><span class="glyphicon glyphicon-trash"></span></a></td>
-                                <div id="elim1{{a.idAusencia}}" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                                <h4 class="modal-title">Eliminación del registro de ausencia justificada NO. {{a.idAusencia}}</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿ Esta seguro de que quiere eliminar este registro?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {%endif%}
-                        </tr>
-
                     {%endif%}
+                    {%if a.estatus == 'EnCaptura'%}
+                    <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                    <td><a data-toggle="modal" data-target="#elim1{{a.idAusencia}}" id="elimin1"><span
+                                class="glyphicon glyphicon-trash"></span></a></td>
+                    <div id="elim1{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Eliminación del registro de ausencia justificada NO.
+                                        {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿ Esta seguro de que quiere eliminar este registro?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                </tr>
+
+                {%endif%}
                 {%endif%}
                 {%endfor%}
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
     </div>
-<!----------------------------------------------------------------------------------------------------------------------------------->
+    <!----------------------------------------------------------------------------------------------------------------------------------->
     <div id="menu2" class="tab-pane fade">
         <br>
         <div class="Buscador">
@@ -352,189 +373,197 @@
         <br /><br />
         <table class="table table-hover">
             <thead class="table-dark">
-            <tr>
-                <th>FECHA</th>
-                <th>PERIODO</th>
-                <th>TIPO</th>
-                <th>SOLICITADOR</th>
-                <th>ESTATUS</th>
-                <th>MOTIVO</th>
-                <th>EVIDENCIA</th>
-                <th>EDITAR</th>
-            </tr>
-            </thead>
-            <tbody id="myTable3">
-            {%for a in ausenciasJ%}
-            {%if a.estatus != 'Eliminado' and a.estatus != 'EnCaptura'%}
-            {%if a.idEmpleadoAutoriza == current_user.idEmpleado%}
-
-            <tr>
-                <td>{{a.fechaSolicitud}}</td>
-                <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
-                <td>{{a.tipo}}</td>
-                {%for e in empleados%}
-                {%if a.idEmpleadoSolicita == e.idEmpleado%}
-                <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                {%endif%}
-                {%endfor%}
-                
-                <td>{{a.estatus}}</td>
-                <td>{{a.motivo}}</td>
-                {%if  a.estatus == 'Aceptada'%}
-                    {%if  a.evidencia == None %}
-                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
-                    {%else%}
-                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
-
-                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">X</button>
-                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" action="/edit_profile">
-                                            <div class="form-group">
-                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    {%endif%}
-                {%else%}
-                    <td> </td>
-                {%endif%}
-                <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
-            </tr>
-
-            {%endif%}
-            {%endif%}
-            {%endfor%}
-            </tbody>
-        </table>
-    </div>
-</div>
-    {%else%}
-       {%if current_user.is_authenticated and current_user.is_empleado()%}
-            <br>
-            <a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo4"> <span class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
-           
-            <div class="Buscador">
-                <input id="myInput5" type="text" placeholder="Buscar">
-            </div>
-            <br /><br />
-            <table class="table table-hover">
-                <thead class="table-dark">
                 <tr>
                     <th>FECHA</th>
                     <th>PERIODO</th>
                     <th>TIPO</th>
-                    <th>AUTORIZADOR</th>
+                    <th>SOLICITADOR</th>
                     <th>ESTATUS</th>
                     <th>MOTIVO</th>
                     <th>EVIDENCIA</th>
                     <th>EDITAR</th>
-                    <th>ELIMINAR</th>
                 </tr>
-                </thead>
-                <tbody id="myTable5">
-                {%for a in ausencias%}
-                    {%if a.estatus != 'Eliminado'%}
-                        {%if a.idEmpleadoSolicita == current_user.idEmpleado%}
+            </thead>
+            <tbody id="myTable3">
+                {%for a in ausenciasJ%}
+                {%if a.estatus != 'Eliminado' and a.estatus != 'EnCaptura'%}
+                {%if a.idEmpleadoAutoriza == current_user.idEmpleado%}
 
-                            <tr>
-                                <td>{{a.fechaSolicitud}}</td>
-                                <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
-                                <td width="5px">{{a.tipo}}</td>
-                                {%for e in empleados%}
-                                    {%if a.idEmpleadoAutoriza == e.idEmpleado%}
-                                        <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-                                    {%endif%}
-                                {%endfor%}
-                                
+                <tr>
+                    <td>{{a.fechaSolicitud}}</td>
+                    <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
+                    <td>{{a.tipo}}</td>
+                    {%for e in empleados%}
+                    {%if a.idEmpleadoSolicita == e.idEmpleado%}
+                    <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+                    {%endif%}
+                    {%endfor%}
 
-                                <td>{{a.estatus}}</td>
-                                <td>{{a.motivo}}</td>
-                                {%if  a.estatus == 'Aceptada'%}
-                    {%if  a.evidencia == None %}
-                        <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success" id="nuevo1" > <b>GENERAR PDF</b></a></td>
+                    <td>{{a.estatus}}</td>
+                    <td>{{a.motivo}}</td>
+                    {%if a.estatus == 'Aceptada'%}
+                    {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
+                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                            class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
-                        <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+                    <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
+                                class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
 
-                        <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">X</button>
-                                        <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form  method="post" action="/edit_profile">
-                                            <div class="form-group">
-                                                <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf" width="100%" height="600px"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    </div>
+                    <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="/edit_profile">
+                                        <div class="form-group">
+                                            <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}"
+                                                type="application/pdf" width="100%" height="600px" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     {%endif%}
-                {%else%}
+                    {%else%}
                     <td> </td>
-                {%endif%}
-                                {%if a.estatus == 'EnCaptura'%}
-                                    <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                                {%else%}
-                                <td> </td>
-                                {%endif%}
-                                {%if a.estatus != 'Solicitando'%}
-                                    <td><a data-toggle="modal" data-target="#elim5{{a.idAusencia}}" id="elimin5"><span class="glyphicon glyphicon-trash"></span></a></td>
-                                    <div id="elim5{{a.idAusencia}}" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">X</button>
-                                                    <h4 class="modal-title">Eliminación del registro de ausencia justificada NO. {{a.idAusencia}}</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿ Esta seguro de que quiere eliminar este registro?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {%endif%}
-                            </tr>
-                        {%endif%}
                     {%endif%}
+                    <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                </tr>
+
+                {%endif%}
+                {%endif%}
                 {%endfor%}
-                </tbody>
-            </table>
-       {%endif%}
-    {%endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%else%}
+{%if current_user.is_authenticated and current_user.is_empleado()%}
+<br>
+<a href="/ausenciasJustificadasNuevo" class="btn btn-success" id="nuevo4"> <span
+        class="glyphicon glyphicon-file"><b>Nuevo</b></span></a>
+
+<div class="Buscador">
+    <input id="myInput5" type="text" placeholder="Buscar">
+</div>
+<br /><br />
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>FECHA</th>
+            <th>PERIODO</th>
+            <th>TIPO</th>
+            <th>AUTORIZADOR</th>
+            <th>ESTATUS</th>
+            <th>MOTIVO</th>
+            <th>EVIDENCIA</th>
+            <th>EDITAR</th>
+            <th>ELIMINAR</th>
+        </tr>
+    </thead>
+    <tbody id="myTable5">
+        {%for a in ausencias%}
+        {%if a.estatus != 'Eliminado'%}
+        {%if a.idEmpleadoSolicita == current_user.idEmpleado%}
+
+        <tr>
+            <td>{{a.fechaSolicitud}}</td>
+            <td>{{a.fechaInicio}} - {{a.fechaFin}}</td>
+            <td width="5px">{{a.tipo}}</td>
+            {%for e in empleados%}
+            {%if a.idEmpleadoAutoriza == e.idEmpleado%}
+            <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
+            {%endif%}
+            {%endfor%}
+            <td>{{a.estatus}}</td>
+            <td>{{a.motivo}}</td>
+            {%if a.estatus == 'Aceptada'%}
+            {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
+            <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}" class="btn btn-success"
+                    id="nuevo1"> <b>GENERAR PDF</b></a></td>
+            {%else%}
+            <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
+                        class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a></td>
+
+            <div id="pdff{{a.idAusencia}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">X</button>
+                            <h4 class="modal-title">Registro No. {{a.idAusencia}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/edit_profile">
+                                <div class="form-group">
+                                    <embed id="pdf" src="/empleadoEvidencia/{{a.idAusencia}}" type="application/pdf"
+                                        width="100%" height="600px" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {%endif%}
+            {%else%}
+            <td> </td>
+            {%endif%}
+            {%if a.estatus == 'EnCaptura'%}
+            <td><a href="/ausenciasEditar/{{a.idAusencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            {%else%}
+            <td> </td>
+            {%endif%}
+            {%if a.estatus != 'Solicitando'%}
+            <td><a data-toggle="modal" data-target="#elim5{{a.idAusencia}}" id="elimin5"><span
+                        class="glyphicon glyphicon-trash"></span></a></td>
+            <div id="elim5{{a.idAusencia}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">X</button>
+                            <h4 class="modal-title">Eliminación del registro de ausencia justificada NO.
+                                {{a.idAusencia}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿ Esta seguro de que quiere eliminar este registro?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/ausenciasEliminar/{{a.idAusencia}}" class="btn btn-info">Si</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </tr>
+        {%endif%}
+        {%endif%}
+        {%endfor%}
+    </tbody>
+</table>
+{%endif%}
+{%endif%}
 {%endif%}
 <br>
 
 
 {%if current_user.is_authenticated and (current_user.is_staff() or current_user.is_administrador())%}
-    <div class="conteiner">
-        <ul class="pagination" style="margin-left: 70px;">
+<div class="conteiner">
+    <ul class="pagination" style="margin-left: 70px;">
 
-            {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+        {% if pagina <=1 %} <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
             {% else %}
             <li><a class="page-link" href="/ausenciasJustificadasListadoGeneral/{{pagina-1}}">Anterior</a></li>
             {% endif %}
@@ -544,8 +573,8 @@
             {% else %}
             <li><a class="page-link" href="/ausenciasJustificadasListadoGeneral/{{pagina+1}}">Siguiente</a></li>
             {% endif %}
-        </ul>
-    </div>
+    </ul>
+</div>
 {%endif%}
 
 {%endblock content%}
