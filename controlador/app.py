@@ -10,10 +10,12 @@ from datetime import datetime
 from datetime import timedelta
 import pandas as pd
 from pandas import ExcelWriter
+import calendar
 from tkinter import *
 from tkinter import filedialog
 from xhtml2pdf import pisa
 from jinja2 import Template #Nuevo!
+import random
 import os
 from cmath import pi
 from requests import delete
@@ -1500,7 +1502,29 @@ def registrarEntrada():
 
     asistencia.horaEntrada = request.form['horaEntrada']
     asistencia.horaSalida = ""
-    asistencia.dia = request.form['diaSemana']
+    fecha = request.form['fecha']
+    f2_str = datetime.strptime(fecha, '%Y-%m-%d')
+    dia_def= calendar.day_name[f2_str.weekday()]
+    if dia_def == 'Monday':
+        asistencia.dia = 'Lunes'
+    else:
+        if dia_def == 'Tuesday':
+            asistencia.dia = 'Martes'
+        else:
+            if dia_def == 'Wednesday':
+                asistencia.dia = 'Miercoles'
+            else:
+                if dia_def == 'Thursday':
+                    asistencia.dia = 'Jueves'
+                else:
+                    if dia_def == 'Friday':
+                        asistencia.dia = 'Viernes'
+                    else:
+                        if dia_def == 'Saturday':
+                            asistencia.dia = 'Sabado'
+                        else:
+                            if dia_def == 'Sunday':
+                                asistencia.dia = 'Domingo'
 
 
     emp = Empleados()
@@ -1524,7 +1548,9 @@ def registrarEntrada():
             asistencia.insertar()
             flash('Se ha registrado la asistencia con éxito!!')
         else:
-            flash('Horario no valido!!')
+            asistencia.horaSalida = '00:00:00'
+            asistencia.insertar()
+            flash('Se ha registrado la asistencia con éxito!!')
     else:
         flash('Día no valido!!')
 
@@ -1656,7 +1682,29 @@ def modificarAsistencia():
     asistencia = Asistencias()
     asistencia.idAsistencia = request.form['idAsistencia']
     asistencia.idEmpleado = request.form['idEmpleado']
-    asistencia.dia = request.form['diaSemana']
+    fecha = request.form['fecha']
+    f2_str = datetime.strptime(fecha, '%Y-%m-%d')
+    dia_def= calendar.day_name[f2_str.weekday()]
+    if dia_def == 'Monday':
+        asistencia.dia = 'Lunes'
+    else:
+        if dia_def == 'Tuesday':
+            asistencia.dia = 'Martes'
+        else:
+            if dia_def == 'Wednesday':
+                asistencia.dia = 'Miercoles'
+            else:
+                if dia_def == 'Thursday':
+                    asistencia.dia = 'Jueves'
+                else:
+                    if dia_def == 'Friday':
+                        asistencia.dia = 'Viernes'
+                    else:
+                        if dia_def == 'Saturday':
+                            asistencia.dia = 'Sabado'
+                        else:
+                            if dia_def == 'Sunday':
+                                asistencia.dia = 'Domingo'
     asistencia.fecha = request.form['fecha']
     asistencia.horaEntrada = request.form['horaInicio']
     asistencia.horaSalida = request.form['horaFin']
@@ -1724,7 +1772,8 @@ def AusenciasJust(page=1):
 def ausenciasJustificadasNuevo():
     e = Empleados()
     fechaSolicitud = date.today().strftime('%Y-%m-%d')
-    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado=e.consultaGeneral(), fechaSolicitud = fechaSolicitud)
+    rojo = 0
+    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado=e.consultaGeneral(), fechaSolicitud = fechaSolicitud, rojo = rojo)
 
 @app.route('/registrarAusenciasJustificadas',methods=['post'])
 @login_required
@@ -1735,16 +1784,48 @@ def registrarAusenciasJustificadas():
     a.fechaSolicitud = request.form['fechaSolicitud']
     a.fechaInicio = request.form['fechaInicio']
     a.fechaFin = request.form['fechaFin']
+    fechai=a.fechaInicio
+    fechaf = a.fechaFin
+    fi =datetime.strptime(fechai, '%Y-%m-%d')
+    fn = datetime.strptime(fechaf, '%Y-%m-%d')
+    cont =0
+    while fi != fn:
+        td = timedelta(1)
+        fi = fi + td
+        cont = cont + 1
+
     a.tipo = request.form['tipo']
     a.idEmpleadoSolicita = request.form['idEmpleadoSolicita']
+    emp = e.consultaIndividual(str(a.idEmpleadoSolicita))
+    diasp = emp.diasPermiso
+    diasv = emp.diasVaciones
     a.idEmpleadoAutoriza = request.form['idEmpleadoAutoriza']
-    a.evidencia =request.files['evidencia'].read()
     a.motivo = request.form['motivo']
     a.estatus = request.form['estatus']
-    a.insertar()
-    flash('Se ha guardado el documento con éxito!!')
 
-    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado = empleado, fechaSolicitud = request.form['fechaSolicitud'])
+    valido = 1
+
+    if a.tipo == 'Permiso':
+        if diasp < cont:
+            valido = 0
+    else:
+        if a.tipo == 'Periodo Vacacional':
+            if diasv < cont:
+                valido = 0
+    rojo = 0
+    if valido == 1:
+        a.insertar()
+        flash('Se ha guardado el documento con éxito!!')
+
+    else:
+        if a.tipo == 'Permiso':
+            rojo = 1
+            flash('No cuentas con suficientes días!!')
+        else:
+            if a.tipo == 'Periodo Vacacional':
+                rojo = 1
+                flash('No cuentas con suficientes días vacacionales!!')
+    return render_template('ausenciasJustificadas/ausenciasJustificadasNuevo.html', empleado = empleado, fechaSolicitud = request.form['fechaSolicitud'],rojo=rojo)
 
 
 @app.route('/ausenciasEditar/<int:id>')
@@ -2009,6 +2090,10 @@ def ciudadesEstado(id):
 def generarExcel():
     n = Nominas()
     nombre =[]
+    puesto = []
+    departamento = []
+    Curp = []
+    nss = []
     fechaElaboracion =[]
     fechaPago = []
     subtotal = []
@@ -2019,37 +2104,70 @@ def generarExcel():
     formaPago = []
     periodo = []
     for nom in n.consultaGeneral():
-        nombre.append(nom.empleado.nombre)
-        fechaElaboracion.append(nom.fechaElaboracion)
-        fechaPago.append(nom.fechaPago)
-        subtotal.append(nom.subtotal)
-        retenciones.append(nom.retenciones)
-        total.append(nom.total)
-        diasTrabajados.append(nom.diasTrabajados)
-        estatus.append(nom.estatus)
-        formaPago.append(nom.formaPago.nombre)
-        periodo.append(nom.periodo.nombre)
+        if nom.estatus == 'Aceptada' and (current_user.is_administrador() or current_user.is_staff()):
+            nombre.append(nom.empleado.nombre+' '+nom.empleado.apellidoPaterno+' '+nom.empleado.apellidoMaterno)
+            puesto.append(nom.empleado.Puesto.nombre)
+            departamento.append(nom.empleado.Departamento.nombre)
+            Curp.append(nom.empleado.curp)
+            nss.append(nom.empleado.nss)
+            fechaElaboracion.append(nom.fechaElaboracion)
+            fechaPago.append(nom.fechaPago)
+            subtotal.append(nom.subtotal)
+            retenciones.append(nom.retenciones)
+            total.append(nom.total)
+            diasTrabajados.append(nom.diasTrabajados)
+            estatus.append(nom.estatus)
+            formaPago.append(nom.formaPago.nombre)
+            periodo.append(nom.periodo.nombre)
+        else:
+            if nom.estatus == 'Aceptada':
+                if nom.idEmpleado == current_user.idEmpleado:
+                    nombre.append(nom.empleado.nombre+' '+nom.empleado.apellidoPaterno+' '+nom.empleado.apellidoMaterno)
+                    puesto.append(nom.empleado.Puesto.nombre)
+                    departamento.append(nom.empleado.Departamento.nombre)
+                    Curp.append(nom.empleado.curp)
+                    nss.append(nom.empleado.nss)
+                    fechaElaboracion.append(nom.fechaElaboracion)
+                    fechaPago.append(nom.fechaPago)
+                    subtotal.append(nom.subtotal)
+                    retenciones.append(nom.retenciones)
+                    total.append(nom.total)
+                    diasTrabajados.append(nom.diasTrabajados)
+                    estatus.append(nom.estatus)
+                    formaPago.append(nom.formaPago.nombre)
+                    periodo.append(nom.periodo.nombre)
+
     df = pd.DataFrame({'Nombre': nombre,
+                       'Puesto': puesto,
+                       'Departamento': departamento,
+                       'Curp':Curp,
+                       'nss':nss,
                        'Fecha de elaboración': fechaElaboracion,
                        'Fecha de pago': fechaPago,
-                       'Subtotal': subtotal,
-                       'Retenciones': retenciones,
+                       'Percepciones': subtotal,
+                       'Deducciones': retenciones,
                        'Total': total,
                        'Dias trabajados': diasTrabajados,
                        'Estatus': estatus,
                        'Forma de pago': formaPago,
                        'Periodo': periodo})
-    df = df[['Nombre', 'Fecha de elaboración', 'Subtotal','Retenciones', 'Total', 'Dias trabajados','Estatus', 'Forma de pago', 'Periodo']]
-    raiz= Tk()
-    rut = filedialog.askdirectory()
-    raiz.mainloop()
-    nomb="/nominas.xlsx"
-    ruta = rut+nomb
+    df = df[['Nombre', 'Puesto', 'Departamento','Curp','nss','Periodo','Fecha de pago', 'Forma de pago', 'Fecha de elaboración', 'Dias trabajados', 'Percepciones', 'Deducciones', 'Total']]
+    #raiz= Tk()
+    #rut = filedialog.askdirectory()
+    #raiz.mainloop()
+    rut= "C:/Users/cecil/Downloads"
+    nomb="/nominas"
+    hoy=datetime.now()
+    bre=hoy.strftime('%d-%m-%Y')
+    nombrearch = nomb+"-"+bre+str(random.randint(1, 20))+".xlsx"
+
+    ruta = rut+nombrearch
     print(ruta)
     writer = ExcelWriter(ruta)
     df.to_excel(writer, 'Hoja de datos', index=False)
     writer.save()
 
+    flash("Se ha gerenerado el Excel y se ha guardado en descargas")
     return redirect(url_for('nominas',page=1))
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -2154,4 +2272,7 @@ def error404(e):
 if __name__ == '__main__':
     db.init_app(app)
     app.run(debug=True)
+    #HOST = os.environ.get('SERVER_HOST','172.16.1.65')
+    #PORT = 5000
+    #app.run(HOST,PORT)
 

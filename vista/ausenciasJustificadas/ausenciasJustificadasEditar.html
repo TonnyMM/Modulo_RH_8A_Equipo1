@@ -5,112 +5,189 @@
 <br /><br />
 <form action="/guardarAusenciasJustificadas" method="post" class="formularios" enctype="multipart/form-data">
     <h1>MODIFICACIÓN DE UNA SOLICITUD DE AUSENCIA</h1>
-    <div class="form-group">
-        <div class="doc">
-            <label for="evidencia">Evidencia: </label>
-            <input type="file" name="evidencia" id="evidencia" accept=".pdf">
-        </div>
-        <a data-toggle="modal" data-target="#pdf" id="imgn"><span class="glyphicon glyphicon-eye-open"><b> Visualizar</b></span></a>
-    </div>
     <br/>
-    <input class="form-control" type="hidden" name="idAusencia" value="{{ausencia.idAusencia}}"/>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="fechaSolicitud">Fecha de solicitud: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="date" value="{{ausencia.fechaSolicitud}}" readonly/>
-            <input class="form-control" type="hidden" name="fechaSolicitud" id="fechaSolicitud" value="{{ausencia.fechaSolicitud}}" readonly/>
-        </div>
-    </div>
-    <br /><br />
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
-        <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" value="{{ausencia.fechaInicio}}" required />
-        </div>
-        <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
-        <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaFin" id="fechaFin" value="{{ausencia.fechaFin}}"  required />
-        </div>
-    </div>
-    <br /><br />
-    <div class="form-group">
-        <div class="dropdown">
-            <label class="control-label col-sm-2" for="tipo" >Tipo de justificación: </label>
-            <div class="col-sm-5">
-                <select class="form-control" id="tipo" name="tipo" required>
-                    {%if ausencia.tipo == 'Permiso'%}
-                        <option value="Permiso" selected>Permiso</option>
-                        <option value="Incapacidad">Incapacidad</option>
-                        <option value="Periodo Vacacional">Periodo Vacacional</option>
-                    {%else%}
-                        {%if ausencia.tipo == 'Incapacidad'%}
-                            <option value="Permiso" >Permiso</option>
-                            <option value="Incapacidad" selected>Incapacidad</option>
-                            <option value="Periodo Vacacional">Periodo Vacacional</option>
-                        {%else%}
-                            <option value="Permiso" >Permiso</option>
-                            <option value="Incapacidad">Incapacidad</option>
-                            <option value="Periodo Vacacional" selected>Periodo Vacacional</option>
-                        {%endif%}
-                    {%endif%}
-                </select>
+    {%if ausencia.idEmpleadoSolicita == current_user.idEmpleado or current_user.is_administrador()%}
+        <input class="form-control" type="hidden" name="idAusencia" value="{{ausencia.idAusencia}}"/>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fechaSolicitud">Fecha de solicitud: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="date" value="{{ausencia.fechaSolicitud}}" readonly/>
+                <input class="form-control" type="hidden" name="fechaSolicitud" id="fechaSolicitud" value="{{ausencia.fechaSolicitud}}" readonly/>
             </div>
         </div>
-    </div>
-    <br /><br />
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="idEmpleadoSolicita">Solicitante: </label>
-        <div class="col-sm-10">
-            {%for e in empleados%}
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
+            <div class="col-sm-4">
+                <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" value="{{ausencia.fechaInicio}}" required />
+            </div>
+            <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
+            <div class="col-sm-4">
+                <input class="form-control" type="date" name="fechaFin" id="fechaFin" value="{{ausencia.fechaFin}}"  required />
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-2" for="tipo" >Tipo de justificación: </label>
+                <div class="col-sm-5">
+                    <select class="form-control" id="tipo" name="tipo" required>
+                        {%if ausencia.tipo == 'Permiso'%}
+                            <option value="Permiso" selected>Permiso</option>
+                            <option value="Incapacidad">Incapacidad</option>
+                            <option value="Periodo Vacacional">Periodo Vacacional</option>
+                        {%else%}
+                            {%if ausencia.tipo == 'Incapacidad'%}
+                                <option value="Permiso" >Permiso</option>
+                                <option value="Incapacidad" selected>Incapacidad</option>
+                                <option value="Periodo Vacacional">Periodo Vacacional</option>
+                            {%else%}
+                                <option value="Permiso" >Permiso</option>
+                                <option value="Incapacidad">Incapacidad</option>
+                                <option value="Periodo Vacacional" selected>Periodo Vacacional</option>
+                            {%endif%}
+                        {%endif%}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="idEmpleadoSolicita">Solicitante: </label>
+            <div class="col-sm-10">
+                {%for e in empleados%}
+                    {%if e.idEmpleado == ausencia.idEmpleadoSolicita%}
+                        <input class="form-control" type="hidden" name="idEmpleadoSolicita" id="idEmpleadoSolicita" value="{{ausencia.idEmpleadoSolicita}}" />
+                        <input class="form-control" type="text"  value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}} " readonly/>
+                    {%endif%}
+                {%endfor%}
+            </div>
+        </div>
+        <br /><br />
+
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-2" for="idEmpleadoAutoriza" >Autorizador: </label>
+                <div class="col-sm-5">
+                    <select class="form-control" id="idEmpleadoAutoriza" name="idEmpleadoAutoriza" required>
+                        {%for e in empleados%}
+                            {%if e.idEmpleado == ausencia.idEmpleadoAutoriza%}
+                                <option value="{{e.idEmpleado}}" selected>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
+                            {%endif%}
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-2" for="estatus" >Estatus: </label>
+                <div class="col-sm-5">
+                    <select class="form-control" id="estatus" name="estatus" required>
+                        <option value="{{ausencia.estatus}}" selected>{{ausencia.estatus}}</option>
+                        {%if ausencia.estatus == 'EnCaptura' and current_user.is_empleado()%}
+                            <option value="Solicitando" >Solicitando</option>
+                        {%endif%}
+                        {%if ausencia.estatus == 'Solicitando' and current_user.is_staff() %}
+                            <option value="Aceptada" >Aceptada</option>
+                            <option value="Rechazada" >Rechazada</option>
+                        {%endif%}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="motivo">Motivo: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="motivo" id="motivo" value="{{ausencia.motivo}}" required/>
+            </div>
+        </div>
+    {%else%}
+        <input class="form-control" type="hidden" name="idAusencia" value="{{ausencia.idAusencia}}"/>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fechaSolicitud">Fecha de solicitud: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="date" value="{{ausencia.fechaSolicitud}}" readonly/>
+                <input class="form-control" type="hidden" name="fechaSolicitud" id="fechaSolicitud" value="{{ausencia.fechaSolicitud}}" readonly/>
+            </div>
+        </div>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="fechaInicio">Fecha de inicio: </label>
+            <div class="col-sm-4">
+                <input class="form-control" type="date" name="fechaInicio" id="fechaInicio" value="{{ausencia.fechaInicio}}" readonly />
+            </div>
+            <label class="control-label col-sm-2" for="fechaFin">Fecha de fin: </label>
+            <div class="col-sm-4">
+                <input class="form-control" type="date" name="fechaFin" id="fechaFin" value="{{ausencia.fechaFin}}"  readonly />
+            </div>
+        </div>
+        <br /><br />
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="tipo">Tipo de justificación: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="tipo" id="tipo" value="{{ausencia.tipo}}" readonly/>
+            </div>
+        </div>
+
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="idEmpleadoSolicita">Solicitante: </label>
+            <div class="col-sm-10">
+                {%for e in empleados%}
                 {%if e.idEmpleado == ausencia.idEmpleadoSolicita%}
-                    <input class="form-control" type="hidden" name="idEmpleadoSolicita" id="idEmpleadoSolicita" value="{{ausencia.idEmpleadoSolicita}}" />
-                    <input class="form-control" type="text"  value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}} " readonly/>
+                <input class="form-control" type="hidden" name="idEmpleadoSolicita" id="idEmpleadoSolicita" value="{{ausencia.idEmpleadoSolicita}}" />
+                <input class="form-control" type="text"  value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}} " readonly/>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div>
+        <br /><br />
+
+
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="idEmpleadoAutoriza">Autorizador: </label>
+        <div class="col-sm-5">
+            {%for e in empleados%}
+                {%if e.idEmpleado == ausencia.idEmpleadoAutoriza%}
+                <input class="form-control" type="text" name="idEmpleadoAutoriza" id="idEmpleadoAutoriza" value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}" readonly/>
                 {%endif%}
             {%endfor%}
         </div>
     </div>
-    <br /><br />
 
-    <div class="form-group">
-        <div class="dropdown">
-            <label class="control-label col-sm-2" for="idEmpleadoAutoriza" >Autorizador: </label>
-            <div class="col-sm-5">
-                <select class="form-control" id="idEmpleadoAutoriza" name="idEmpleadoAutoriza" required>
-                    {%for e in empleados%}
-                        {%if e.idEmpleado == ausencia.idEmpleadoAutoriza%}
-                            <option value="{{e.idEmpleado}}" selected>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</option>
-                        {%endif%}
-                    {%endfor%}
-                </select>
-            </div>
-        </div>
-    </div>
-    <br /><br />
+        <br /><br />
 
-    <div class="form-group">
-        <div class="dropdown">
-            <label class="control-label col-sm-2" for="estatus" >Estatus: </label>
-            <div class="col-sm-5">
-                <select class="form-control" id="estatus" name="estatus" required>
-                    <option value="{{ausencia.estatus}}" selected>{{ausencia.estatus}}</option>
-                    {%if ausencia.estatus == 'EnCaptura' and current_user.is_empleado()%}
+        <div class="form-group">
+            <div class="dropdown">
+                <label class="control-label col-sm-2" for="estatus" >Estatus: </label>
+                <div class="col-sm-5">
+                    <select class="form-control" id="estatus" name="estatus" required>
+                        <option value="{{ausencia.estatus}}" selected>{{ausencia.estatus}}</option>
+                        {%if ausencia.estatus == 'EnCaptura' and current_user.is_empleado()%}
                         <option value="Solicitando" >Solicitando</option>
-                    {%endif%}
-                    {%if ausencia.estatus == 'Solicitando' and current_user.is_staff() %}
+                        {%endif%}
+                        {%if ausencia.estatus == 'Solicitando' and current_user.is_staff() %}
                         <option value="Aceptada" >Aceptada</option>
                         <option value="Rechazada" >Rechazada</option>
-                    {%endif%}
-                </select>
+                        {%endif%}
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <br /><br />
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="motivo">Motivo: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="motivo" id="motivo" value="{{ausencia.motivo}}" required/>
+        <br /><br />
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="motivo">Motivo: </label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="motivo" id="motivo" value="{{ausencia.motivo}}" readonly/>
+            </div>
         </div>
-    </div>
+    {%endif%}
     <br /><br />
     <a class="btn btn-dark" href="/ausenciasJustificadasListadoGeneral/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <button style="background-color: #389242;" type="submit" id="registrar" class="btn btn-info"><span

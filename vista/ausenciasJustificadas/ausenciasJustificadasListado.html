@@ -173,7 +173,7 @@
                     <th>PERIODO</th>
                     <th>TIPO</th>
                     <th>SOLICITADOR</th>
-                    <th>ESTATUS</th>
+                    <th width="10px">ESTATUS</th>
                     <th>MOTIVO</th>
                     <th>EVIDENCIA</th>
                     <th>EDITAR</th>
@@ -559,7 +559,6 @@
 <br>
 
 
-{%if current_user.is_authenticated and (current_user.is_staff() or current_user.is_administrador())%}
 <div class="conteiner">
     <ul class="pagination" style="margin-left: 70px;">
 
@@ -575,6 +574,5 @@
             {% endif %}
     </ul>
 </div>
-{%endif%}
 
 {%endblock content%}

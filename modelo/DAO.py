@@ -756,7 +756,7 @@ class AusenciasJustificadas(db.Model):
         return self.query.all()
 
     def consultarPagina(self, pagina):
-        paginacion=self.query.order_by(AusenciasJustificadas.idAusencia.asc()).paginate(pagina,per_page=5,error_out=False)
+        paginacion=self.query.order_by(AusenciasJustificadas.idAusencia.asc()).paginate(pagina,per_page=10,error_out=False)
         return paginacion
 
 

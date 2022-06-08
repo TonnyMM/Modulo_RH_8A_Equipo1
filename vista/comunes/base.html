@@ -100,7 +100,9 @@ $(document).ready(function(){
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Nominas</a>
                     <ul class="dropdown-menu">
+                        {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                         <li><a class="dropdown-item" style="color:#001b0d;" href="/nominasEmpleados/1">Gestión de nomina</a></li>
+                        {%endif%}
                         <li><a class="dropdown-item" style="color:#001b0d;" href="/nominas/1">Consultar nomina</a></li>
 
                     </ul>

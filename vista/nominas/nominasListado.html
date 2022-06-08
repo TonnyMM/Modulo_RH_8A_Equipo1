@@ -10,9 +10,7 @@
 </div>
 {% endfor %}
 {% endif %}
-{%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
 <a href="/generarExcel" class="btn btn-success" id="nuevo1"> <b>GENERAR EXCEL</b></a>
-{%endif%}
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
@@ -20,32 +18,47 @@
 <table class="table table-hover">
     <thead class="table-dark">
         <tr>
+            {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
             <th>NOMBRE</th>
-            <th>FECHA ELABORACION</th>
+            {%endif%}
+            <th>PERIODO</th>
             <th>FECHA PAGO</th>
-            <th>SUBTOTAL</th>
+            <th>FORMA PAGO</th>
+            <th>FECHA ELABORACION</th>
+            <th>DIAS TRABAJADOS</th>
+            <th>PERCEPCIONES</th>
             <th>RETENCIONES</th>
             <th>TOTAL</th>
-            <th>DIAS TRABAJADOS</th>
-            <th>ESTATUS</th>
-            <th>FORMA PAGO</th>
-            <th>PERIODO</th>
         </tr>
     </thead>
     <tbody id="myTable">
         {% for n in nominas %}
-        <tr>
-            <td>{{n.empleado.nombre}} {{n.empleado.apellidoPaterno}} {{n.empleado.apellidoMaterno}}</td>
-            <td width="10px">{{n.fechaElaboracion}}</td>
-            <td >{{n.fechaPago}}</td>
-            <td>{{n.subtotal}}</td>
-            <td width="10px">{{n.retenciones}}</td>
-            <td>{{n.total}}</td>
-            <td width="10px">{{n.diasTrabajados}}</td>
-            <td>{{n.estatus}}</td>
-            <td>{{n.formaPago.nombre}}</td>
-            <td>{{n.periodo.fechaInicio}} {{n.periodo.fechaFin}}</td>
-        </tr>
+        {%if current_user.is_authenticated and current_user.is_empleado()%}
+            {%if n.idEmpleado == current_user.idEmpleado and n.estatus == 'Aceptada'%}
+                <tr>
+                    <td>{{n.periodo.nombre}}</td>
+                    <td>{{n.fechaPago}}</td>
+                    <td>{{n.formaPago.nombre}}</td>
+                    <td>{{n.fechaElaboracion}}</td>
+                    <td>{{n.diasTrabajados}}</td>
+                    <td>{{n.subtotal}}</td>
+                    <td>{{n.retenciones}}</td>
+                    <td>{{n.total}}</td>
+                </tr>
+            {%endif%}
+        {%else%}
+            <tr>
+                <td>{{n.empleado.nombre}} {{n.empleado.apellidoPaterno}} {{n.empleado.apellidoMaterno}}</td>
+                <td>{{n.periodo.nombre}}</td>
+                <td>{{n.fechaPago}}</td>
+                <td>{{n.formaPago.nombre}}</td>
+                <td width="10px">{{n.fechaElaboracion}}</td>
+                <td>{{n.diasTrabajados}}</td>
+                <td>{{n.subtotal}}</td>
+                <td>{{n.retenciones}}</td>
+                <td>{{n.total}}</td>
+            </tr>
+        {%endif%}
         {% endfor %}
     </tbody>
 </table>

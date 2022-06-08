@@ -45,15 +45,14 @@
                 <td>{{c.Empleado.nombre}} {{c.Empleado.apellidoPaterno}} {{c.Empleado.apellidoMaterno}}</td>
                 <td>{{c.dia}}, {{c.fecha}}</td>
                 <td>{{c.horaEntrada}}</td>
-
                 <td>{{c.horaSalida}}</td>
-
+            {%if c.horaSalida != 'null'%}
             <td>
                 <a href="/checarSalidaAsistencia/{{c.idAsistencia}}"  class="btn btn-success" role="button">
                     Registrar Salida
                 </a>
             </td>
-
+            {%endif%}
                 {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                 <td><a href="/editarAsistencia/{{c.idAsistencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a data-toggle="modal" data-target="#el{{c.idAsistencia}}" id="el"><span
@@ -86,12 +85,13 @@
                         <td>{{c.dia}}, {{c.fecha}}</td>
                         <td>{{c.horaEntrada}}</td>
             <td>{{c.horaSalida}}</td>
-
-            <td>
-                <a href="/checarSalidaAsistencia/{{c.idAsistencia}}"  class="btn btn-success" role="button">
-                    Registrar Salida
-                </a>
-            </td>
+                    {%if c.horaSalida != '0:00:00'%}
+                    <td>
+                        <a href="/checarSalidaAsistencia/{{c.idAsistencia}}"  class="btn btn-success" role="button">
+                            Registrar Salida
+                        </a>
+                    </td>
+                    {%endif%}
                         {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                         <td><a href="/editarAsistencia/{{c.idAsistencia}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                         <td><a data-toggle="modal" data-target="#el{{c.idAsistencia}}" id="el"><span
