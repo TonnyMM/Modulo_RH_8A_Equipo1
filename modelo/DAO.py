@@ -845,5 +845,60 @@ class Nominas(db.Model):
         return paginacion
 
 
+class NominasPercepciones(db.Model):
+    _tablename_ = 'NominasPercepciones'
+    idNomina = Column(Integer,ForeignKey('Nominas.idNomina'),primary_key=True)
+    idPercepcion = Column(Integer,ForeignKey('Percepciones.idPercepcion'),primary_key=True)
+    importe = Column(Float)
+    Nomina = relationship('Nominas',backref='nominasPercepciones', lazy="select")
+    Percepcion = relationship('Percepciones',backref='nominasPercepciones', lazy="select")
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+class NominasDeducciones(db.Model):
+    _tablename_ = 'NominasDeducciones'
+    idNomina = Column(Integer,ForeignKey('Nominas.idNomina'),primary_key=True)
+    idDeduccion = Column(Integer,ForeignKey('Deducciones.idDeduccion'),primary_key=True)
+    importe = Column(Float)
+    Nomina = relationship('Nominas',backref='nominas', lazy="select")
+    Deduccion = relationship('Deducciones',backref='deducciones', lazy="select")
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        objeto = self.consultaIndividual(id)
+        db.session.delete(objeto)
+        db.session.commit()
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+
 
 

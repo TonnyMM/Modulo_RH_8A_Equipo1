@@ -1,10 +1,274 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<script src="..\static\js\validacion.js" ></script>
+<style>
+    table,
+    th tr,
+    td {
+        font-family: Arial Narrow;
+        font-size: 12px;
+        text-align: justify;
+        
 
-</body>
-</html>
+
+    }
+
+    thead {
+        background-color: rgba(90, 90, 105, 0);
+        border-color: rgba(245, 245, 220, 0);
+        size: 1px;
+        size-adjust: 1px;
+    }
+
+    th,
+    td {
+        padding: 1px;
+    }
+
+    table {
+        
+        width: 10%;
+        
+
+    }
+
+    tbody {
+        border: rgba(0, 0, 0, 0) 1px solid;
+    }
+    .formulariosos {
+        border-radius: 15px;
+        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        background-color: #b2b59b;
+        border: 3px solid #b2b59b;
+        padding: 20px;
+        width: 70%;
+        margin: auto;
+        font-family: Arial Narrow;
+        font-size: 15px;
+      }
+</style>
+
+
+{% if get_flashed_messages() %}
+{% for m in get_flashed_messages()%}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>{{m}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+
+<br />
+<form action="/registrarNomina" method="post" class="formulariosos" enctype="multipart/form-data">
+
+    <h1>NOMINA DEL EMPLEADO</h1>
+
+    <div class="form-group">
+        <label class="control-label col-sm-1" for="fechaE">Fecha Pago: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="date" name="fechaE" id="fechaE" placeholder="Nombre" value="" />
+            <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+        </div>
+
+        <label class="control-label col-sm-1" for="nombre">Forma de pago: </label>
+        <div class="col-sm-4">
+            <select class="form-control" id="idFormaPago" name="idFormaPago" required>
+                
+                {%for fp in forma%}
+                    <option value="{{fp.idFormaPago}}" >{{fp.nombre}} </option>
+                {%endfor%}
+            </select>
+        </div>
+
+        
+    </div>
+
+    <br /><br />
+
+    <div class="form-group">
+        <label class="control-label col-sm-1" for="nombre">Periodo: </label>
+        <div class="col-sm-4">
+            <select class="form-control" id="idPeriodo" name="idPeriodo" required>
+                
+                {%for p in periodos%}
+                    <option value="{{p.idPeriodo}}" >{{p.nombre}} </option>
+                {%endfor%}  
+            </select>
+        </div>
+
+        <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="number" name="diasT" id="diasT" placeholder="Días trabajados" />
+        </div>
+        &nbsp; <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
+            class="glyphicon glyphicon-triangle-bottom"></span></button>
+    </div>
+    <br /><br />
+
+    <div class="col-sm-1">
+        <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+
+
+
+
+    <br><br>
+    <div class="form-group">
+        <!--<label class="control-label col-sm-2" for="fechaE">Fecha Elaboracion: </label-->
+        <p class="col-sm-1">&nbsp;</p>
+        <div class="col-sm-4">
+            <a data-toggle="modal" data-target="#perce" id="imgn"><span class=" btn btn-success col-sm-10"><b>+
+                        Percepciones </b></span></a>
+            <!--input class="form-control" type="date" name="fechaE" id="fechaE" placeholder="Nombre" value="" /-->
+            <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+        </div>
+        <p class="col-sm-2">&nbsp;</p>
+
+        <div class="col-sm-4">
+            <a data-toggle="modal" data-target="#dedu" id="imgn"><span class=" btn btn-success col-sm-10"><b>+
+                        Deducciones </b></span></a>
+            <!--input class="form-control" type="date" name="fechaP" id="fechaP" placeholder="Nombre" value="" /-->
+            <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
+        </div>
+    </div>
+    <br /><br />
+    <br />
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-6">
+                <table class="table  ">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #272e280f; border-radius: 10px; !important">Nombre</th>
+                            <th style="background-color: #272e280f; border-radius: 10px; !important">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table  ">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #272e280f; border-radius: 10px; !important">Nombre</th>
+                            <th style="background-color: #272e280f; border-radius: 10px; !important">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <br /><br />
+    
+
+
+    <div id="perce" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">X</button>
+                    <h4 class="modal-title">Agregar Percepcion</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <h1>PERCEPCIONES</h1><br />
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <label class="control-label col-sm-2" style="color: darkolivegreen;">Percepciones:
+                                </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="percepciones" name="percepciones" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        {% for p in percepciones%}
+                                        <option value="{{p.idPercepcion}}">{{p.nombre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <label class="control-label col-sm-2" for="importe" style="color: darkolivegreen;">Importe:
+                            </label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="importe" id="importe"
+                                    placeholder="Importe" />
+                            </div>
+                            <a href="/nominasPercepciones">Guardar</a>
+                        </div>
+                        <br /><br /><br />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dedu" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">X</button>
+                    <h4 class="modal-title">Agregar Deduccion</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <h1>DEDUCCIONES</h1><br />
+                        <div class="form-group">
+                            <div class="dropdown">
+                                <label class="control-label col-sm-2" style="color: darkolivegreen;">Deducciones:
+                                </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="deducciones" name="deducciones" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        {% for d in deducciones%}
+                                        <option value="{{d.idDeduccion}}">{{d.nombre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <label class="control-label col-sm-2" for="importe" style="color: darkolivegreen;">Importe:
+                            </label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="importe" id="importe"
+                                    placeholder="Importe" required
+                                    onKeypress="if (event.keyCode < 45 || event.keyCode > 57)" />
+                            </div>
+
+                        </div>
+                        <br /><br /><br />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<br /><br />
+{%endblock content%}

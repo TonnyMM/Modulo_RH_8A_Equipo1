@@ -20,7 +20,7 @@ import os
 from cmath import pi
 from requests import delete
 
-from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas
+from modelo.DAO import db, Ciudades, Estados, Departamentos, Puestos, Turnos, Percepciones, Deducciones, Periodos, FormasPago, Empleados, Sucursales, DocumentacionEmpleado, Asistencias, AusenciasJustificadas,HistorialPuestos,Nominas,NominasPercepciones,NominasDeducciones
 from flask_login import login_required,login_user,logout_user,current_user,LoginManager
 
 app = Flask(__name__, template_folder='../vista', static_folder='../static')
@@ -2063,15 +2063,68 @@ def nominasEmpleados(page=1):
 
     return render_template('nominas/nominasEmpleados.html',empleados = empleados,paginas=paginas,pagina=page)
 
-@app.route('/generarNomina')
-def generarNomina():
+@app.route('/generarNomina/<int:id>')
+def generarNomina(id):
     n = Nominas()
     p = Percepciones()
-    percepciones = p.consultaGeneral
+    fp = FormasPago()
+    peri = Periodos()
+    percepciones = p.consultaGeneral()
     d = Deducciones()
-    deducciones = d.consultaGeneral
+    deducciones = d.consultaGeneral()
+    forma=fp.consultaGeneral()
+    periodos=peri.consultaGeneral()
 
-    return render_template('nominas/nominasNuevo.html')#aqui tenia (percepciones=percepceiones deducciones=decciones) pero me daba error 
+    return render_template('nominas/nominasNuevo.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos) 
+
+@app.route('/registrarNomina',methods=['post'])
+def registrarNomina():
+    n = Nominas()
+    n.fechaPago = request.form['fechaPago']
+    n.idFormaPago = request.form['idFormaPago']
+    n.idPeriodo = request.form['idPeriodo']
+    n.diasTrabajados = request.form['diasTrabajados']
+    p = Percepciones()
+    fp = FormasPago()
+    peri = Periodos()
+    percepciones = p.consultaGeneral()
+    d = Deducciones()
+    deducciones = d.consultaGeneral()
+    forma=fp.consultaGeneral()
+    periodos=peri.consultaGeneral()
+    
+    
+    
+
+    return render_template('nominas/nominasEditar.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos) 
+
+@app.route('/nominasPercepciones')
+def nominasPercepciones():
+    bandera = 1
+    n = Nominas()
+    p = Percepciones()
+    percepciones = p.consultaGeneral()
+    d = Deducciones()
+    deducciones = d.consultaGeneral()
+    nP = NominasPercepciones()
+    nominasP = nP.consultaGeneral()
+    return render_template('nominas/nominasNuevo.html', percepciones=percepciones, deducciones=deducciones, bandera=bandera,nominasP=nominasP)
+
+
+@app.route('/nominasDeducciones')
+def nominasDeducciones():
+    bandera = 1
+    n = Nominas()
+    p = Percepciones()
+    percepciones = p.consultaGeneral()
+    d = Deducciones()
+    deducciones = d.consultaGeneral()
+    nP = NominasDeducciones()
+    nominasD = nP.consultaGeneral()
+    return render_template('nominas/nominasNuevo.html', percepciones=percepciones, deducciones=deducciones, bandera=bandera,nominasD=nominasD)
+
+
+
 
 #############################################################################################################
 

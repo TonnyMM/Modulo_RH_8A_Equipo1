@@ -26,7 +26,7 @@
         {% for e in empleados %}
         <tr>
             <td>{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}</td>
-            <td><a href="/generarNomina"><span class="glyphicon glyphicon-book"></span></a></td>
+            <td><a href="/generarNomina/{{e.idEmpleado}}"><span class="glyphicon glyphicon-book"></span></a></td>
         </tr>
         {% endfor %}
     </tbody>
