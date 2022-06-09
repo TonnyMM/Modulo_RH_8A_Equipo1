@@ -347,3 +347,97 @@ grant insert,update,delete,select on NominasPercepciones to userModRecursosHuman
 grant insert,update,delete,select on NominasDeducciones to userModRecursosHumanos;
 grant insert,update,delete,select on Deducciones to userModRecursosHumanos;
 
+/*==============================================================*/
+/*                          TRIGGERS                            */
+/*==============================================================*/
+
+use mod_recursos_humanos
+DELIMITER $$
+CREATE TRIGGER trigHistorial AFTER INSERT ON mod_recursos_humanos.empleados
+ FOR EACH ROW
+ BEGIN
+	INSERT INTO `mod_recursos_humanos`.`historialpuestos` (`idEmpleado`, `idPuesto`, `idDepartamento`, `fechaInicio`,`estatus`)
+    SELECT  idEmpleado, idPuesto,idDepartamento, fechaContratacion,1 FROM mod_recursos_humanos.empleados ORDER BY idEmpleado DESC LIMIT 1;
+ END$$
+DELIMITER ;
+
+use mod_recursos_humanos
+DELIMITER $$
+CREATE TRIGGER trigHistorial_Update AFTER UPDATE ON mod_recursos_humanos.empleados FOR EACH ROW
+BEGIN
+    IF (OLD.idPuesto <> NEW.idPuesto) OR (OLD.idDepartamento <> NEW.idDepartamento)  THEN
+		 UPDATE `mod_recursos_humanos`.`historialpuestos`
+         SET `fechaFin` = CURDATE() WHERE (`idEmpleado` = OLD.idEmpleado) and (`idPuesto` = OLD.idPuesto) and (`idDepartamento` = OLD.idDepartamento);
+		INSERT INTO `mod_recursos_humanos`.`historialpuestos` (`idEmpleado`, `idPuesto`, `idDepartamento`, `fechaInicio`,`estatus`) VALUES (NEW.idEmpleado, NEW.idPuesto, NEW.idDepartamento, CURDATE(),1);
+    END IF;
+END$$
+DELIMITER ;
+
+use mod_recursos_humanos
+DELIMITER $$
+CREATE TRIGGER trigHistorial_Delete AFTER UPDATE ON mod_recursos_humanos.empleados FOR EACH ROW
+BEGIN
+    IF (OLD.estatus <> NEW.estatus) THEN
+		 UPDATE `mod_recursos_humanos`.`historialpuestos`
+         SET `fechaFin` = CURDATE() WHERE (`idEmpleado` = OLD.idEmpleado) and (`idPuesto` = OLD.idPuesto) and (`idDepartamento` = OLD.idDepartamento);
+	END IF;
+END$$
+DELIMITER ;
+
+
+/*==============================================================*/
+/*                     REGISTROS INICIALES                      */
+/*==============================================================*/
+
+INSERT INTO `mod_recursos_humanos`.`estados` (`idEstado`, `nombre`, `siglas`, `estatus`) VALUES ('1', 'Aguascalientes ', 'AGS.', '1');
+INSERT INTO `mod_recursos_humanos`.`estados` (`idEstado`, `nombre`, `siglas`, `estatus`) VALUES ('2', 'Baja California ', 'B.C.', '1');
+INSERT INTO `mod_recursos_humanos`.`estados` (`idEstado`, `nombre`, `siglas`, `estatus`) VALUES ('3', 'México', 'MEX', '1');
+INSERT INTO `mod_recursos_humanos`.`estados` (`idEstado`, `nombre`, `siglas`, `estatus`) VALUES ('4', 'Michoacán ', 'MICH', '1');
+INSERT INTO `mod_recursos_humanos`.`estados` (`idEstado`, `nombre`, `siglas`, `estatus`) VALUES ('5', 'Querétaro', 'QRO', '1');
+
+INSERT INTO `mod_recursos_humanos`.`ciudades` (`idCiudad`, `nombre`, `idEstado`, `estatus`) VALUES ('1', 'Vista Hermosa', '3', '1');
+INSERT INTO `mod_recursos_humanos`.`ciudades` (`idCiudad`, `nombre`, `idEstado`, `estatus`) VALUES ('2', 'Zamora', '4', '1');
+INSERT INTO `mod_recursos_humanos`.`ciudades` (`idCiudad`, `nombre`, `idEstado`, `estatus`) VALUES ('3', 'Queretaro', '5', '1');
+INSERT INTO `mod_recursos_humanos`.`ciudades` (`idCiudad`, `nombre`, `idEstado`, `estatus`) VALUES ('4', 'La Paz', '2', '1');
+INSERT INTO `mod_recursos_humanos`.`ciudades` (`idCiudad`, `nombre`, `idEstado`, `estatus`) VALUES ('5', 'Aguascalientes', '1', '1');
+
+INSERT INTO `mod_recursos_humanos`.`puestos` (`idPuesto`, `nombre`, `salarioMinimo`, `salarioMaximo`, `estatus`) VALUES ('1', 'Contador', '150', '300', '1');
+INSERT INTO `mod_recursos_humanos`.`puestos` (`idPuesto`, `nombre`, `salarioMinimo`, `salarioMaximo`, `estatus`) VALUES ('2', 'Secretaria', '100', '350', '1');
+INSERT INTO `mod_recursos_humanos`.`puestos` (`idPuesto`, `nombre`, `salarioMinimo`, `salarioMaximo`, `estatus`) VALUES ('3', 'Administracion', '200', '400', '1');
+INSERT INTO `mod_recursos_humanos`.`puestos` (`idPuesto`, `nombre`, `salarioMinimo`, `salarioMaximo`, `estatus`) VALUES ('4', 'Gerente', '300', '600', '1');
+INSERT INTO `mod_recursos_humanos`.`puestos` (`idPuesto`, `nombre`, `salarioMinimo`, `salarioMaximo`, `estatus`) VALUES ('5', 'Supervisor', '350', '700', '1');
+
+INSERT INTO `mod_recursos_humanos`.`sucursales` (`idSucursal`, `nombre`, `telefono`, `direccion`, `colonia`, `codigoPostal`, `presupuesto`, `estatus`, `idCiudad`) VALUES ('1', 'Sauce', '351-458-8745', 'Foviste', 'Centro', '59648', '15000', '1', '2');
+INSERT INTO `mod_recursos_humanos`.`sucursales` (`idSucursal`, `nombre`, `telefono`, `direccion`, `colonia`, `codigoPostal`, `presupuesto`, `estatus`, `idCiudad`) VALUES ('2', '20 de noviembre', '351-456-2587', '20 de noviembre', 'Ejidal', '59647', '15000', '1', '2');
+INSERT INTO `mod_recursos_humanos`.`sucursales` (`idSucursal`, `nombre`, `telefono`, `direccion`, `colonia`, `codigoPostal`, `presupuesto`, `estatus`, `idCiudad`) VALUES ('3', 'Jacona', '351-478-2587', 'Jacona', 'Centro', '59641', '16000', '1', '2');
+INSERT INTO `mod_recursos_humanos`.`sucursales` (`idSucursal`, `nombre`, `telefono`, `direccion`, `colonia`, `codigoPostal`, `presupuesto`, `estatus`, `idCiudad`) VALUES ('4', 'Acanto', '351-477-5696', 'Fracc Acanto', 'Fracc', '59640', '18000', '1', '2');
+INSERT INTO `mod_recursos_humanos`.`sucursales` (`idSucursal`, `nombre`, `telefono`, `direccion`, `colonia`, `codigoPostal`, `presupuesto`, `estatus`, `idCiudad`) VALUES ('5', 'Ecuandureo', '351-478-6241', 'Ecuandureo', 'Centro', '57842', '14000', '1', '2');
+
+INSERT INTO `mod_recursos_humanos`.`percepciones` (`idPercepcion`, `nombre`, `descripcion`, `diasPagar`) VALUES ('1', 'Sueldo', 'Pago al empleado por los dias laborados a la semana', '7');
+INSERT INTO `mod_recursos_humanos`.`percepciones` (`idPercepcion`, `nombre`, `descripcion`, `diasPagar`) VALUES ('2', 'Prevision social', 'incluye gastos funerarios, fondo de ahorro, vales de despensa', '10');
+INSERT INTO `mod_recursos_humanos`.`percepciones` (`idPercepcion`, `nombre`, `descripcion`, `diasPagar`) VALUES ('3', 'Subsidio', 'se paga a quienes reciben un salario bajo', '7');
+INSERT INTO `mod_recursos_humanos`.`percepciones` (`idPercepcion`, `nombre`, `descripcion`, `diasPagar`) VALUES ('4', 'Primas', 'representan beneficios extras en dinero que se pagan al empleado', '7');
+INSERT INTO `mod_recursos_humanos`.`percepciones` (`idPercepcion`, `nombre`, `descripcion`, `diasPagar`) VALUES ('5', 'Aguinaldo', 'En el mes de diciembre', '30');
+
+INSERT INTO `mod_recursos_humanos`.`deducciones` (`idDeduccion`, `nombre`, `descripcion`, `porcentaje`) VALUES ('1', 'Pago a sindicato', 'En ocasiones el empleo se consigue a través de la gestión sindical', '5');
+INSERT INTO `mod_recursos_humanos`.`deducciones` (`idDeduccion`, `nombre`, `descripcion`, `porcentaje`) VALUES ('2', 'El pago la seguridad social', 'Que es un aporte que no debe superar el 6,7', '5');
+INSERT INTO `mod_recursos_humanos`.`deducciones` (`idDeduccion`, `nombre`, `descripcion`, `porcentaje`) VALUES ('3', 'El pago de deuda a la empresa', 'Las empresas pueden prestar dinero a sus empleados', '5');
+INSERT INTO `mod_recursos_humanos`.`deducciones` (`idDeduccion`, `nombre`, `descripcion`, `porcentaje`) VALUES ('4', 'Pago fondo retiro', 'Algunas empresas ofrecen aportacion voluntaria ', '4');
+INSERT INTO `mod_recursos_humanos`.`deducciones` (`idDeduccion`, `nombre`, `descripcion`, `porcentaje`) VALUES ('5', 'Pago ISR', 'Se descuenta del sueldo bruto', '5');
+
+INSERT INTO `mod_recursos_humanos`.`turnos` (`idTurno`, `nombre`, `horaInicio`, `horaFin`, `dias`) VALUES ('1', 'Matutino', '06:00:00', '14:00:00', 'Lunes-Viernes');
+INSERT INTO `mod_recursos_humanos`.`turnos` (`idTurno`, `nombre`, `horaInicio`, `horaFin`, `dias`) VALUES ('2', 'Vespertino', '14:00:00', '22:00:00', 'Lunes - sabado');
+INSERT INTO `mod_recursos_humanos`.`turnos` (`idTurno`, `nombre`, `horaInicio`, `horaFin`, `dias`) VALUES ('3', 'Nocturno', '20:00:00', '04:00:00', 'Lunes-Viernes');
+INSERT INTO `mod_recursos_humanos`.`turnos` (`idTurno`, `nombre`, `horaInicio`, `horaFin`, `dias`) VALUES ('4', 'Mañana', '06:00:00', '15:00:00', 'Lunes-Miercoles');
+INSERT INTO `mod_recursos_humanos`.`turnos` (`idTurno`, `nombre`, `horaInicio`, `horaFin`, `dias`) VALUES ('5', 'Tarde', '14:00:00', '22:00:00', 'Lunes - sabado');
+
+INSERT INTO `mod_recursos_humanos`.`departamentos` (`idDepartamento`, `nombre`, `estatus`) VALUES ('1', 'Ventas', '1');
+INSERT INTO `mod_recursos_humanos`.`departamentos` (`idDepartamento`, `nombre`, `estatus`) VALUES ('2', 'Compras', '1');
+INSERT INTO `mod_recursos_humanos`.`departamentos` (`idDepartamento`, `nombre`, `estatus`) VALUES ('3', 'Administración', '1');
+INSERT INTO `mod_recursos_humanos`.`departamentos` (`idDepartamento`, `nombre`, `estatus`) VALUES ('4', 'Almacén', '1');
+INSERT INTO `mod_recursos_humanos`.`departamentos` (`idDepartamento`, `nombre`, `estatus`) VALUES ('5', 'Gerencia', '1');
+
+INSERT INTO `mod_recursos_humanos`.`empleados` (`idEmpleado`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `sexo`, `fechaNacimiento`, `curp`, `estadoCivil`, `fechaContratacion`, `salarioDiaro`, `nss`, `diasVaciones`, `diasPermiso`, `direccion`, `colonia`, `codigoPostal`, `escolaridad`, `especialidad`, `email`, `clave`, `tipo`, `estatus`, `idDepartamento`, `idPuesto`, `idCiudad`, `idSucursal`, `idTurno`) VALUES ('1', 'Luz María', 'Rodríguez', 'Diaz', 'F', '1966-04-01', 'RODL660401MJCDDAC1', 'Casado', '1966-04-01', '300', '2925412768', '3', '3', 'B. Juárez', 'Las Lomas', '59114', 'Maestria', 'Administración y gestión de empresas', 'luzrodi20@gmail.com', 'Hola.123', 'S', '1', '1', '3', '1', '1', '1');
+INSERT INTO `mod_recursos_humanos`.`empleados` (`idEmpleado`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `sexo`, `fechaNacimiento`, `curp`, `estadoCivil`, `fechaContratacion`, `salarioDiaro`, `nss`, `diasVaciones`, `diasPermiso`, `direccion`, `colonia`, `codigoPostal`, `escolaridad`, `especialidad`, `email`, `clave`, `tipo`, `estatus`, `idDepartamento`, `idPuesto`, `idCiudad`, `idSucursal`, `idTurno`) VALUES ('2', 'Juan', 'Mares', 'Cruz', 'M', '1966-04-01', 'RODL660401MJCDDA23', 'Casado', '1976-05-01', '300', '2925412768', '3', '3', 'B. Juárez', 'Las Lomas', '59114', 'Maestria', 'Administración y gestión de empresas', 'juanesmares@gmail.com', 'Hola.123', 'E', '1', '2', '3', '1', '1', '1');
+INSERT INTO `mod_recursos_humanos`.`empleados` (`idEmpleado`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `sexo`, `fechaNacimiento`, `curp`, `estadoCivil`, `fechaContratacion`, `salarioDiaro`, `nss`, `diasVaciones`, `diasPermiso`, `direccion`, `colonia`, `codigoPostal`, `escolaridad`, `especialidad`, `email`, `clave`, `tipo`, `estatus`, `idDepartamento`, `idPuesto`, `idCiudad`, `idSucursal`, `idTurno`) VALUES ('3', 'Cecilia', 'Rodríguez', 'Rodríguez', 'F', '2000-03-03', 'RORC000103MJCDDCA1', 'Soltera', '2019-04-01', '500', '6816000041', '8', '3', ' Av. La caldera #23', 'Centro', '59220', 'Licenciatura', 'Sistemas computacionales', 'cecilia10rdz@gmail.com', 'Hola.123', 'A', '1', '3', '3', '39', '9', '1');
+

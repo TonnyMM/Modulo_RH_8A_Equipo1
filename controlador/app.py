@@ -29,7 +29,7 @@ app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
 import json
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:antoniommtec12@localhost/Mod_Recursos_Humanos'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Ailicec301!@localhost/Mod_Recursos_Humanos'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 
@@ -2064,6 +2064,52 @@ def nominasEmpleados(page=1):
         empleados=None
 
     return render_template('nominas/nominasEmpleados.html',empleados = empleados,paginas=paginas,pagina=page)
+
+
+@app.route('/nominasPendientes/<int:page>')
+def nominasPendientes(page=1):
+    n = Nominas()
+    try:
+        paginacion=n.consultarPagina(page)
+        nominas=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay nominas registradas")
+        nominas=None
+    return render_template('nominas/verificarNominas.html',nominas = nominas,paginas=paginas,pagina=page)
+
+@app.route('/estadoNominas/<int:page>')
+def estadoNominas(page=1):
+    n = Nominas()
+    try:
+        paginacion=n.consultarPagina(page)
+        nominas=paginacion.items
+        paginas=paginacion.pages
+        if paginas < page:
+            abort(404)
+    except OperationalError:
+        flash("No hay nominas registradas")
+        nominas=None
+    return render_template('nominas/consultNominas.html',nominas = nominas,paginas=paginas,pagina=page)
+
+@app.route('/checarAceptada/<int:id>')
+def checarAceptada(id):
+    n = Nominas()
+    nomina = n.consultaIndividual(id)
+    nomina.estatus = 'Aceptada'
+    nomina.actualizar()
+    return redirect(url_for('nominasPendientes',page=1))
+
+@app.route('/checarCaptura/<int:id>')
+def checarCaptura(id):
+    n = Nominas()
+    nomina = n.consultaIndividual(id)
+    nomina.estatus = 'Captura'
+    nomina.actualizar()
+    return redirect(url_for('nominasPendientes',page=1))
+
 
 @app.route('/generarNomina/<int:id>')
 def generarNomina(id):

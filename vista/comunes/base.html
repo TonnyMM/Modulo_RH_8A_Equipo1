@@ -100,6 +100,14 @@ $(document).ready(function(){
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color:#001b0d;" role="button" data-toggle="dropdown">Nominas</a>
                     <ul class="dropdown-menu">
+                        {%if current_user.is_authenticated and current_user.is_administrador()%}
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/nominasPendientes/1">Nominas pendientes</a></li>
+                        {%endif%}
+
+                        {%if current_user.is_authenticated and current_user.is_staff()%}
+                        <li><a class="dropdown-item" style="color:#001b0d;" href="/estadoNominas/1">Estado de nominas</a></li>
+                        {%endif%}
+
                         {%if current_user.is_authenticated and (current_user.is_administrador() or current_user.is_staff())%}
                         <li><a class="dropdown-item" style="color:#001b0d;" href="/nominasEmpleados/1">Gestión de nomina</a></li>
                         {%endif%}
