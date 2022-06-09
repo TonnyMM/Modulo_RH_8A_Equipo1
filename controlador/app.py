@@ -2074,8 +2074,11 @@ def generarNomina(id):
     deducciones = d.consultaGeneral()
     forma=fp.consultaGeneral()
     periodos=peri.consultaGeneral()
-
-    return render_template('nominas/nominasNuevo.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos) 
+    emp = Empleados()
+    empleado = emp.consultaIndividual(id)
+    print(id)
+    return render_template('nominas/nominasNuevo.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos,
+                           empleado = empleado)
 
 @app.route('/registrarNomina',methods=['post'])
 def registrarNomina():
@@ -2092,11 +2095,10 @@ def registrarNomina():
     deducciones = d.consultaGeneral()
     forma=fp.consultaGeneral()
     periodos=peri.consultaGeneral()
-    
-    
-    
-
-    return render_template('nominas/nominasEditar.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos) 
+    emp = Empleados()
+    empleado = emp.consultaIndividual(request.form['idEmpleado'])
+    return render_template('nominas/nominasEditar.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos,
+                           empleado = empleado)
 
 @app.route('/nominasPercepciones')
 def nominasPercepciones():
@@ -2325,7 +2327,12 @@ def error404(e):
 if __name__ == '__main__':
     db.init_app(app)
     app.run(debug=True)
-    #HOST = os.environ.get('SERVER_HOST','172.16.1.65')
-    #PORT = 5000
-    #app.run(HOST,PORT)
-
+    '''HOST = os.environ.get('SERVER_HOST','172.16.1.65')
+    PORT = 5000
+    app.run(HOST,PORT)'''
+    '''HOST = os.environ.get('SERVER_HOST','localhost')
+    try:
+        PORT = int(os.environ.get('SERVER_PORT','80'))
+    except ValueError:
+        PORT = 80
+    app.run(HOST,PORT)'''

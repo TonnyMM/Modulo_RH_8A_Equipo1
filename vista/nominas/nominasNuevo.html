@@ -65,6 +65,21 @@
     <h1>NOMINA DEL EMPLEADO</h1>
 
     <div class="form-group">
+        <label class="control-label col-sm-1" for="nombreEmpleado">Empleado: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
+            <input class="form-control" type="text" name="nombreEmpleado" id="nombreEmpleado" value="{{empleado.nombre}} {{empleado.apellidoPaterno}} {{empleado.apellidoMaterno}}" readonly />
+        </div>
+
+        <label class="control-label col-sm-1" for="salarioDiaro">Salario Diario: </label>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" name="salarioDiaro" id="salarioDiaro" value="{{empleado.salarioDiaro}}" readonly />
+        </div>
+    </div>
+    <br/><br/>
+
+
+    <div class="form-group">
         <label class="control-label col-sm-1" for="fechaPago">Fecha Pago: </label>
         <div class="col-sm-4">
             <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="" />
