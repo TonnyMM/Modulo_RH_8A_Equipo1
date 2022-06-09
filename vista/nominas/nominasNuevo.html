@@ -65,7 +65,7 @@
     <h1>NOMINA DEL EMPLEADO</h1>
 
     <div class="form-group">
-        <label class="control-label col-sm-1" for="nombreEmpleado">Empleado: </label>
+        <label class="control-label col-sm-2" for="nombreEmpleado">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Empleado: </label>
         <div class="col-sm-4">
             <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
             <input class="form-control" type="text" name="nombreEmpleado" id="nombreEmpleado" value="{{empleado.nombre}} {{empleado.apellidoPaterno}} {{empleado.apellidoMaterno}}" readonly />
@@ -80,9 +80,9 @@
 
 
     <div class="form-group">
-        <label class="control-label col-sm-1" for="fechaPago">Fecha Pago: </label>
+        <label class="control-label col-sm-2" for="fechaPago">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fecha Pago: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="" />
+            <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="" required/>
             <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
 
@@ -102,7 +102,7 @@
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-1" for="nombre">Periodo: </label>
+        <label class="control-label col-sm-2" for="nombre">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idPeriodo" name="idPeriodo" required>
                 
@@ -114,7 +114,7 @@
 
         <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="number" name="diasTrabajados" id="diasTrabajados" placeholder="Días trabajados" />
+            <input class="form-control" type="number" name="diasTrabajados" id="diasTrabajados" placeholder="Días trabajados"required />
         </div>
         &nbsp; <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
             class="glyphicon glyphicon-triangle-bottom"></span></button>

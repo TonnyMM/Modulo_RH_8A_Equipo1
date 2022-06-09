@@ -532,6 +532,15 @@ function validarSalario(){
         document.getElementById("registrar").removeAttribute("disabled");
     }
 }
+$('#Subtotal').val('23');
+function calcSubtotal()
+{
+    var salarioDiaro = document.getElementById('salarioDiaro').value;
+    var diadiasTrabajados = document.getElementById('diasTrabajados').value;
+    var subTotal = salarioDiaro * diadiasTrabajados;
+    $('#Subtotal').val(subTotal);
+    
+}
 
 function passwordRobusto(pwd){
     var banNumero=false,banMin=false,banMay=false,banCarEs=false;

@@ -7,7 +7,7 @@
     th tr,
     td {
         font-family: Arial Narrow;
-        font-size: 12px;
+        font-size: 15px;
         text-align: justify;
         
 
@@ -28,7 +28,7 @@
 
     table {
         
-        width: 10%;
+        width: 5%;
         
 
     }
@@ -60,12 +60,12 @@
 {% endif %}
 
 <br />
-<form action="/registrarNomina" method="post" class="formulariosos" enctype="multipart/form-data">
+<form action="/guardarNomina" method="post" class="formulariosos" enctype="multipart/form-data">
 
     <h1>NOMINA DEL EMPLEADO</h1>
-
+    <input class="form-control" type="hidden" name="idNomina" value="{{id}}"/>
     <div class="form-group">
-        <label class="control-label col-sm-1" for="nombreEmpleado">Empleado: </label>
+        <label class="control-label col-sm-2" for="nombreEmpleado">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Empleado: </label>
         <div class="col-sm-4">
             <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
             <input class="form-control" type="text" name="nombreEmpleado" id="nombreEmpleado" value="{{empleado.nombre}} {{empleado.apellidoPaterno}} {{empleado.apellidoMaterno}}" readonly />
@@ -78,19 +78,23 @@
     </div>
     <br/><br/>
 
+
     <div class="form-group">
-        <label class="control-label col-sm-1" for="fechaE">Fecha Pago: </label>
+        <label class="control-label col-sm-2" for="fechaPago">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fecha Pago: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaE" id="fechaE" placeholder="Nombre" value="" />
+            <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="{{nomina.fechaPago}}" required/>
             <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
 
-        <label class="control-label col-sm-1" for="idFormaPago">Forma de pago: </label>
+        <label class="control-label col-sm-1" for="nombre">Forma de pago: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idFormaPago" name="idFormaPago" required>
-                
                 {%for fp in forma%}
+                    {%if fp.idFormaPago == nomina.idFormaPago %}
+                    <option value="{{fp.idFormaPago}}" selected>{{fp.nombre}} </option>
+                    {%else%}
                     <option value="{{fp.idFormaPago}}" >{{fp.nombre}} </option>
+                    {%endif%}
                 {%endfor%}
             </select>
         </div>
@@ -101,38 +105,35 @@
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-1" for="nombre">Periodo: </label>
+        <label class="control-label col-sm-2" for="nombre">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idPeriodo" name="idPeriodo" required>
                 
                 {%for p in periodos%}
+                    
+                    {%if p.idPeriodo == nomina.idPeriodo %}
+                    <option value="{{p.idPeriodo}}" selected>{{p.nombre}} </option>
+                    {%else%}
                     <option value="{{p.idPeriodo}}" >{{p.nombre}} </option>
+                    {%endif%}
                 {%endfor%}  
             </select>
         </div>
 
         <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="number" name="diasT" id="diasT" placeholder="Días trabajados" />
+            <input class="form-control" type="number" disabled name="diasTrabajados" id="diasTrabajados" placeholder="Días trabajados" value="{{nomina.diasTrabajados}}" required onclick="calcSubtotal()"/>
         </div>
-        &nbsp; <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
-            class="glyphicon glyphicon-triangle-bottom"></span></button>
+        &nbsp; 
     </div>
     <br /><br />
 
-    <div class="col-sm-1">
-        <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    </div>
-
-
-
-
-    <br><br>
+    
     <div class="form-group">
         <!--<label class="control-label col-sm-2" for="fechaE">Fecha Elaboracion: </label-->
         <p class="col-sm-1">&nbsp;</p>
         <div class="col-sm-4">
-            <a data-toggle="modal" data-target="#perce" id="imgn"><span class=" btn btn-success col-sm-10"><b>+
+            <a data-toggle="modal" data-target="#perce" id="imgn"><span class=" btn btn-success col-sm-10" onblur="calcSubtotal()"><b>+
                         Percepciones </b></span></a>
             <!--input class="form-control" type="date" name="fechaE" id="fechaE" placeholder="Nombre" value="" /-->
             <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
@@ -156,17 +157,26 @@
                         <tr>
                             <th style="background-color: #272e280f; border-radius: 10px; !important">Nombre</th>
                             <th style="background-color: #272e280f; border-radius: 10px; !important">Importe</th>
+                            <th style="background-color: #272e280f; border-radius: 10px; !important"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
+                        {%for ip in nomPer %}
+                        {%if ip.idNomina == id %}
+                        {%if ip.estatus == 1 %}
+                        <tr>{
+                            {%for pr in percepciones %}
+                            {%if pr.idPercepcion == ip.idPercepcion %}
+                            <td>{{pr.nombre}}</td>
+                            {%endif%}
+                            {%endfor%}
+                            <td>{{ip.importe}}</td>
+                            <td><a class="glyphicon glyphicon-minus-sign" href="nominasPercepcionesEliminar/{{id}},{{ip.idPercepcion}}"></a></td>
                         </tr>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                        </tr>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+
                     </tbody>
                 </table>
             </div>
@@ -179,24 +189,60 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {%for ip in nominasD %}
+                        {%if ip.idNomina == id %}
+                        {%if ip.estatus == 1 %}
                         <tr>
-                            <td>John</td>
-                            <td>Doe</td>
+                            {%for pr in deducciones %}
+                            {%if pr.idDeduccion == ip.idDeduccion %}
+                            <td>{{pr.nombre}}</td>
+                            {%endif%}
+                            {%endfor%}
+                            <td>{{ip.importe}}</td>
+                            <td><a class="glyphicon glyphicon-minus-sign" href="nominasDeduccionesEliminar/{{id}},{{ip.idDeduccion}}"></a></td>
                         </tr>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                        </tr>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
                     </tbody>
                 </table>
             </div>
 
         </div>
     </div>
+    <br />
 
-    <br /><br />
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="nombre">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Subtotal: </label>
+        <div class="col-sm-3">
+            <input class="form-control" type="number" name="Subtotal" id="Subtotal"   value="{{nomina.subtotal}}" disabled />
+        </div>
+
+        <div class="col-sm-3">
+            <input class="form-control" type="hidden" name="Retenciones" id="Retenciones"    />
+        </div>
+
+        <label class="control-label col-sm-1" for="diasT">Retenciones: </label>
+        <div class="col-sm-3">
+            <input class="form-control" type="number" name="Retenciones" id="Retenciones"  value="{{nomina.retenciones}}"  />
+        </div>
+        
+        
+    </div>
+    <br><br>
+    <label class="control-label col-sm-1" for="diasT">Total: </label>
+        <div class="col-sm-10">
+            <input class="form-control"  name="Total" id="Total"  value="{{nomina.total}}"  />
+        </div>
+        <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
+            class="glyphicon glyphicon-envelope"></span> Enviar</button>
+        <br><br>
     
-
+    <br /><br /><br>
+    <div class="col-sm-1">
+        <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+</form>
 
     <div id="perce" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -206,18 +252,22 @@
                     <h4 class="modal-title">Agregar Percepcion</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="/nominasPercepciones" method="post" enctype="multipart/form-data">
                         <h1>PERCEPCIONES</h1><br />
+                        <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
                         <div class="form-group">
                             <div class="dropdown">
+                                <input class="form-control" type="hidden" name="idNomina" value="{{id}}"/>
                                 <label class="control-label col-sm-2" style="color: darkolivegreen;">Percepciones:
                                 </label>
                                 <div class="col-sm-3">
-                                    <select class="form-control" id="percepciones" name="percepciones" required>
+                                    <select class="form-control" id="idPercepcion" name="idPercepcion" required>
                                         <option value="" selected disabled>Selecciona</option>
                                         {% for p in percepciones%}
                                         <option value="{{p.idPercepcion}}">{{p.nombre}}</option>
                                         {% endfor %}
+
+
                                     </select>
                                 </div>
                             </div>
@@ -228,13 +278,17 @@
                                 <input class="form-control" type="text" name="importe" id="importe"
                                     placeholder="Importe" />
                             </div>
-                            <a href="/nominasPercepciones">Guardar</a>
+                            
                         </div>
                         <br /><br /><br />
+                        <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
+                            ></span> Agregar</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -248,14 +302,16 @@
                     <h4 class="modal-title">Agregar Deduccion</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="/nominasDeducciones" method="post" enctype="multipart/form-data">
                         <h1>DEDUCCIONES</h1><br />
+                        <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
                         <div class="form-group">
                             <div class="dropdown">
                                 <label class="control-label col-sm-2" style="color: darkolivegreen;">Deducciones:
                                 </label>
+                                <input class="form-control" type="hidden" name="idNomina" value="{{id}}"/>
                                 <div class="col-sm-3">
-                                    <select class="form-control" id="deducciones" name="deducciones" required>
+                                    <select class="form-control" id="idDeduccion" name="idDeduccion" required>
                                         <option value="" selected disabled>Selecciona</option>
                                         {% for d in deducciones%}
                                         <option value="{{d.idDeduccion}}">{{d.nombre}}</option>
@@ -271,7 +327,8 @@
                                     placeholder="Importe" required
                                     onKeypress="if (event.keyCode < 45 || event.keyCode > 57)" />
                             </div>
-
+                            <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
+                                ></span> Agregar</button>
                         </div>
                         <br /><br /><br />
                     </form>
@@ -283,6 +340,6 @@
         </div>
     </div>
 
-</form>
+
 <br /><br />
 {%endblock content%}

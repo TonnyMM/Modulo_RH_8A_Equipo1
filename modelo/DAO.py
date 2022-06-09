@@ -1,5 +1,6 @@
 from email.policy import default
 from pickle import FALSE
+from xmlrpc.client import boolean
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Boolean,ForeignKey, Float, Time, Date, BLOB
 from sqlalchemy.orm import relationship
@@ -779,6 +780,7 @@ class HistorialPuestos(db.Model):
 
     def consultaIndividual(self,idE,idP,idD):
         objeto=self.consultaGeneral()
+        return self.query.get(idE,idP,idD)
         ##for hp in objeto:
             ##if hp.idEmpleado == idE and hp.idPuesto==idP and hp.idDepartamento==idD:
                 
@@ -847,26 +849,28 @@ class Nominas(db.Model):
 
 class NominasPercepciones(db.Model):
     _tablename_ = 'NominasPercepciones'
-    idNomina = Column(Integer,ForeignKey('Nominas.idNomina'),primary_key=True)
-    idPercepcion = Column(Integer,ForeignKey('Percepciones.idPercepcion'),primary_key=True)
+    idNomina = Column(Integer,primary_key=True)
+    idPercepcion = Column(Integer,primary_key=True)
     importe = Column(Float)
-    Nomina = relationship('Nominas',backref='nominasPercepciones', lazy="select")
-    Percepcion = relationship('Percepciones',backref='nominasPercepciones', lazy="select")
+    estatus = Column(Boolean, default=True)
+   ## Nomina = relationship('Nominas',backref='nominaspercepciones', lazy="select")
+    ##Percepcion = relationship('Percepciones',backref='nominaspercepciones', lazy="select")
+    
 
     def insertar(self):
         db.session.add(self)
         db.session.commit()
 
-    def consultaIndividual(self, id):
-        return self.query.get(id)
+    def consultaIndividual(self, idN,idP):
+        return self.query.get(idN,idP)
 
     def actualizar(self):
         db.session.merge(self)
         db.session.commit()
 
-    def eliminar(self, id):
-        objeto = self.consultaIndividual(id)
-        db.session.delete(objeto)
+    def eliminar(self):
+        #objeto = self.consultaIndividual(self)
+        db.session.delete(self)
         db.session.commit()
 
     def consultaGeneral(self):
@@ -879,6 +883,7 @@ class NominasDeducciones(db.Model):
     importe = Column(Float)
     Nomina = relationship('Nominas',backref='nominas', lazy="select")
     Deduccion = relationship('Deducciones',backref='deducciones', lazy="select")
+    estatus = Column(Boolean, default=True)
 
     def insertar(self):
         db.session.add(self)
