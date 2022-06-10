@@ -2117,16 +2117,28 @@ def generarNomina(id):
     p = Percepciones()
     fp = FormasPago()
     peri = Periodos()
-    percepciones = p.consultaGeneral()
     d = Deducciones()
+    percepciones = p.consultaGeneral()
     deducciones = d.consultaGeneral()
     forma=fp.consultaGeneral()
     periodos=peri.consultaGeneral()
     emp = Empleados()
     empleado = emp.consultaIndividual(id)
-    print(id)
+    a = Asistencias()
+    asis = a.consultaGeneral()
+    idperio=0
+    for p in periodos:
+        idperio = p.idPeriodo
+    periodoActual = peri.consultaIndividual(idperio)
+    conta=0
+    for asi in asis:
+        if asi.idEmpleado == empleado.idEmpleado:
+            if asi.fecha >= periodoActual.fechaInicio:
+                if asi.fecha <= periodoActual.fechaFin:
+                    conta= conta+1
+    diasTrabajados = conta
     return render_template('nominas/nominasNuevo.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos,
-                           empleado = empleado)
+                           empleado = empleado,diasTrabajados=diasTrabajados)
 
 @app.route('/registrarNomina',methods=['post'])
 def registrarNomina():
@@ -2146,7 +2158,7 @@ def registrarNomina():
     n.subtotal= int (salario) * int (request.form['diasTrabajados'])
     n.retenciones=0
     n.total=int (salario) * int (request.form['diasTrabajados'])
-    n.estatus= "En Captura" 
+    n.estatus= "Solicitando"
     n.insertar()
     
     p = Percepciones()
@@ -2171,7 +2183,7 @@ def registrarNomina():
     
     nom = n.consultaIndividual(id)  
     
-    nomPer = nP.consultaGeneral()
+    nomPer = nP.consultaGeneral() #nomPer == consulta general de Nominaspercepciones
     subtotal = int (salario) * int (request.form['diasTrabajados'])  
     
     nominasD = nd.consultaGeneral()
@@ -2199,8 +2211,19 @@ def nominasPercepciones():
     nd = NominasDeducciones()
     nP.idNomina = request.form['idNomina']
     nP.idPercepcion = request.form['idPercepcion']
-    nP.importe = request.form['importe']
+
+    nom = n.consultaIndividual(request.form['idNomina'])
+    perc= p.consultaIndividual(request.form['idPercepcion'])
+    sal = nom.empleado.salarioDiaro
+    dias = perc.diasPagar
+    importe = sal*dias
+    nP.importe = importe
     nP.insertar()
+    sub =  nom.subtotal
+
+    nom.subtotal = sub+importe
+    nom.actualizar()
+
     fp = FormasPago()
     peri = Periodos()
     percepciones = p.consultaGeneral()
@@ -2233,9 +2256,9 @@ def nominasPercepciones():
     n.retenciones=Retenciones
     n.total=total
     n.actualizar()
-    
     return render_template('nominas/nominasEditar.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos,
-                           empleado = empleado, id=id,nomina=nom,nomPer=nomPer,subtotal=subtotal,nominasD=nominasD,Retenciones=Retenciones)
+                           empleado = emp.consultaIndividual(nom.empleado.idEmpleado), id=id,nomina=n.consultaIndividual(request.form['idNomina']),
+                           nomPer=nomPer,subtotal=subtotal,nominasD=nominasD,Retenciones=Retenciones)
 
 
 @app.route('/nominasPercepcionesEliminar/<int:idN>,<int:idP>')
@@ -2265,7 +2288,7 @@ def nominasPercepcionesEliminar(idN,idP):
     for i in n.consultaGeneral():
         id=i.idNomina
     nom = n.consultaIndividual(id)  
-    empleado = nom.idEmpleado
+    empleado = nom.empleado
     nomPer = nP.consultaGeneral()
     nominasD = nd.consultaGeneral()
     Retenciones = 0
@@ -2303,8 +2326,19 @@ def nominasDeducciones():
     
     nd.idNomina = request.form['idNomina']
     nd.idDeduccion = request.form['idDeduccion']
-    nd.importe = request.form['importe']
+    deduc = d.consultaIndividual(request.form['idDeduccion'])
+    nomi = n.consultaIndividual(request.form['idNomina'])
+    subt = nomi.subtotal
+    porcentaje = deduc.porcentaje
+    importe = porcentaje*subt
+    nd.importe = importe
     nd.insertar()
+
+    nomi.total = subt-importe
+    print(nomi.total)
+    nomi.actualizar()
+    print(nomi.total)
+
     fp = FormasPago()
     peri = Periodos()
     percepciones = p.consultaGeneral()
@@ -2338,7 +2372,9 @@ def nominasDeducciones():
     n.total=total
     n.actualizar()
     return render_template('nominas/nominasEditar.html',percepciones=percepciones, deducciones=deducciones,forma=forma,periodos=periodos,
-                           empleado = empleado, id=id,nomina=nom,nomPer=nomPer,subtotal=subtotal,nominasD=nominasD,Retenciones=Retenciones)
+                           empleado = emp.consultaIndividual(nomi.empleado.idEmpleado), id=id,nomina=n.consultaIndividual(request.form['idNomina']),
+                           nomPer=nomPer,subtotal=subtotal,nominasD=nominasD,Retenciones=Retenciones)
+
 
 @app.route('/nominasDeduccionesEliminar/<int:idN>,<int:idP>')
 def nominasDeduccionesEliminar(idN,idP):
@@ -2368,7 +2404,7 @@ def nominasDeduccionesEliminar(idN,idP):
     for i in n.consultaGeneral():
         id=i.idNomina
     nom = n.consultaIndividual(id)  
-    empleado = nom.idEmpleado
+    empleado = nom.empleado
     nomPer = nP.consultaGeneral()
     nominasD = nd.consultaGeneral()
     Retenciones = 0

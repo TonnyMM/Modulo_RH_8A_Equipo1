@@ -82,11 +82,11 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="fechaPago">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fecha Pago: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="{{nomina.fechaPago}}" required/>
+            <input class="form-control" type="date" name="fechaPago" id="fechaPago" value="{{nomina.fechaPago}}" required/>
             <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
 
-        <label class="control-label col-sm-1" for="nombre">Forma de pago: </label>
+        <label class="control-label col-sm-1" for="idFormaPago">Forma de pago: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idFormaPago" name="idFormaPago" required>
                 {%for fp in forma%}
@@ -98,31 +98,30 @@
                 {%endfor%}
             </select>
         </div>
-
         
     </div>
 
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="nombre">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
+        <label class="control-label col-sm-2" for="idPeriodo">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idPeriodo" name="idPeriodo" required>
-                
                 {%for p in periodos%}
-                    
                     {%if p.idPeriodo == nomina.idPeriodo %}
                     <option value="{{p.idPeriodo}}" selected>{{p.nombre}} </option>
                     {%else%}
-                    <option value="{{p.idPeriodo}}" >{{p.nombre}} </option>
+                        {%if p.estatus == 1%}
+                        <option value="{{p.idPeriodo}}" >{{p.nombre}} </option>
+                        {%endif%}
                     {%endif%}
                 {%endfor%}  
             </select>
         </div>
 
-        <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
+        <label class="control-label col-sm-1" for="diasTrabajados">Días Trabajados: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="number" disabled name="diasTrabajados" id="diasTrabajados" placeholder="Días trabajados" value="{{nomina.diasTrabajados}}" required onclick="calcSubtotal()"/>
+            <input class="form-control" type="number" disabled name="diasTrabajados" id="diasTrabajados" value="{{nomina.diasTrabajados}}"  onclick="calcSubtotal()"/>
         </div>
         &nbsp; 
     </div>
@@ -164,7 +163,7 @@
                         {%for ip in nomPer %}
                         {%if ip.idNomina == id %}
                         {%if ip.estatus == 1 %}
-                        <tr>{
+                        <tr>
                             {%for pr in percepciones %}
                             {%if pr.idPercepcion == ip.idPercepcion %}
                             <td>{{pr.nombre}}</td>
@@ -222,22 +221,24 @@
             <input class="form-control" type="hidden" name="Retenciones" id="Retenciones"    />
         </div>
 
-        <label class="control-label col-sm-1" for="diasT">Retenciones: </label>
+        <label class="control-label col-sm-1" for="Retenciones">Retenciones: </label>
         <div class="col-sm-3">
-            <input class="form-control" type="number" name="Retenciones" id="Retenciones"  value="{{nomina.retenciones}}"  />
+            <input class="form-control" type="number" name="Retenciones" id="Retenciones"  value="{{nomina.retenciones}}" readonly />
         </div>
         
         
     </div>
     <br><br>
-    <label class="control-label col-sm-1" for="diasT">Total: </label>
+    <label class="control-label col-sm-1" for="Total">Total: </label>
         <div class="col-sm-10">
-            <input class="form-control"  name="Total" id="Total"  value="{{nomina.total}}"  />
+            <input class="form-control" type="hidden" name="Total" id="Total"  value="{{nomina.total}}" readonly />
         </div>
-        <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
-            class="glyphicon glyphicon-envelope"></span> Enviar</button>
         <br><br>
-    
+        <div class="col-sm-3">
+            <input class="form-control" type="number" name="Total" id="Total"  value="{{nomina.total}}" readonly />
+        </div>
+    <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
+            class="glyphicon glyphicon-envelope"></span> Enviar</button>
     <br /><br /><br>
     <div class="col-sm-1">
         <a class="btn btn-dark" href="/nominasEmpleados/1"><span class="glyphicon glyphicon-chevron-left"></span></a>
@@ -257,28 +258,19 @@
                         <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
                         <div class="form-group">
                             <div class="dropdown">
+                                <label class="control-label col-sm-2" for="idPercepcion">Percepciones:  </label>
                                 <input class="form-control" type="hidden" name="idNomina" value="{{id}}"/>
-                                <label class="control-label col-sm-2" style="color: darkolivegreen;">Percepciones:
-                                </label>
-                                <div class="col-sm-3">
-                                    <select class="form-control" id="idPercepcion" name="idPercepcion" required>
-                                        <option value="" selected disabled>Selecciona</option>
-                                        {% for p in percepciones%}
-                                        <option value="{{p.idPercepcion}}">{{p.nombre}}</option>
-                                        {% endfor %}
-
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <label class="control-label col-sm-2" for="importe" style="color: darkolivegreen;">Importe:
-                            </label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="text" name="importe" id="importe"
-                                    placeholder="Importe" />
-                            </div>
-                            
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="idPercepcion" name="idPercepcion" required>
+                                            <option selected disabled >Selecciona</option>
+                                            {% for p in percepciones%}
+                                            {%if p.nombre != 'Sueldo'%}
+                                                <option value="{{p.idPercepcion}}">{{p.nombre}}</option>
+                                            {%endif%}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                             </div>
                         </div>
                         <br /><br /><br />
                         <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
@@ -307,10 +299,9 @@
                         <input class="form-control" type="hidden" name="idEmpleado" id="idEmpleado" value="{{empleado.idEmpleado}}" readonly />
                         <div class="form-group">
                             <div class="dropdown">
-                                <label class="control-label col-sm-2" style="color: darkolivegreen;">Deducciones:
-                                </label>
+                                <label class="control-label col-sm-2" for="idDeduccion" >Deducciones:  </label>
                                 <input class="form-control" type="hidden" name="idNomina" value="{{id}}"/>
-                                <div class="col-sm-3">
+                                <div class="col-sm-8">
                                     <select class="form-control" id="idDeduccion" name="idDeduccion" required>
                                         <option value="" selected disabled>Selecciona</option>
                                         {% for d in deducciones%}
@@ -319,18 +310,11 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <label class="control-label col-sm-2" for="importe" style="color: darkolivegreen;">Importe:
-                            </label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="text" name="importe" id="importe"
-                                    placeholder="Importe" required
-                                    onKeypress="if (event.keyCode < 45 || event.keyCode > 57)" />
-                            </div>
+                            <br /><br /><br />
                             <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
                                 ></span> Agregar</button>
                         </div>
-                        <br /><br /><br />
+                        <br /><br />
                     </form>
                 </div>
                 <div class="modal-footer">

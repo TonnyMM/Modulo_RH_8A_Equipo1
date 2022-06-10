@@ -155,7 +155,9 @@
         <div class="col-sm-5">
             {%for e in empleados%}
                 {%if e.idEmpleado == ausencia.idEmpleadoAutoriza%}
-                <input class="form-control" type="text" name="idEmpleadoAutoriza" id="idEmpleadoAutoriza" value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}" readonly/>
+            <input class="form-control" type="hidden" name="idEmpleadoAutoriza" id="idEmpleadoAutoriza" value="{{ausencia.idEmpleadoAutoriza}}" readonly/>
+
+                <input class="form-control" type="text" name="x" id="x" value="{{e.nombre}} {{e.apellidoPaterno}} {{e.apellidoMaterno}}" readonly/>
                 {%endif%}
             {%endfor%}
         </div>

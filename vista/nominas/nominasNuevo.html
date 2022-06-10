@@ -80,41 +80,41 @@
 
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="fechaPago">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fecha Pago: </label>
+        <label class="control-label col-sm-2" for="fechaPago">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fecha Pago: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="date" name="fechaPago" id="fechaPago" placeholder="Nombre" value="" required/>
+            <input class="form-control" type="date" name="fechaPago" id="fechaPago" value=""/>
             <div id="formEmp" style="background-color:rgba(179, 11, 11, 0.452);color:white"></div>
         </div>
 
-        <label class="control-label col-sm-1" for="nombre">Forma de pago: </label>
+        <label class="control-label col-sm-1" for="idFormaPago">Forma de Pago: </label>
         <div class="col-sm-4">
-            <select class="form-control" id="idFormaPago" name="idFormaPago" required>
-               
+            <select class="form-control" id="idFormaPago" name="idFormaPago">
+                <option selected disabled >Selecciona </option>
                 {%for fp in forma%}
                     <option value="{{fp.idFormaPago}}" >{{fp.nombre}} </option>
                 {%endfor%}
             </select>
         </div>
-
         
     </div>
 
     <br /><br />
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="nombre">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
+        <label class="control-label col-sm-2" for="idPeriodo">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Periodo: </label>
         <div class="col-sm-4">
             <select class="form-control" id="idPeriodo" name="idPeriodo" required>
-                
                 {%for p in periodos%}
+                    {%if p.estatus == 1%}
                     <option value="{{p.idPeriodo}}" >{{p.nombre}} </option>
+                    {%endif%}
                 {%endfor%}  
             </select>
         </div>
 
-        <label class="control-label col-sm-1" for="diasT">Días Trabajados: </label>
+        <label class="control-label col-sm-1" for="diasTrabajados">Días Trabajados: </label>
         <div class="col-sm-4">
-            <input class="form-control" type="number" name="diasTrabajados" id="diasTrabajados" placeholder="Días trabajados"required />
+            <input class="form-control" type="number" name="diasTrabajados" id="diasTrabajados" value="{{diasTrabajados}}"readonly />
         </div>
         &nbsp; <button style="background-color: #3166a1;" type="submit" class="btn btn-info"><span
             class="glyphicon glyphicon-triangle-bottom"></span></button>

@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0f5f56d8-ca0c-43a2-8687-e8fcf5c69019" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base_de_datos/ISC_8A_SCRIPT_DE_CREACION_DE_LA_BD_Mod_Recursos_Humanos.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Base_de_datos/ISC_8A_SCRIPT_DE_CREACION_DE_LA_BD_Mod_Recursos_Humanos.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controlador/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/controlador/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/comunes/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/comunes/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/ausenciasJustificadas/ausenciasJustificadasEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/deducciones/deduccionesEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/nominas/nominasEditar.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/nominas/nominasEditar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/nominas/nominasNuevo.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/nominas/nominasNuevo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +198,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
