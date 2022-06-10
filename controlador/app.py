@@ -29,7 +29,7 @@ app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
 import json
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Ailicec301!@localhost/Mod_Recursos_Humanos'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:antoniommtec12@localhost/Mod_Recursos_Humanos'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 
@@ -2530,8 +2530,8 @@ def generarExcel():
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sourceHtml = open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read()
 
-@app.route('/pdfPermisos/<int:idE>,<int:idA>,<int:page>')
-def pdfPermisos(idE,idA,page):
+@app.route('/pdfPermisos/<int:idE>,<int:idJ>,<int:idA>,<int:page>')
+def pdfPermisos(idE,idJ,idA,page):
     e = Empleados()
     a = AusenciasJustificadas()
     p = Puestos()
@@ -2541,6 +2541,7 @@ def pdfPermisos(idE,idA,page):
     #print(base_dir)
     #ruta_template = 'D:/Tec/Git/Modulo_RH_8A_Equipo1/vista/Formatos/solicitudPermisos.html'
     empleado = e.consultaIndividual(idE)
+    jefe = e.consultaIndividual(idJ)
     ausencias = a.consultaIndividual(idA)
     pt=p.consultaGeneral()
     dp = d.consultaGeneral()
@@ -2548,13 +2549,19 @@ def pdfPermisos(idE,idA,page):
     dpa=""
     puesto=""
     tn=""
+    dpaj=""
+    puestoj=""
     for pp in pt:
         if empleado.idPuesto == pp.idPuesto:
             puesto=pp.nombre
+        if jefe.idPuesto == pp.idPuesto:
+            puestoj=pp.nombre    
             
     for d in dp:
         if empleado.idDepartamento == d.idDepartamento:
             dpa=d.nombre
+        if jefe.idDepartamento == d.idDepartamento:
+            dpaj=d.nombre
             
     for ti in tt:
         if empleado.idTurno == ti.idTurno:
@@ -2565,7 +2572,8 @@ def pdfPermisos(idE,idA,page):
         data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno,
                 'fechaSolicitud': ausencias.fechaSolicitud,'nss':empleado.nss, 'turno':tn, 'curp':empleado.curp, 'puesto':puesto,
                 'fechaContratacion': empleado.fechaContratacion, 'departamento': dpa, 'nss':empleado.nss, 'fechaInicio': ausencias.fechaInicio,
-                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo}
+                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo,'nombrej' :jefe.nombre, 'apellidoPaternoj':jefe.apellidoPaterno, 
+                'apellidoMaternoj':jefe.apellidoMaterno, 'puestoj':puestoj,'departamentoj': dpaj}
             
         outputFilename = "Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"  
         resultFile = open(outputFilename, "w+b")
@@ -2580,6 +2588,7 @@ def pdfPermisos(idE,idA,page):
         resultFile.close()
         a.evidencia = open(outputFilename,'rb').read()
         a.actualizar()
+        resultFile.close()
         os.remove(outputFilename)
     
     if ausencias.tipo == "Periodo Vacacional":
@@ -2587,7 +2596,8 @@ def pdfPermisos(idE,idA,page):
         data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno,
                 'fechaSolicitud': ausencias.fechaSolicitud,'nss':empleado.nss, 'turno':tn, 'curp':empleado.curp, 'puesto':puesto,
                 'fechaContratacion': empleado.fechaContratacion, 'departamento': dpa, 'nss':empleado.nss, 'fechaInicio': ausencias.fechaInicio,
-                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo}
+                'fechaFin':ausencias.fechaFin, 'motivo':ausencias.motivo,'nombrej' :jefe.nombre, 'apellidoPaternoj':jefe.apellidoPaterno,
+                'apellidoMaternoj':jefe.apellidoMaterno, 'puestoj':puestoj,'departamentoj': dpaj}
             
         outputFilename = "Solicitud_"+ausencias.tipo+"_"+empleado.nombre+empleado.apellidoPaterno+".pdf"    
         resultFile = open(outputFilename, "w+b")
@@ -2602,7 +2612,11 @@ def pdfPermisos(idE,idA,page):
         resultFile.close()
         a.evidencia = open(outputFilename,'rb').read()
         a.actualizar()
+        ##open(outputFilename,'rb').save()
+        resultFile.close()
+        
         os.remove(outputFilename)
+        
         
     try:
         paginacion=a.consultarPagina(page)

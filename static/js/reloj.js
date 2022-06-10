@@ -1,12 +1,7 @@
 (function(){
 
 
-	var subtotal = document.getElementById('Subtotal').value;
-    var dedu = document.getElementById('Retenciones').value;
-    var total = subtotal + dedu;
-	$('#Total').val(total);
-
-	
+		
 	var actualizarHora = function(){
 		var fecha = new Date(),
 			horas = fecha.getHours(),

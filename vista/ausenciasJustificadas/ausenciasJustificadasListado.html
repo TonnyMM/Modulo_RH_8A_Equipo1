@@ -92,14 +92,14 @@
                     <td>{{a.motivo}}</td>
                     {%if a.estatus == 'Aceptada'%}
                     {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
-                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                    <td><a href="/pdfPermisos/{{a.idEmpleadoSolicita}},{{a.idEmpleadoAutoriza}},{{a.idAusencia}},{{pagina}}"
                             class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
 
                     <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
                                 class="glyphicon glyphicon-eye-open btn btn-success"><b> Ver</b></span></a>
 
-                        <a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                        <a href="/pdfPermisos/{{a.idEmpleadoSolicita}},{{a.idEmpleadoAutoriza}},{{a.idAusencia}},{{pagina}}"
                             class="glyphicon glyphicon-refresh btn btn-default btn-sm"></a>
                     </td>
 
@@ -198,7 +198,7 @@
                     <td>{{a.motivo}}</td>
                     {%if a.estatus == 'Aceptada'%}
                     {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
-                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                    <td><a href="/pdfPermisos/{{a.idEmpleadoSolicita}},{{a.idEmpleadoAutoriza}},{{a.idAusencia}},{{pagina}}"
                             class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
                     <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
@@ -299,7 +299,7 @@
                     <td>{{a.motivo}}</td>
                     {%if a.estatus == 'Aceptada'%}
                     {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
-                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                    <td><a href="/pdfPermisos/{{a.idEmpleadoSolicita}},{{a.idEmpleadoAutoriza}},{{a.idAusencia}},{{pagina}}"
                             class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
                     <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
@@ -403,7 +403,7 @@
                     <td>{{a.motivo}}</td>
                     {%if a.estatus == 'Aceptada'%}
                     {%if a.evidencia == None and a.tipo != 'Incapacidad'%}
-                    <td><a href="/pdfPermisos/{{current_user.idEmpleado}},{{a.idAusencia}},{{pagina}}"
+                    <td><a href="/pdfPermisos/{{a.idEmpleadoSolicita}},{{a.idEmpleadoAutoriza}},{{a.idAusencia}},{{pagina}}"
                             class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
                     {%else%}
                     <td><a data-toggle="modal" data-target="#pdff{{a.idAusencia}}" id="imgn"><span
