@@ -10,7 +10,7 @@
 </div>
 {% endfor %}
 {% endif %}
-<a href="/generarExcel" class="btn btn-success" id="nuevo1"> <b>GENERAR EXCEL</b></a>
+<a href="/generarExcel" class="btn btn-success" id="nuevo1" download="nominas.xlsx"> <b>GENERAR EXCEL</b></a>
 <div class="Buscador">
     <input id="myInput" type="text" placeholder="Buscar">
 </div>
@@ -45,8 +45,8 @@
                     <td>{{n.subtotal}}</td>
                     <td>{{n.retenciones}}</td>
                     <td>{{n.total}}</td>
-                    <td><a href="/pdfPermisos/{{n.idNomina}},{{pagina}}"
-                        class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
+                    <td><a href="/pdfPermisosNominas/{{n.idNomina}},{{n.idEmpleado}}"
+                        class="btn btn-success" id="nuevo1" download="nomina{{n.idNomina}}{{n.idEmpleado}}.pdf"> <b>DESCARGAR PDF</b></a></td>
                 </tr>
             {%endif%}
         {%else%}
@@ -60,8 +60,8 @@
                 <td>{{n.subtotal}}</td>
                 <td>{{n.retenciones}}</td>
                 <td>{{n.total}}</td>
-                <td><a href="/pdfPermisos/{{n.idNomina}},{{pagina}}"
-                    class="btn btn-success" id="nuevo1"> <b>GENERAR PDF</b></a></td>
+                <td><a href="/pdfPermisosNominas/{{n.idNomina}},{{n.idEmpleado}}"
+                    class="btn btn-success" id="nuevo1" download="descargas.pdf"> <b>DESCARGAR PDF</b></a></td>
             </tr>
         {%endif%}
         {% endfor %}

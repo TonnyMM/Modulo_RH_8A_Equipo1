@@ -46,16 +46,13 @@ font-size: 17px;
     AGROTEC S.A. DE C.V
     </td>
     <td >
-        FECHA:
+        FECHA DE PAGO: {{fechaPago}}
     </td>
     </tr>
     <tr>
     <td>
         RFC: MCP110417UA1
     </td>
-        <td>
-        HORA:
-        </td>
     </tr>
     <tr>
         <td>
@@ -68,43 +65,35 @@ font-size: 17px;
     <table style="border-collapse: collapse; width: 90%;" bgcolor="#f2f2f2" >
     <tr>
     <td style="width: 50%;">
-    Nombre del empleado:
+    Nombre del empleado: {{ nombre }} {{ apellidoPaterno }} {{ apellidoMaterno }}
     </td>
     <td style="width: 50%;">
-    Periodo:
+    Periodo: {{periodo}}
     </td>
     </tr>
     <tr>
     <td style="width: 50%;">
-    CURP:
+    CURP: {{curp}}
     </td>
     <td style="width: 50%;">
-    Puesto:
+    Puesto: {{ puesto }}
     </td>
 
     </tr>
     <tr>
     <td style="width: 50%;">
-    Fecha de contratacion: :
+    Fecha de contratacion: : {{fechaContratacion}}
     </td>
     <td style="width: 50%;">
-    Fecha de pago:
+    Fecha de pago: {{fechaPago}}
     </td>
     </tr>
     <tr>
     <td style="width: 50%;">
-    NSS:
+    NSS: {{ nss }}
     </td>
     <td>
-        Dias trabajados:
-    </td>
-    </tr>
-    <tr>
-    <td style="width: 50%;">
-
-    </td>
-    <td>
-        Formas de pago:
+        Dias trabajados:{{diasTrabajados}}
     </td>
     </tr>
     <tr>
@@ -112,7 +101,15 @@ font-size: 17px;
 
     </td>
     <td>
-        Departamentos:
+        Formas de pago: {{formaPago}}
+    </td>
+    </tr>
+    <tr>
+    <td style="width: 50%;">
+
+    </td>
+    <td>
+        Departamentos: {{ departamento }}
     </td>
     </tr>
     </table >
@@ -133,14 +130,10 @@ font-size: 17px;
     </tr>
     <tr >
         <td  style="border: black 1px solid; " bgcolor="#f2f2f2"  >
-        <br>
-            <br>
-            <br>
+         
         </td>
         <td style="border: black 1px solid;" BGCOLOR="#f2f2f2">
-        <br>
-            <br>
-            <br>
+        
         </td>
     </tr>
     <tr  >
@@ -148,7 +141,7 @@ font-size: 17px;
             Total de percepciones y otros pagos:
         </td>
         <td  BGCOLOR="#f2f2f2">
-           Subtotal:
+           Subtotal: {{percepciones}}
         </td>
 
     </tr>
@@ -157,7 +150,7 @@ font-size: 17px;
 
         </td>
         <td BGCOLOR="#f2f2f2">
-           Descuentos:
+           Descuentos: {{deducciones}}
         </td>
 
     </tr>
@@ -166,7 +159,7 @@ font-size: 17px;
 
         </td>
         <td BGCOLOR="#f2f2f2">
-           Total:
+           Total: {{total}}
         </td>
 
     </tr>

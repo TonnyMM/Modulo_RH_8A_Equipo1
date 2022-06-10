@@ -29,7 +29,7 @@ app = Flask(__name__, template_folder='../vista', static_folder='../static')
 Bootstrap(app)
 import json
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:antoniommtec12@localhost/Mod_Recursos_Humanos'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Ailicec301!@localhost/Mod_Recursos_Humanos'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 
@@ -2510,22 +2510,23 @@ def generarExcel():
                        'Periodo': periodo})
     df = df[['Nombre', 'Puesto', 'Departamento','Curp','nss','Periodo','Fecha de pago', 'Forma de pago', 'Fecha de elaboración', 'Dias trabajados', 'Percepciones', 'Deducciones', 'Total']]
     #raiz= Tk()
-    #rut = filedialog.askdirectory()
-    #raiz.mainloop()
-    rut= "C:/Users/cecil/Downloads"
-    nomb="/nominas"
-    hoy=datetime.now()
-    bre=hoy.strftime('%d-%m-%Y')
-    nombrearch = nomb+"-"+bre+str(random.randint(1, 20))+".xlsx"
+    #rut = fd.askdirectory()
+    #tk.mainloop()
+    rut= "/static"
+    nomb="/Enominas.xlsx"
+    ruta = rut+nomb
+    xx=os.path.join(os.getcwd())
+    xxx= 'C:/Users/cecil/OneDrive/Documents/GitHub/Modulo_RH_8A_Equipo1/static/Enominas.xlsx'
+    print(xxx)
+    #writer = ExcelWriter(ruta)
+    df.to_excel(xxx, 'Hoja de datos', index=False)
+    #writer.save()
 
-    ruta = rut+nombrearch
-    print(ruta)
-    writer = ExcelWriter(ruta)
-    df.to_excel(writer, 'Hoja de datos', index=False)
-    writer.save()
-
-    flash("Se ha gerenerado el Excel y se ha guardado en descargas")
-    return redirect(url_for('nominas',page=1))
+    excel = open(xxx,'rb')
+    ex = excel.read()
+    excel.close()
+    #os.remove(ruta)
+    return ex
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sourceHtml = open(os.path.join(base_dir, 'Documentos/solicitudPermisos.html')).read()
@@ -2616,7 +2617,7 @@ def pdfPermisos(idE,idJ,idA,page):
         resultFile.close()
         
         os.remove(outputFilename)
-        
+
         
     try:
         paginacion=a.consultarPagina(page)
@@ -2630,6 +2631,68 @@ def pdfPermisos(idE,idJ,idA,page):
     asis = a.consultaGeneral()
     return render_template('ausenciasJustificadas/ausenciasJustificadasListado.html',ausenciasJ = ausencias,
                            paginas=paginas,pagina=page, empleados = e.consultaGeneral(), ausencias = asis)
+
+
+@app.route('/pdfPermisosNominas/<int:idN>,<int:idE>')
+def pdfPermisosNominas(idN,idE):
+    e = Empleados()
+    n = Nominas()
+    p = Puestos()
+    d = Departamentos()
+    t = Turnos()
+    pr = Periodos()
+    #print(base_dir)
+    #ruta_template = 'D:/Tec/Git/Modulo_RH_8A_Equipo1/vista/Formatos/solicitudPermisos.html'
+    empleado = e.consultaIndividual(idE)
+    nominas = n.consultaIndividual(idN)
+    pt=p.consultaGeneral()
+    dp = d.consultaGeneral()
+    tt = t.consultaGeneral()
+    per = pr.consultaGeneral()
+    dpa=""
+    puesto=""
+    tn=""
+    periodo=""
+    for pp in pt:
+        if empleado.idPuesto == pp.idPuesto:
+            puesto=pp.nombre 
+            
+    for d in dp:
+        if empleado.idDepartamento == d.idDepartamento:
+            dpa=d.nombre
+            
+    for ti in tt:
+        if empleado.idTurno == ti.idTurno:
+            tn=ti.nombre
+    for pe in per:
+        if nominas.idPeriodo == pe.idPeriodo:
+            periodo=pe.nombre
+    
+    
+
+    data = {'nombre' :empleado.nombre, 'apellidoPaterno':empleado.apellidoPaterno, 'apellidoMaterno':empleado.apellidoMaterno,
+        'puesto':puesto,'departamento':dpa,'salario':empleado.salarioDiaro,'curp':empleado.curp,
+        'nss':empleado.nss,'fechaContratacion': empleado.fechaContratacion,'turno':tn,
+        'fechaPago':nominas.fechaPago,'formaPago':nominas.formaPago.nombre,
+        'fechaElaboracion':nominas.fechaElaboracion,'diasTrabajados':nominas.diasTrabajados,'percepciones':nominas.subtotal,
+        'deducciones':nominas.retenciones,'total':nominas.total, 'periodo':periodo}
+            
+    outputFilename = "Nomina"+empleado.nombre+empleado.apellidoPaterno+".pdf"  
+    resultFile = open(outputFilename, "w+b")
+    template = Template(open(os.path.join(base_dir, 'Documentos/reciboNomina.html')).read())
+    html  = template.render(data)
+    pisaStatus = pisa.CreatePDF(html,dest=resultFile)
+    print(resultFile)
+       
+        #a.evidencia = open(outputFilename, 'rb').read()
+            #open(os.path.join(base_dir, 'controlador/',outputFilename)).read()
+    resultFile.close()
+    evidencia = open(outputFilename,'rb').read()
+    resultFile.close()
+    os.remove(outputFilename)
+    
+    
+    return evidencia
         
     
 
